@@ -1,0 +1,50 @@
+[
+  {
+    "record_id": "rec_a1b2c3d4",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Bright Smile Dental Clinic",
+    "place_id": "ChIJSYNTHETIC00000000000000014",
+    "category": "Dentist",
+    "rating": 4.5,
+    "review_count": 120,
+    "address": "123 Maplewood Rd, Chiang Mai",
+    "phone": "+66 53 000 002",
+    "website": "https://brightsmile-dental.example",
+    "maps_url": "https://maps.google.com/?cid=1234567890",
+    "hours": "Mon-Fri 9AM-6PM, Sat 9AM-1PM",
+    "business_status": "open"
+  },
+  {
+    "record_id": "rec_e5f6g7h8",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Central Dental Center",
+    "place_id": "ChIJSYNTHETIC00000000000000005",
+    "category": "Dentist",
+    "rating": 4.3,
+    "review_count": 85,
+    "address": "456 Southgate Rd, Chiang Mai",
+    "phone": "+66 53 000 006",
+    "website": "https://facebook.com/centraldentalcm",
+    "maps_url": "https://maps.google.com/?cid=0987654321",
+    "hours": "Daily 8AM-8PM",
+    "business_status": "open"
+  },
+  {
+    "record_id": "rec_i9j0k1l2",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Riverfront Dental Studio",
+    "place_id": "ChIJSYNTHETIC00000000000000006",
+    "category": "Cosmetic Dentist",
+    "rating": 4.7,
+    "review_count": 200,
+    "address": "789 Eastport Rd, Chiang Mai",
+    "phone": "+66 53 000 007",
+    "website": "https://riverfrontdental.example",
+    "maps_url": "https://maps.google.com/?cid=1122334455",
+    "hours": "Tue-Sun 10AM-7PM",
+    "business_status": "open"
+  }
+]

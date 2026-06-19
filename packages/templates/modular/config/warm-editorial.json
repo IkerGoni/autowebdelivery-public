@@ -1,0 +1,189 @@
+{
+  "family": "warm-editorial",
+  "tailwind_config_raw": "tailwind.config = {\n          darkMode: \"class\",\n          theme: {\n            extend: {\n              \"colors\": {\n                      \"on-error\": \"#ffffff\",\n                      \"error\": \"#ba1a1a\",\n                      \"background\": \"#fbf9f8\",\n                      \"on-surface\": \"#1b1c1c\",\n                      \"primary-fixed\": \"#ffdcbc\",\n                      \"primary\": \"#7c572d\",\n                      \"secondary-container\": \"#fea3a2\",\n                      \"on-primary-fixed-variant\": \"#614018\",\n                      \"primary-fixed-dim\": \"#efbd8a\",\n                      \"outline\": \"#827569\",\n                      \"surface-container-highest\": \"#e4e2e1\",\n                      \"on-primary-fixed\": \"#2c1700\",\n                      \"on-primary\": \"#ffffff\",\n                      \"on-secondary-fixed-variant\": \"#733233\",\n                      \"surface-bright\": \"#fbf9f8\",\n                      \"on-tertiary-fixed-variant\": \"#484644\",\n                      \"surface-container\": \"#f0eded\",\n                      \"surface-variant\": \"#e4e2e1\",\n                      \"surface-tint\": \"#7c572d\",\n                      \"tertiary-fixed\": \"#e6e2de\",\n                      \"surface-dim\": \"#dcd9d9\",\n                      \"primary-container\": \"#d4a574\",\n                      \"secondary\": \"#904949\",\n                      \"on-tertiary\": \"#ffffff\",\n                      \"on-secondary\": \"#ffffff\",\n                      \"outline-variant\": \"#d4c4b7\",\n                      \"secondary-fixed-dim\": \"#ffb3b1\",\n                      \"on-secondary-fixed\": \"#3b080b\",\n                      \"tertiary\": \"#605e5b\",\n                      \"tertiary-container\": \"#b1adaa\",\n                      \"on-tertiary-fixed\": \"#1d1b19\",\n                      \"secondary-fixed\": \"#ffdad8\",\n                      \"on-error-container\": \"#93000a\",\n                      \"surface-container-high\": \"#eae8e7\",\n                      \"inverse-primary\": \"#efbd8a\",\n                      \"surface\": \"#fbf9f8\",\n                      \"on-background\": \"#1b1c1c\",\n                      \"on-secondary-container\": \"#793737\",\n                      \"inverse-surface\": \"#303030\",\n                      \"error-container\": \"#ffdad6\",\n                      \"on-primary-container\": \"#5b3a13\",\n                      \"tertiary-fixed-dim\": \"#cac6c2\",\n                      \"inverse-on-surface\": \"#f3f0f0\",\n                      \"on-tertiary-container\": \"#43413e\",\n                      \"on-surface-variant\": \"#50453b\",\n                      \"surface-container-low\": \"#f6f3f2\",\n                      \"surface-container-lowest\": \"#ffffff\"\n              },\n              \"borderRadius\": {\n                      \"DEFAULT\": \"0.25rem\",\n                      \"lg\": \"0.5rem\",\n                      \"xl\": \"0.75rem\",\n                      \"full\": \"9999px\"\n              },\n              \"spacing\": {\n                      \"margin-mobile\": \"20px\",\n                      \"section-padding-sm\": \"64px\",\n                      \"unit\": \"8px\",\n                      \"section-padding-lg\": \"120px\",\n                      \"container-max\": \"1200px\",\n                      \"gutter\": \"24px\"\n              },\n              \"fontFamily\": {\n                      \"headline-md\": [\"Playfair Display\"],\n                      \"display-lg-mobile\": [\"Playfair Display\"],\n                      \"body-md\": [\"Montserrat\"],\n                      \"headline-sm\": [\"Playfair Display\"],\n                      \"display-lg\": [\"Playfair Display\"],\n                      \"body-lg\": [\"Montserrat\"],\n                      \"label-caps\": [\"Montserrat\"]\n              },\n              \"fontSize\": {\n                      \"headline-md\": [\"32px\", {\"lineHeight\": \"1.3\", \"fontWeight\": \"600\"}],\n                      \"display-lg-mobile\": [\"36px\", {\"lineHeight\": \"1.2\", \"fontWeight\": \"700\"}],\n                      \"body-md\": [\"16px\", {\"lineHeight\": \"1.6\", \"fontWeight\": \"400\"}],\n                      \"headline-sm\": [\"24px\", {\"lineHeight\": \"1.4\", \"fontWeight\": \"600\"}],\n                      \"display-lg\": [\"48px\", {\"lineHeight\": \"1.1\", \"letterSpacing\": \"-0.02em\", \"fontWeight\": \"700\"}],\n                      \"body-lg\": [\"18px\", {\"lineHeight\": \"1.6\", \"fontWeight\": \"400\"}],\n                      \"label-caps\": [\"12px\", {\"lineHeight\": \"1.2\", \"letterSpacing\": \"0.1em\", \"fontWeight\": \"600\"}]\n              }\n            },\n          },\n        }",
+  "colors": {
+    "primary": "#7c572d",
+    "primary_container": "#d4a574",
+    "on_primary": "#ffffff",
+    "secondary": "#904949",
+    "background": "#fbf9f8",
+    "surface": "#fbf9f8",
+    "surface_container_lowest": "#ffffff",
+    "on_surface": "#1b1c1c",
+    "outline": "#827569"
+  },
+  "borderRadius": {
+    "DEFAULT": "0.25rem",
+    "lg": "0.5rem",
+    "xl": "0.75rem",
+    "full": "9999px"
+  },
+  "spacing": {
+    "base": "8px",
+    "md": "24px",
+    "section_padding_lg": "120px",
+    "section_padding_sm": "64px",
+    "container_max": "1200px",
+    "gutter": "24px"
+  },
+  "fontFamily": {
+    "headline-md": [
+      "Playfair Display"
+    ],
+    "display-lg-mobile": [
+      "Playfair Display"
+    ],
+    "body-md": [
+      "Montserrat"
+    ],
+    "headline-sm": [
+      "Playfair Display"
+    ],
+    "display-lg": [
+      "Playfair Display"
+    ],
+    "body-lg": [
+      "Montserrat"
+    ],
+    "label-caps": [
+      "Montserrat"
+    ]
+  },
+  "fontSize": {
+    "lineHeight": "1.3",
+    "fontWeight": "600"
+  },
+  "styles": "\n        .material-symbols-outlined {\n            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;\n            font-size: 20px;\n        }\n        body {\n            background-color: #fbf9f8;\n            color: #1b1c1c;\n            overflow-x: hidden;\n        }\n        .editorial-image-container {\n            position: relative;\n            overflow: hidden;\n        }\n        .editorial-image-container::after {\n            content: \"\";\n            position: absolute;\n            inset: 0;\n            background: linear-gradient(to bottom, rgba(251, 249, 248, 0.4), rgba(251, 249, 248, 0.1));\n        }\n      ",
+  "font_links": [
+    "<link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Montserrat:wght@400;600;700&amp;display=swap\" rel=\"stylesheet\"/>",
+    "<link href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap\" rel=\"stylesheet\"/>",
+    "<link href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap\" rel=\"stylesheet\"/>"
+  ],
+  "stitch_project_id": "4739054934996582794",
+  "display_name": "Luxe Beauty Studio",
+  "brand_style": "Modern Editorial \u2014 fashion magazine sophistication meets luxury wellness sanctuary. Serene, warm, high-end.",
+  "aesthetic_keywords": [
+    "luxury",
+    "editorial",
+    "warm",
+    "serene",
+    "high-end",
+    "fashion",
+    "wellness"
+  ],
+  "fonts": {
+    "headline": "Playfair Display",
+    "body": "Montserrat",
+    "label": "Montserrat"
+  },
+  "border_radius": {
+    "sm": "4px",
+    "DEFAULT": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "24px",
+    "pill": "9999px"
+  },
+  "shadows": {
+    "card": "0 4px 24px rgba(139, 69, 69, 0.08)",
+    "card_hover": "0 8px 32px rgba(139, 69, 69, 0.12)",
+    "nav": "backdrop-blur-sm"
+  },
+  "image_guidelines": {
+    "hero": {
+      "type": "lifestyle_photo",
+      "subject": "luxury beauty salon interior, soft warm lighting, plush setting",
+      "mood": "elegant, serene, warm editorial",
+      "style": "warm temperature, high brightness, soft focus, magazine quality",
+      "aspect_ratio": "4:5 portrait",
+      "overlays": [
+        "text_overlay",
+        "warm_gradient"
+      ]
+    },
+    "services": {
+      "type": "lifestyle_photo",
+      "subject": "beauty treatment close-up, spa aesthetic, soft lighting",
+      "mood": "luxurious, relaxing, warm",
+      "aspect_ratio": "1:1"
+    },
+    "trust": {
+      "type": "team_photo",
+      "subject": "beauty professionals in stylish salon, warm and inviting",
+      "mood": "friendly, expert, premium",
+      "aspect_ratio": "4:3"
+    },
+    "location": {
+      "type": "exterior_photo",
+      "subject": "upscale salon storefront, warm lighting, elegant signage",
+      "mood": "premium, welcoming"
+    }
+  },
+  "component_specs": {
+    "button_primary": {
+      "bg": "primary_container",
+      "text": "white",
+      "radius": "8px",
+      "shadow": "card",
+      "hover": "deeper shadow + slight lift"
+    },
+    "button_secondary": {
+      "bg": "transparent",
+      "border": "primary_container",
+      "text": "primary",
+      "radius": "8px"
+    },
+    "card": {
+      "bg": "white",
+      "radius": "16px",
+      "shadow": "card",
+      "padding": "32px",
+      "border": "none"
+    },
+    "service_chip": {
+      "bg": "rgba(212,165,116,0.15)",
+      "text": "primary",
+      "radius": "pill"
+    },
+    "input": {
+      "bg": "white",
+      "border": "outline-variant",
+      "focus_border": "primary_container",
+      "radius": "8px"
+    }
+  },
+  "surface_elevation": {
+    "background": "#fbf9f8",
+    "card": "#ffffff",
+    "card_hover": "#ffffff",
+    "modal": "rgba(255,255,255,0.95) + backdrop-blur"
+  },
+  "typography_scale": {
+    "display_lg": {
+      "size": "48px",
+      "weight": "700",
+      "line_height": "1.1",
+      "letter_spacing": "-0.02em",
+      "font": "Playfair Display"
+    },
+    "headline_md": {
+      "size": "32px",
+      "weight": "600",
+      "line_height": "1.3",
+      "font": "Playfair Display"
+    },
+    "body_lg": {
+      "size": "18px",
+      "weight": "400",
+      "line_height": "1.6",
+      "font": "Montserrat"
+    },
+    "label_caps": {
+      "size": "12px",
+      "weight": "600",
+      "letter_spacing": "0.1em",
+      "font": "Montserrat",
+      "uppercase": true
+    }
+  }
+}

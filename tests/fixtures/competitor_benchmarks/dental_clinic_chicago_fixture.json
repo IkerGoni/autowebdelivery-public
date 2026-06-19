@@ -1,0 +1,46 @@
+{
+  "category": "Dental Clinic",
+  "area": "Chicago, IL",
+  "patterns": {
+    "common_sections": [
+      "hero",
+      "services",
+      "team",
+      "testimonials",
+      "insurance_info",
+      "contact",
+      "location",
+      "new_patient_form"
+    ],
+    "common_cta_types": [
+      "book_appointment",
+      "phone_call",
+      "contact_form",
+      "new_patient_special"
+    ],
+    "pricing_visibility": "insurance_based",
+    "trust_signals": [
+      "ratings_display",
+      "board_certification_badge",
+      "years_badge",
+      "association_logos",
+      "before_after_gallery"
+    ],
+    "mobile_patterns": [
+      "sticky_cta",
+      "click_to_call",
+      "tap_to_navigate"
+    ],
+    "color_patterns": {
+      "dominant_colors": ["white", "light_blue", "teal"],
+      "accent_colors": ["navy", "soft_green"]
+    },
+    "layout_patterns": [
+      "single_page_scroll",
+      "sticky_header",
+      "multi_column_services"
+    ]
+  },
+  "source": "curated_fixture",
+  "last_updated": "2026-06-07"
+}

@@ -1,0 +1,33 @@
+<section class="px-margin-mobile py-16 bg-primary/5 rounded-t-[40px]">
+<div class="flex flex-col items-center text-center gap-6">
+<div class="p-4 bg-primary text-white rounded-full">
+<span class="material-symbols-outlined text-[32px]" data-icon="phone_in_talk">phone_in_talk</span>
+</div>
+<h3 class="font-headline-lg text-forest">Ready for a Spotless Home?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Call us today for a free estimate or to book your first professional cleaning session.</p>
+<a class="font-display text-headline-md text-primary tracking-tight" href="tel:{{phone_raw}}">{{phone}}</a>
+<button class="bg-mint text-white font-button text-button py-4 px-12 rounded-full w-full max-w-xs hover:opacity-90 active:scale-[0.98] transition-all">Book Now</button>
+{{#has_booking}}
+<a class="bg-white text-primary font-button text-button py-4 px-12 rounded-full w-full max-w-xs hover:opacity-90 active:scale-[0.98] transition-all border border-primary/30 inline-flex items-center justify-center gap-2" href="{{booking_url}}" target="_blank" rel="noopener">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
+                {{booking_label}}
+            </a>
+{{/has_booking}}
+
+<!-- Contact Form -->
+<div class="w-full mt-8 border-t border-primary/20 pt-6">
+<h3 class="font-headline-sm text-headline-sm text-forest mb-4">Get a Free Estimate</h3>
+<form action="mailto:business@email.com" method="post" enctype="text/plain" class="flex flex-col gap-4 text-left">
+<input type="text" name="name" placeholder="Your Name" required class="w-full px-4 py-3 rounded-full bg-white border border-outline/30 text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-mint/50">
+<input type="tel" name="phone" placeholder="{{phone}}" class="w-full px-4 py-3 rounded-full bg-white border border-outline/30 text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-mint/50">
+<input type="email" name="email" placeholder="your@email.com" required class="w-full px-4 py-3 rounded-full bg-white border border-outline/30 text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-mint/50">
+<textarea name="message" placeholder="Tell us about your cleaning needs..." rows="4" required class="w-full px-4 py-3 rounded-2xl bg-white border border-outline/30 text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-mint/50 resize-none"></textarea>
+<button type="submit" class="bg-mint text-white font-button text-button py-4 px-8 rounded-full hover:opacity-90 active:scale-[0.98] transition-all w-full">
+                    Send Message
+                </button>
+</form>
+</div>
+<!-- /Contact Form -->
+
+</div>
+</section>

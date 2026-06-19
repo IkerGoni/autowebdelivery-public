@@ -1,0 +1,22 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_missing_hours",
+    "raw_record_id": "raw_missing_hours",
+    "business_name": "Lantern Dental Care",
+    "business_slug": "lantern-dental-care-missing-hours",
+    "category": "Cosmetic dentist",
+    "rating": 4.7,
+    "review_count": 95,
+    "address": "77 Moonmuang Road, Chiang Mai 50200, Thailand",
+    "phone": "+66 53 333 444",
+    "maps_url": "https://maps.google.com/?cid=333",
+    "hours": "",
+    "business_status": "open",
+    "website_status": "no_website",
+    "website_confidence": 1.0,
+    "website_reason_codes": [
+      "no_website_url_provided"
+    ]
+  }
+]

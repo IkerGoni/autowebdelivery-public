@@ -1,0 +1,46 @@
+{
+  "category": "HVAC Service",
+  "area": "Phoenix, AZ",
+  "patterns": {
+    "common_sections": [
+      "hero",
+      "services",
+      "service_areas",
+      "coupons_offers",
+      "testimonials",
+      "about",
+      "contact",
+      "emergency_banner"
+    ],
+    "common_cta_types": [
+      "phone_call",
+      "book_now",
+      "get_quote",
+      "emergency_call"
+    ],
+    "pricing_visibility": "estimate_or_contact",
+    "trust_signals": [
+      "ratings_display",
+      "licensed_insured_badge",
+      "years_badge",
+      "manufacturer_logos",
+      "review_count"
+    ],
+    "mobile_patterns": [
+      "sticky_cta",
+      "click_to_call",
+      "emergency_floating_button"
+    ],
+    "color_patterns": {
+      "dominant_colors": ["blue", "white", "dark_gray"],
+      "accent_colors": ["red", "orange"]
+    },
+    "layout_patterns": [
+      "single_page_scroll",
+      "sticky_header",
+      "emergency_banner_top"
+    ]
+  },
+  "source": "curated_fixture",
+  "last_updated": "2026-06-07"
+}

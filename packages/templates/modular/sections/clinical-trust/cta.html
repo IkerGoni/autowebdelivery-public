@@ -1,0 +1,46 @@
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="bg-primary-container rounded-3xl p-lg md:p-xl text-center text-on-primary shadow-xl shadow-primary-container/30 relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -left-10 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<h2 class="font-display-lg text-display-lg mb-md">Ready for a brighter smile?</h2>
+<p class="font-body-lg text-body-lg mb-lg opacity-90 max-w-2xl mx-auto">
+                            Join over 1,000 satisfied patients. Book your appointment today and take the first step towards exceptional oral health.
+                        </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-md">
+<a class="flex items-center gap-sm bg-on-primary text-primary px-lg py-md rounded-lg font-headline-sm text-headline-sm shadow-sm hover:scale-105 transition-transform" href="tel:{{phone_raw}}">
+<span class="material-symbols-outlined">call</span>
+                                {{phone}}
+                            </a>
+<button class="bg-on-primary/10 backdrop-blur-md border-2 border-on-primary text-on-primary px-lg py-md rounded-lg font-headline-sm text-headline-sm hover:bg-on-primary/20 transition-all">
+                                Book Appointment
+                            </button>
+{{#has_booking}}
+<a class="bg-on-primary/10 backdrop-blur-md border-2 border-on-primary text-on-primary px-lg py-md rounded-lg font-headline-sm text-headline-sm hover:bg-on-primary/20 transition-all inline-flex items-center justify-center gap-2" href="{{booking_url}}" target="_blank" rel="noopener">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                                {{booking_label}}
+                            </a>
+{{/has_booking}}
+</div>
+
+<!-- Contact Form -->
+<div class="mt-xl max-w-xl mx-auto">
+<h3 class="font-headline-sm text-headline-sm mb-md text-on-primary/90">Send Us a Message</h3>
+<form action="mailto:business@email.com" method="post" enctype="text/plain" class="flex flex-col gap-md text-left">
+<input type="text" name="name" placeholder="Your Name" required class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50">
+<input type="tel" name="phone" placeholder="{{phone}}" class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50">
+<input type="email" name="email" placeholder="your@email.com" required class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50">
+<textarea name="message" placeholder="How can we help you?" rows="4" required class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50 resize-none"></textarea>
+<button type="submit" class="bg-on-primary text-primary px-lg py-md rounded-lg font-headline-sm text-headline-sm shadow-sm hover:scale-105 transition-transform w-full sm:w-auto sm:self-start">
+                                Send Message
+                            </button>
+</form>
+</div>
+<!-- /Contact Form -->
+
+</div>
+</div>
+</div>
+</section>
+</main>

@@ -1,0 +1,22 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_missing_phone",
+    "raw_record_id": "raw_missing_phone",
+    "business_name": "Quiet Canal Dental",
+    "business_slug": "quiet-canal-dental-missing-phone",
+    "category": "Dental clinic",
+    "rating": 4.6,
+    "review_count": 88,
+    "address": "45 Canal Road, Chiang Mai 50100, Thailand",
+    "phone": "",
+    "maps_url": "https://maps.google.com/?cid=222",
+    "hours": "Mon-Fri 10:00-19:00",
+    "business_status": "open",
+    "website_status": "no_website",
+    "website_confidence": 1.0,
+    "website_reason_codes": [
+      "no_website_url_provided"
+    ]
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "business_slug": "bright-smile-clinic-complete",
+    "brief_path": "runs/fixture_001/04_briefs/bright-smile-clinic-complete",
+    "recipient_channel": "phone",
+    "manual_override": false,
+    "manual_override_reason": ""
+  },
+  {
+    "business_slug": "lantern-dental-care-missing-hours",
+    "brief_path": "runs/fixture_001/04_briefs/lantern-dental-care-missing-hours",
+    "recipient_channel": "phone",
+    "manual_override": false,
+    "manual_override_reason": ""
+  },
+  {
+    "business_slug": "riverfront-dental-lab-social-only",
+    "brief_path": "runs/fixture_001/04_briefs/riverfront-dental-lab-social-only",
+    "recipient_channel": "facebook_message",
+    "manual_override": false,
+    "manual_override_reason": ""
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_unknown",
+    "raw_record_id": "raw_unknown",
+    "business_name": "Hilltop Dental Corner",
+    "business_slug": "hilltop-dental-corner-unknown-recipient",
+    "category": "Dentist",
+    "rating": 4.4,
+    "review_count": 63,
+    "address": "9 Southgate Lane, Chiang Mai 50200, Thailand",
+    "phone": "",
+    "maps_url": "https://maps.google.com/?cid=555",
+    "hours": "",
+    "business_status": "open",
+    "website_status": "social_only",
+    "website_confidence": 0.8,
+    "website_reason_codes": [
+      "social_media_profile"
+    ]
+  }
+]

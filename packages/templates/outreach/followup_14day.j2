@@ -1,0 +1,31 @@
+Subject: Updated preview for {{ business_name }} — new improvements
+
+Hi {{ contact_name or business_name }},
+
+This is my second follow-up about the preview website for {{ business_name }}. I've made a few improvements since I first shared it with you.
+
+{% if preview_url %}
+You can see the updated version here: {{ preview_url }}
+{% endif %}
+
+{% if update_details %}
+Here's what I improved:
+{{ update_details }}
+{% endif %}
+
+{% if price_offer %}
+I'm still happy to customize and publish this for {{ price_offer }}. If the timing isn't right, no worries — I'll stop reaching out.
+{% else %}
+If you're interested, just reply and we can discuss next steps. If not, I'll stop reaching out — no hard feelings.
+{% endif %}
+
+{% if sender_name %}
+Best,
+{{ sender_name }}
+{% else %}
+Best,
+Local Web Preview Team
+{% endif %}
+
+---
+This is the final follow-up. Reply "unsubscribe" to opt out of future messages.

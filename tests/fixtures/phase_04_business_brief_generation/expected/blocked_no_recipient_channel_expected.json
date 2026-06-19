@@ -1,0 +1,14 @@
+[
+  {
+    "business_slug": "quiet-canal-dental-missing-phone",
+    "brief_path": "runs/fixture_001/04_briefs/quiet-canal-dental-missing-phone",
+    "recipient_channel": "unknown",
+    "blocked_reason": "recipient_channel is unknown; manual recipient discovery or override required"
+  },
+  {
+    "business_slug": "hilltop-dental-corner-unknown-recipient",
+    "brief_path": "runs/fixture_001/04_briefs/hilltop-dental-corner-unknown-recipient",
+    "recipient_channel": "unknown",
+    "blocked_reason": "recipient_channel is unknown; manual recipient discovery or override required"
+  }
+]

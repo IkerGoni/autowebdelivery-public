@@ -1,0 +1,2 @@
+business_slug,business_name,lead_score,qualification_status,recipient_channel,preview_url,site_status,draft_status,approval_status,site_review_status,outreach_review_status
+test-business,Test Business,75,qualified,email,https://test-business.example.com,approved_for_deploy,ready_for_review,pending,approved,approved

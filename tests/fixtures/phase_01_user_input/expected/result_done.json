@@ -1,0 +1,22 @@
+{
+  "phase": "phase_01_user_input",
+  "status": "done",
+  "run_id": "test_run",
+  "inputs_used": ["input_config"],
+  "outputs_created": [
+    "config/input_config.json",
+    "01_input/query_plan.json",
+    "01_input/result.json"
+  ],
+  "records_processed": 1,
+  "records_created": 2,
+  "records_skipped": 0,
+  "missing_fields": [],
+  "decisions": [
+    "Created run config for test_run",
+    "Created query plan with 1 query"
+  ],
+  "risks": [],
+  "errors": [],
+  "next_tasks": []
+}

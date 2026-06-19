@@ -1,0 +1,43 @@
+{% if tone == "casual" %}
+Subject: Quick website idea for {{ business_name }}
+{% else %}
+Subject: I built a preview website for {{ business_name }}
+{% endif %}
+
+Hi {{ contact_name or business_name }},
+
+{% if tone == "casual" %}
+I came across {{ business_name }} while searching for {{ category }} businesses in {{ area }} and noticed you don't have a website yet (or it could use a refresh).
+{% else %}
+I was researching {{ category }} businesses in {{ area }} and found {{ business_name }} on Google Maps. I noticed your online presence could benefit from a professional website.
+{% endif %}
+
+{% if preview_url %}
+I went ahead and built a quick preview site for you: {{ preview_url }}
+{% else %}
+I went ahead and built a quick preview site for you — I can share the link once it's published.
+{% endif %}
+
+{% if personalization_reason %}
+{{ personalization_reason }}
+{% endif %}
+
+{% if price_offer %}
+If you'd like me to customize and publish this for you, I can do it for {{ price_offer }}. No ongoing fees — it's yours to keep.
+{% else %}
+If you'd like me to customize and publish this for you, just let me know and we can discuss pricing.
+{% endif %}
+
+{% if sender_name %}
+Best regards,
+{{ sender_name }}
+{% if sender_title %}
+{{ sender_title }}
+{% endif %}
+{% else %}
+Best regards,
+Local Web Preview Team
+{% endif %}
+
+---
+You're receiving this because your business was found on Google Maps. Reply "unsubscribe" to opt out of future messages.

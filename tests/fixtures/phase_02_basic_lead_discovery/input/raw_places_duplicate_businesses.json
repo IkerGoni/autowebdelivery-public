@@ -1,0 +1,50 @@
+[
+  {
+    "record_id": "rec_dup001",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Bright Smile Dental Clinic",
+    "place_id": "ChIJSYNTHETIC00000000000000014",
+    "category": "Dentist",
+    "rating": 4.5,
+    "review_count": 120,
+    "address": "123 Maplewood Rd, Chiang Mai",
+    "phone": "+66 53 000 002",
+    "website": "https://brightsmile-dental.example",
+    "maps_url": "https://maps.google.com/?cid=1234567890",
+    "hours": "Mon-Fri 9AM-6PM, Sat 9AM-1PM",
+    "business_status": "open"
+  },
+  {
+    "record_id": "rec_dup002",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Bright Smile Dental Clinic",
+    "place_id": "ChIJSYNTHETIC00000000000000015",
+    "category": "Dentist",
+    "rating": 4.5,
+    "review_count": 118,
+    "address": "123 Maplewood Rd, Chiang Mai",
+    "phone": "+66 53 000 002",
+    "website": "https://brightsmile-dental.example",
+    "maps_url": "https://maps.google.com/?cid=1234567890",
+    "hours": "Mon-Fri 9AM-6PM, Sat 9AM-1PM",
+    "business_status": "open"
+  },
+  {
+    "record_id": "rec_dup003",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Central Dental Center",
+    "place_id": "ChIJSYNTHETIC00000000000000005",
+    "category": "Dentist",
+    "rating": 4.3,
+    "review_count": 85,
+    "address": "456 Southgate Rd, Chiang Mai",
+    "phone": "+66 53 000 006",
+    "website": "https://centraldentalcenter.example",
+    "maps_url": "https://maps.google.com/?cid=0987654321",
+    "hours": "Daily 8AM-8PM",
+    "business_status": "open"
+  }
+]

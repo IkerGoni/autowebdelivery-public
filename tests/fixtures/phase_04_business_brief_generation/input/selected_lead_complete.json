@@ -1,0 +1,22 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_complete",
+    "raw_record_id": "raw_complete",
+    "business_name": "Bright Smile Clinic",
+    "business_slug": "bright-smile-clinic-complete",
+    "category": "Dentist",
+    "rating": 4.8,
+    "review_count": 132,
+    "address": "12 Nimman Road, Chiang Mai 50200, Thailand",
+    "phone": "+66 53 111 222",
+    "maps_url": "https://maps.google.com/?cid=111",
+    "hours": "Mon-Sat 09:00-18:00",
+    "business_status": "open",
+    "website_status": "no_website",
+    "website_confidence": 1.0,
+    "website_reason_codes": [
+      "no_website_url_provided"
+    ]
+  }
+]

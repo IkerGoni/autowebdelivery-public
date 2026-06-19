@@ -1,0 +1,15 @@
+{
+  "phase": "phase_01_user_input",
+  "status": "blocked",
+  "run_id": "test_run_blocked",
+  "inputs_used": [],
+  "outputs_created": [],
+  "records_processed": 0,
+  "records_created": 0,
+  "records_skipped": 0,
+  "missing_fields": ["area"],
+  "decisions": [],
+  "risks": [],
+  "errors": ["Missing required input: area"],
+  "next_tasks": []
+}

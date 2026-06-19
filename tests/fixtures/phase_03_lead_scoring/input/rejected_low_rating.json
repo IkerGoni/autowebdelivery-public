@@ -1,0 +1,16 @@
+[
+  {
+    "record_id": "rec_rej_rating_1",
+    "business_name": "Low Rated Business",
+    "business_slug": "low-rated-business",
+    "category": "Restaurant",
+    "rating": 3.2,
+    "review_count": 85,
+    "phone": "+1-555-111-2222",
+    "website_raw": "",
+    "website_status": "no_website",
+    "maps_url": "https://maps.google.com/?cid=101",
+    "business_status": "open",
+    "address": "789 Low St, Portland, OR"
+  }
+]

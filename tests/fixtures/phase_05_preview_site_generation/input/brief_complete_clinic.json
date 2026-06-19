@@ -1,0 +1,18 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_clinic",
+    "business_slug": "urban-health-clinic",
+    "business_name": "Urban Health Clinic",
+    "category": "Medical Clinic",
+    "rating": 4.9,
+    "review_count": 203,
+    "address": "25 Sukhumvit Soi 23, Bangkok 10110, Thailand",
+    "phone": "+66 2 345 6789",
+    "maps_url": "https://maps.google.com/?cid=333",
+    "hours": "Mon-Fri 08:00-17:00, Sat 09:00-13:00",
+    "recipient_channel": "email",
+    "manual_override": false,
+    "manual_override_reason": ""
+  }
+]

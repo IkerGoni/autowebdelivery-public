@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Preview Website for {{ business_name }}</title>
+</head>
+<body style="margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f5f5;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 20px 0;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background-color: #1a1a2e; padding: 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">Preview Website for {{ business_name }}</h1>
+            </td>
+          </tr>
+          <!-- Body -->
+          <tr>
+            <td style="padding: 30px;">
+              <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                Hi {{ contact_name or business_name }},
+              </p>
+              <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+                {% if tone == "casual" %}
+                I came across {{ business_name }} while searching for {{ category }} businesses in {{ area }} and noticed you don't have a website yet.
+                {% else %}
+                I was researching {{ category }} businesses in {{ area }} and found {{ business_name }} on Google Maps. I noticed your online presence could benefit from a professional website.
+                {% endif %}
+              </p>
+              {% if preview_url %}
+              <table role="presentation" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
+                <tr>
+                  <td style="background-color: #4a90d9; border-radius: 6px; text-align: center;">
+                    <a href="{{ preview_url }}" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 600;">View Preview Website</a>
+                  </td>
+                </tr>
+              </table>
+              {% endif %}
+              {% if price_offer %}
+              <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
+                If you'd like me to customize and publish this for you, I can do it for <strong>{{ price_offer }}</strong>. No ongoing fees — it's yours to keep.
+              </p>
+              {% endif %}
+              <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
+                {% if sender_name %}
+                Best regards,<br>{{ sender_name }}{% if sender_title %}<br>{{ sender_title }}{% endif %}
+                {% else %}
+                Best regards,<br>Local Web Preview Team
+                {% endif %}
+              </p>
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f0f0f0; padding: 20px 30px; text-align: center; font-size: 12px; color: #888888;">
+              You're receiving this because your business was found on Google Maps. Reply "unsubscribe" to opt out.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

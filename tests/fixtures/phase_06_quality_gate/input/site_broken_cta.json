@@ -1,0 +1,10 @@
+{
+  "business_slug": "broken-cta-business",
+  "build_status": {
+    "status": "done"
+  },
+  "facts": {
+    "business_name": "Broken CTA Business"
+  },
+  "html_sample": "<html><body><a href='tel:123'>Call</a></body></html>"
+}

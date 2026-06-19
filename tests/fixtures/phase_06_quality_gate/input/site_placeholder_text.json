@@ -1,0 +1,10 @@
+{
+  "business_slug": "placeholder-business",
+  "build_status": {
+    "status": "done"
+  },
+  "facts": {
+    "business_name": "Placeholder Business"
+  },
+  "html_sample": "<html><body><p>Lorem ipsum dolor sit amet, TODO</p></body></html>"
+}

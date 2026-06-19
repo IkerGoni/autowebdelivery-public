@@ -1,0 +1,24 @@
+{
+  "phase": "phase_02_1_website_filter",
+  "status": "done",
+  "run_id": "test_run",
+  "inputs_used": ["leads_normalized"],
+  "outputs_created": [
+    "02_1_website_filter/leads_no_website.json",
+    "02_1_website_filter/skipped_has_website.json",
+    "02_1_website_filter/manual_review_website.json",
+    "02_1_website_filter/website_filter_report.json",
+    "02_1_website_filter/website_resolution_checks.json",
+    "02_1_website_filter/result.json"
+  ],
+  "records_processed": 6,
+  "records_created": 6,
+  "records_skipped": 0,
+  "missing_fields": [],
+  "decisions": [
+    "Classified 6 leads",
+    "3 leads with no_website or social_only kept",
+    "1 leads with has_website skipped",
+    "2 leads routed to manual review"
+  ]
+}

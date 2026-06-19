@@ -1,0 +1,46 @@
+{
+  "category": "Auto Detailing Service",
+  "area": "Dallas, TX",
+  "patterns": {
+    "common_sections": [
+      "hero",
+      "services",
+      "pricing",
+      "testimonials",
+      "gallery",
+      "about",
+      "contact",
+      "faq"
+    ],
+    "common_cta_types": [
+      "phone_call",
+      "contact_form",
+      "book_now",
+      "get_quote"
+    ],
+    "pricing_visibility": "range_or_contact",
+    "trust_signals": [
+      "ratings_display",
+      "years_badge",
+      "certification_icons",
+      "before_after_gallery",
+      "review_count"
+    ],
+    "mobile_patterns": [
+      "sticky_cta",
+      "click_to_call",
+      "swipeable_gallery"
+    ],
+    "color_patterns": {
+      "dominant_colors": ["blue", "white", "dark_gray"],
+      "accent_colors": ["orange", "red"]
+    },
+    "layout_patterns": [
+      "single_page_scroll",
+      "sticky_header",
+      "full_width_hero"
+    ]
+  },
+  "source": "curated_fixture",
+  "last_updated": "2026-06-07"
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "record_id": "rec_qualified_1",
+    "business_name": "Excellent Restaurant",
+    "rating": 4.7,
+    "review_count": 156,
+    "business_status": "open",
+    "website_status": "no_website",
+    "phone": "+1-555-123-4567",
+    "website_raw": "",
+    "maps_url": "https://maps.google.com/?cid=123",
+    "scoring": {
+      "rating_score": 100.0,
+      "review_score": 100.0,
+      "contactability_score": 60.0,
+      "lead_score": 88.0
+    },
+    "qualification_status": "qualified",
+    "rejection_reasons": [],
+    "scoring_notes": {
+      "contactability_issues": ["no_website_field", "no_maps_url"]
+    }
+  },
+  {
+    "record_id": "rec_qualified_2",
+    "business_name": "Great Coffee Shop",
+    "rating": 4.8,
+    "review_count": 203,
+    "business_status": "open",
+    "website_status": "social_only",
+    "phone": "+1-555-987-6543",
+    "website_raw": "https://facebook.com/greatcoffees",
+    "maps_url": "https://maps.google.com/?cid=456",
+    "scoring": {
+      "rating_score": 100.0,
+      "review_score": 100.0,
+      "contactability_score": 90.0,
+      "lead_score": 97.0
+    },
+    "qualification_status": "qualified",
+    "rejection_reasons": [],
+    "scoring_notes": {
+      "contactability_issues": []
+    }
+  }
+]

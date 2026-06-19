@@ -1,0 +1,34 @@
+[
+  {
+    "record_id": "rec_low001",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Nova Dental Clinic",
+    "place_id": "ChIJSYNTHETIC00000000000000007",
+    "category": "Dentist",
+    "rating": null,
+    "review_count": null,
+    "address": "101 Bastion Rd, Chiang Mai",
+    "phone": "+66 53 000 008",
+    "website": "https://novadentalclinic.example",
+    "maps_url": "https://maps.google.com/?cid=1112223334",
+    "hours": "Mon-Fri 9AM-5PM",
+    "business_status": "open"
+  },
+  {
+    "record_id": "rec_low002",
+    "source": "manual_fixture",
+    "source_query": "dentists Chiang Mai",
+    "business_name": "Value Dental Care",
+    "place_id": "ChIJSYNTHETIC00000000000000008",
+    "category": "Dentist",
+    "rating": null,
+    "review_count": null,
+    "address": "202 Market Square, Chiang Mai",
+    "phone": "+66 53 000 009",
+    "website": "https://valuedentalcare.example",
+    "maps_url": "https://maps.google.com/?cid=4445556667",
+    "hours": "Tue-Sun 10AM-6PM",
+    "business_status": "open"
+  }
+]

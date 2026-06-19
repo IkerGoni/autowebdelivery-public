@@ -1,0 +1,16 @@
+[
+  {
+    "record_id": "rec_missing_contact_1",
+    "business_name": "No Contact Info Business",
+    "business_slug": "no-contact-info-business",
+    "category": "Restaurant",
+    "rating": 4.6,
+    "review_count": 100,
+    "phone": "",
+    "website_raw": "",
+    "website_status": "no_website",
+    "maps_url": "",
+    "business_status": "open",
+    "address": "777 Unknown St, Portland, OR"
+  }
+]

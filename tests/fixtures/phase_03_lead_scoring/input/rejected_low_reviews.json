@@ -1,0 +1,16 @@
+[
+  {
+    "record_id": "rec_rej_reviews_1",
+    "business_name": "Low Reviews Business",
+    "business_slug": "low-reviews-business",
+    "category": "Restaurant",
+    "rating": 4.5,
+    "review_count": 12,
+    "phone": "+1-555-333-4444",
+    "website_raw": "",
+    "website_status": "no_website",
+    "maps_url": "https://maps.google.com/?cid=102",
+    "business_status": "open",
+    "address": "321 Few St, Portland, OR"
+  }
+]

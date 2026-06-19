@@ -1,0 +1,18 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_missing_phone",
+    "business_slug": "green-valley-cafe",
+    "business_name": "Green Valley Cafe",
+    "category": "Cafe",
+    "rating": 4.3,
+    "review_count": 57,
+    "address": "88/9 Rama 9 Road, Bangkok 10250, Thailand",
+    "phone": "",
+    "maps_url": "https://maps.google.com/?cid=444",
+    "hours": "Mon-Sun 07:00-19:00",
+    "recipient_channel": "facebook_message",
+    "manual_override": false,
+    "manual_override_reason": ""
+  }
+]

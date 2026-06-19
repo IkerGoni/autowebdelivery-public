@@ -1,0 +1,16 @@
+[
+  {
+    "record_id": "rec_review_1",
+    "business_name": "Uncertain Website Business",
+    "business_slug": "uncertain-website-business",
+    "category": "Service",
+    "rating": 4.4,
+    "review_count": 35,
+    "phone": "",
+    "website_raw": "https://maps.google.com/?cid=999",
+    "website_status": "uncertain",
+    "maps_url": "https://maps.google.com/?cid=201",
+    "business_status": "open",
+    "address": "555 Uncertain Ave, Portland, OR"
+  }
+]

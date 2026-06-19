@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{page_title}}</title>
+  <meta name="description" content="{{meta_description}}">
+  <meta property="og:title" content="{{og_title}}">
+  <meta property="og:description" content="{{og_description}}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{og_url}}">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{twitter_title}}">
+  <meta name="twitter:description" content="{{twitter_description}}">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{business_name}}",
+  "telephone": "{{phone}}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{street_address}}",
+    "addressLocality": "{{locality}}",
+    "addressRegion": "{{region}}",
+    "postalCode": "{{postal_code}}"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{rating_value}}",
+    "reviewCount": "{{review_count_value}}"
+  }
+}
+</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    {{preview_banner}}
+    <section id="hero" class="hero shell">
+      <div class="hero-copy">
+        <span class="eyebrow">Preview website</span>
+        <h1>{{business_name}}</h1>
+        <p class="sub">{{category}}</p>
+        <p class="lede">{{overview}}</p>
+        <div class="hero-actions">{{cta_links}}</div>
+      </div>
+      <div class="hero-aside card">
+        <h2>Quick facts</h2>
+        <dl class="fact-list">
+          <div>
+            <dt>Rating</dt>
+            <dd>{{trust_text}}</dd>
+          </div>
+          <div>
+            <dt>Address</dt>
+            <dd>{{address}}</dd>
+          </div>
+          <div>
+            <dt>Hours</dt>
+            <dd>{{hours}}</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+    <section id="services_or_category_overview" class="shell">
+      <div class="section-heading">
+        <span class="eyebrow">Overview</span>
+        <h2>{{overview_heading}}</h2>
+      </div>
+      <p>{{overview}}</p>
+    </section>
+    <section id="trust" class="shell">
+      <div class="section-heading">
+        <span class="eyebrow">Trust</span>
+        <h2>Verified public signals</h2>
+      </div>
+      <div class="card highlight-card">{{trust_text}}</div>
+    </section>
+    <section id="location_and_hours" class="shell">
+      <div class="section-heading">
+        <span class="eyebrow">Visit</span>
+        <h2>Location and hours</h2>
+      </div>
+      <div class="grid">
+        <div class="card"><strong>Address</strong><br>{{address}}</div>
+        <div class="card"><strong>Hours</strong><br>{{hours}}</div>
+      </div>
+    </section>
+    <section id="map_or_maps_link" class="shell">
+      <div class="section-heading">
+        <span class="eyebrow">Map</span>
+        <h2>Directions</h2>
+      </div>
+      {{maps_block}}
+    </section>
+    <section id="contact_cta" class="shell accent-panel">
+      <div class="section-heading">
+        <span class="eyebrow">Contact</span>
+        <h2>Reach business</h2>
+      </div>
+      <p>{{cta_body}}</p>
+      <div class="cta-row">{{cta_links}}</div>
+    </section>
+    <section id="footer" class="shell footer-panel">
+      <footer>{{footer_text}}</footer>
+    </section>
+  </div>
+</body>
+</html>

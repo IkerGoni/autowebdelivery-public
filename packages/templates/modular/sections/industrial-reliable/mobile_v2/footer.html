@@ -1,0 +1,19 @@
+<footer class="bg-inverse-surface p-md flex flex-col gap-md w-full mb-16">
+<div class="flex flex-col gap-sm">
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase">{{name}}</h2>
+<p class="font-body-md text-inverse-on-surface opacity-80 uppercase">{{tagline}}</p>
+</div>
+<nav class="flex flex-wrap gap-md uppercase font-label-sm text-inverse-on-surface">
+<a class="underline" href="#">Privacy Policy</a>
+<a class="underline" href="#">Terms of Service</a>
+<a class="underline" href="#">Service Menu</a>
+</nav>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">&copy; 2024 {{name}}. ALL RIGHTS RESERVED.</p>
+</footer>
+<!-- Sticky Bottom Button -->
+<div class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-stretch overflow-hidden bg-surface border-t-2 border-charcoal z-50">
+<a href="tel:{{phone_raw}}" class="bg-safety-orange text-charcoal font-headline-md text-headline-md font-bold uppercase w-full flex items-center justify-center gap-sm active:bg-primary-container transition-colors duration-100">
+<span class="material-symbols-outlined" data-icon="call" style="font-variation-settings: 'FILL' 1;">call</span>
+{{cta_copy}}
+</a>
+</div>

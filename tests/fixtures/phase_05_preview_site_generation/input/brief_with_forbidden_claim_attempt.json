@@ -1,0 +1,18 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_forbidden",
+    "business_slug": "premium-auto-repair",
+    "business_name": "Premium Auto Repair",
+    "category": "Auto Repair",
+    "rating": 4.9,
+    "review_count": 156,
+    "address": "77/5 Dockyard Lane, Bangkok 10160, Thailand",
+    "phone": "+66 2 555 0102",
+    "maps_url": "https://maps.google.com/?cid=666",
+    "hours": "Mon-Sat 08:00-18:00",
+    "recipient_channel": "phone",
+    "manual_override": false,
+    "manual_override_reason": ""
+  }
+]

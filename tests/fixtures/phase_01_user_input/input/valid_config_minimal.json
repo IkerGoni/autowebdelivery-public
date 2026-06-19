@@ -1,0 +1,14 @@
+{
+  "run_id": "test_run",
+  "niche": "dentists",
+  "area": "Chiang Mai",
+  "country": "Thailand",
+  "language": "English",
+  "max_raw_results": 100,
+  "max_preview_sites": 5,
+  "minimum_rating": 4.3,
+  "minimum_reviews": 40,
+  "style_preset": "clean_professional",
+  "price_offer": "$299 one-time setup",
+  "mvp_stop_threshold": 20
+}

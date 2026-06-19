@@ -1,0 +1,15 @@
+[
+  {
+    "run_id": "",
+    "record_id": "",
+    "business_slug": "test-business",
+    "approval_status": "pending",
+    "site_review_status": "approved",
+    "outreach_review_status": "approved",
+    "screenshot_path": "",
+    "screenshot_desktop_path": "/runs/fixture_001/05_sites/test-business/screenshot_desktop.png",
+    "screenshot_mobile_path": "/runs/fixture_001/05_sites/test-business/screenshot_mobile.png",
+    "reviewer_notes": "",
+    "approved_at": ""
+  }
+]

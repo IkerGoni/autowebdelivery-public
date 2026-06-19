@@ -1,0 +1,171 @@
+# Auto Web project — generated/local files
+# Keep docs, contracts, fixtures, prompts, and source code committed.
+# Do not commit secrets, generated lead data, deployments, screenshots, or local build artifacts.
+
+# --- OS / editor noise ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+.idea/
+
+# --- Environment / secrets ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+*.token
+*.secret
+secrets/
+credentials/
+*.credentials.json
+service-account*.json
+vercel.json.local
+
+# --- Node / TypeScript / frontend builds ---
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.next/
+out/
+dist/
+build/
+.astro/
+.vercel/
+.netlify/
+.turbo/
+.cache/
+.parcel-cache/
+coverage/
+*.tsbuildinfo
+vite.config.*.timestamp-*
+
+# --- Python local state ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.venv/
+venv/
+env/
+ENV/
+poetry.lock.tmp
+pip-wheel-metadata/
+
+# --- Playwright / Puppeteer / browser automation ---
+playwright-report/
+test-results/
+blob-report/
+.pw-output/
+puppeteer_cache/
+.chrome-profile/
+.chromium-profile/
+user-data-dir/
+
+# --- Runtime outputs from pipeline phases ---
+runs/
+outputs/
+artifacts/
+tmp/
+temp/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Lead/enrichment data: may contain business/contact data ---
+data/raw/
+data/interim/
+data/processed/
+data/enriched/
+leads/
+exports/
+approval_packs/
+outreach_drafts/
+deployments/
+monetization/
+
+# Keep explicit fixture/test data committed
+!docs/fixtures/**
+!tests/fixtures/**
+!fixtures/**
+
+# --- Generated preview websites and screenshots ---
+preview-sites/
+site-previews/
+generated-sites/
+generated_sites/*
+!generated_sites/.gitkeep
+screenshots/
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+!docs/**/*.png
+!docs/**/*.jpg
+!docs/**/*.jpeg
+!docs/**/*.webp
+
+# --- Databases / local stores ---
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.duckdb
+*.parquet
+*.feather
+
+# --- Archives / packaged releases ---
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# --- Hermes / agent local state ---
+.hermes/
+hermes-workspace/
+kanban.local.*
+.agent_state/
+.codex/
+
+# --- Misc generated reports ---
+lighthouse-report*.html
+lighthouse-results*.json
+fact_usage_report.local.json
+
+# Stitch-generated artifacts (generated, not source)
+stitch-artifacts/
+stitch_artifacts/
+autoweb_pipeline.egg-info/
+.DS_Store
+
+# --- Backup / archive files ---
+*.bak
+archive/

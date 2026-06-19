@@ -1,0 +1,16 @@
+{
+  "run_id": "fixture_001",
+  "record_id": "rec_124",
+  "business_slug": "missing-desktop-screenshot",
+  "business_name": "Desktop Missing Business",
+  "lead_score": 70,
+  "qualification_status": "qualified",
+  "recipient_channel": "email",
+  "recipient_value": "missing-desktop@example.com",
+  "preview_url": "https://missing-desktop.example.com",
+  "deployment_status": "live",
+  "site_status": "approved_for_deploy",
+  "screenshot_desktop_path": "",
+  "screenshot_mobile_path": "/runs/fixture_001/05_sites/missing-desktop-screenshot/screenshot_mobile.png",
+  "draft_status": "ready_for_review"
+}

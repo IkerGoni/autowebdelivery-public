@@ -1,0 +1,30 @@
+<section class="bg-charcoal p-xl text-center flex flex-col gap-md border-y-2 border-safety-orange max-w-screen-xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-white uppercase">Ready for Service?</h2>
+<div class="flex flex-col items-center gap-xs">
+<span class="font-label-sm text-label-sm text-safety-orange uppercase">DIRECT LINE</span>
+<p class="font-headline-xl text-headline-xl text-white tracking-wider">{{phone}}</p>
+{{#has_booking}}
+<a class="bg-safety-orange text-white px-lg py-sm rounded font-label-sm uppercase tracking-wider hover:opacity-90 transition-opacity self-center inline-flex items-center gap-xs" href="{{booking_url}}" target="_blank" rel="noopener">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
+                {{booking_label}}
+            </a>
+{{/has_booking}}
+</div>
+<p class="font-body-md text-surface-variant uppercase">Expert Technicians Standing By</p>
+
+<!-- Contact Form -->
+<div class="w-full max-w-lg mx-auto mt-md pt-md border-t border-white/10">
+<h3 class="font-label-sm text-label-sm text-safety-orange uppercase mb-sm">Request Service Quote</h3>
+<form action="mailto:business@email.com" method="post" enctype="text/plain" class="flex flex-col gap-sm text-left">
+<input type="text" name="name" placeholder="Your Name" required class="w-full px-md py-sm rounded bg-white/10 border border-white/20 text-white placeholder:text-white/50 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-safety-orange/50">
+<input type="tel" name="phone" placeholder="{{phone}}" class="w-full px-md py-sm rounded bg-white/10 border border-white/20 text-white placeholder:text-white/50 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-safety-orange/50">
+<input type="email" name="email" placeholder="your@email.com" required class="w-full px-md py-sm rounded bg-white/10 border border-white/20 text-white placeholder:text-white/50 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-safety-orange/50">
+<textarea name="message" placeholder="Describe your service needs..." rows="3" required class="w-full px-md py-sm rounded bg-white/10 border border-white/20 text-white placeholder:text-white/50 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-safety-orange/50 resize-none"></textarea>
+<button type="submit" class="bg-safety-orange text-white px-lg py-sm rounded font-label-sm uppercase tracking-wider hover:opacity-90 transition-opacity self-start">
+                    Get Quote
+                </button>
+</form>
+</div>
+<!-- /Contact Form -->
+
+</section>

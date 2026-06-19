@@ -1,0 +1,164 @@
+{
+  "tailwind_config_raw": "{\n        darkMode: \"class\",\n        theme: {\n          extend: {\n            \"colors\": {\n                    \"surface\": \"#f7f9ff\",\n                    \"secondary-fixed-dim\": \"#bcc8d6\",\n                    \"secondary\": \"#54606b\",\n                    \"inverse-on-surface\": \"#e7f2ff\",\n                    \"surface-container\": \"#e4effd\",\n                    \"on-background\": \"#121d27\",\n                    \"on-secondary-fixed\": \"#121d27\",\n                    \"on-primary-container\": \"#582700\",\n                    \"surface-bright\": \"#f7f9ff\",\n                    \"on-surface\": \"#121d27\",\n                    \"primary-container\": \"#e8843c\",\n                    \"surface-dim\": \"#d0dbe9\",\n                    \"surface-variant\": \"#d8e4f2\",\n                    \"inverse-surface\": \"#27313c\",\n                    \"on-surface-variant\": \"#554338\",\n                    \"on-tertiary-fixed\": \"#1b1c1a\",\n                    \"on-primary-fixed\": \"#311300\",\n                    \"on-tertiary-container\": \"#353534\",\n                    \"secondary-container\": \"#d8e4f2\",\n                    \"on-tertiary-fixed-variant\": \"#474745\",\n                    \"tertiary-fixed-dim\": \"#c8c6c3\",\n                    \"surface-tint\": \"#974800\",\n                    \"on-secondary-fixed-variant\": \"#3d4853\",\n                    \"tertiary-fixed\": \"#e4e2df\",\n                    \"surface-container-high\": \"#dee9f8\",\n                    \"on-secondary-container\": \"#5a6672\",\n                    \"tertiary\": \"#5e5e5c\",\n                    \"primary-fixed\": \"#ffdbc7\",\n                    \"on-error-container\": \"#93000a\",\n                    \"tertiary-container\": \"#9f9e9b\",\n                    \"surface-container-lowest\": \"#ffffff\",\n                    \"error\": \"#ba1a1a\",\n                    \"on-primary\": \"#ffffff\",\n                    \"on-tertiary\": \"#ffffff\",\n                    \"error-container\": \"#ffdad6\",\n                    \"background\": \"#f7f9ff\",\n                    \"surface-container-low\": \"#edf4ff\",\n                    \"surface-container-highest\": \"#d8e4f2\",\n                    \"inverse-primary\": \"#ffb689\",\n                    \"primary\": \"#974800\",\n                    \"secondary-fixed\": \"#d8e4f2\",\n                    \"primary-fixed-dim\": \"#ffb689\",\n                    \"on-secondary\": \"#ffffff\",\n                    \"on-primary-fixed-variant\": \"#733500\",\n                    \"on-error\": \"#ffffff\",\n                    \"outline-variant\": \"#dbc1b3\",\n                    \"outline\": \"#887366\"\n            },\n            \"borderRadius\": {\n                    \"DEFAULT\": \"0px\",\n                    \"lg\": \"0px\",\n                    \"xl\": \"0px\",\n                    \"full\": \"9999px\"\n            },\n            \"spacing\": {\n                    \"xs\": \"4px\",\n                    \"base\": \"4px\",\n                    \"margin-mobile\": \"16px\",\n                    \"xl\": \"40px\",\n                    \"lg\": \"24px\",\n                    \"md\": \"16px\",\n                    \"gutter\": \"16px\",\n                    \"sm\": \"8px\",\n                    \"margin-desktop\": \"32px\"\n            },\n            \"fontFamily\": {\n                    \"headline-xl\": [\"Barlow Condensed\"],\n                    \"body-md\": [\"Archivo Narrow\"],\n                    \"body-lg\": [\"Archivo Narrow\"],\n                    \"headline-lg-mobile\": [\"Barlow Condensed\"],\n                    \"label-sm\": [\"JetBrains Mono\"],\n                    \"headline-md\": [\"Barlow Condensed\"],\n                    \"headline-lg\": [\"Barlow Condensed\"]\n            },\n            \"fontSize\": {\n                    \"headline-xl\": [\"48px\", {\"lineHeight\": \"1.1\", \"letterSpacing\": \"-0.02em\", \"fontWeight\": \"700\"}],\n                    \"body-md\": [\"16px\", {\"lineHeight\": \"1.5\", \"fontWeight\": \"400\"}],\n                    \"body-lg\": [\"18px\", {\"lineHeight\": \"1.5\", \"fontWeight\": \"400\"}],\n                    \"headline-lg-mobile\": [\"28px\", {\"lineHeight\": \"1.1\", \"fontWeight\": \"700\"}],\n                    \"label-sm\": [\"12px\", {\"lineHeight\": \"1.0\", \"letterSpacing\": \"0.05em\", \"fontWeight\": \"500\"}],\n                    \"headline-md\": [\"24px\", {\"lineHeight\": \"1.2\", \"letterSpacing\": \"0.02em\", \"fontWeight\": \"700\"}],\n                    \"headline-lg\": [\"32px\", {\"lineHeight\": \"1.1\", \"letterSpacing\": \"0.01em\", \"fontWeight\": \"700\"}]\n            }\n          },\n        },\n      }",
+  "colors": {
+    "primary": "#974800",
+    "primary_container": "#e8843c",
+    "on_primary": "#ffffff",
+    "inverse_surface": "#2F3A45",
+    "background": "#f7f9ff",
+    "surface": "#f7f9ff",
+    "surface_container_lowest": "#ffffff",
+    "on_surface": "#121d27",
+    "outline": "#887366"
+  },
+  "font_links": [
+    "<link href=\"https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&amp;family=Archivo+Narrow:wght@400;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap\" rel=\"stylesheet\"/>",
+    "<link href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap\" rel=\"stylesheet\"/>",
+    "<link href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap\" rel=\"stylesheet\"/>"
+  ],
+  "fonts": {
+    "headline": "Barlow Condensed",
+    "body": "Archivo Narrow",
+    "label": "JetBrains Mono"
+  },
+  "family": "industrial-reliable",
+  "stitch_project_id": "16585452772391053695",
+  "display_name": "Pro Auto Service",
+  "brand_style": "Mechanical Utilitarian / Functional Brutalism \u2014 workshop manual precision. High contrast, dense information, zero decoration.",
+  "aesthetic_keywords": [
+    "industrial",
+    "mechanical",
+    "functional",
+    "authoritative",
+    "no-nonsense",
+    "workshop"
+  ],
+  "spacing": {
+    "base": "4px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "40px",
+    "container_max": "1280px",
+    "gutter": "16px"
+  },
+  "border_radius": {
+    "sm": "0px",
+    "DEFAULT": "0px",
+    "md": "0px",
+    "lg": "0px"
+  },
+  "shadows": {
+    "card": "none",
+    "card_elevated": "4px 4px 0px #2F3A45",
+    "button": "none"
+  },
+  "image_guidelines": {
+    "hero": {
+      "type": "workshop_photo",
+      "subject": "auto repair workshop, clean organized garage, professional tools",
+      "mood": "competent, organized, no-frills",
+      "style": "grayscale or desaturated, high contrast, documentary",
+      "aspect_ratio": "16:9",
+      "overlays": [
+        "bold_text_overlay"
+      ]
+    },
+    "services": {
+      "type": "icon_illustration",
+      "subject": "automotive icon set, sharp geometric line art, wrench/engine symbols",
+      "mood": "technical, precise",
+      "style": "sharp edges, no fill, high contrast"
+    },
+    "trust": {
+      "type": "certification_badge",
+      "subject": "ASE certification logos, award badges",
+      "mood": "official, authoritative",
+      "format": "PNG with transparent background"
+    },
+    "location": {
+      "type": "exterior_photo",
+      "subject": "professional auto shop building, clear signage, clean lot",
+      "mood": "organized, established"
+    }
+  },
+  "component_specs": {
+    "button_primary": {
+      "bg": "primary_container",
+      "text": "inverse_surface",
+      "border": "inverse_surface",
+      "border_width": "2px",
+      "radius": "0px",
+      "uppercase": true,
+      "shadow": "none"
+    },
+    "button_secondary": {
+      "bg": "transparent",
+      "text": "on_surface",
+      "border": "on_surface",
+      "border_width": "1px",
+      "radius": "0px"
+    },
+    "card_tile": {
+      "bg": "white",
+      "border": "on_surface",
+      "border_width": "1px",
+      "radius": "0px",
+      "shadow": "none"
+    },
+    "input": {
+      "bg": "white",
+      "border": "on_surface",
+      "border_width": "1px",
+      "radius": "0px",
+      "focus_border": "primary_container",
+      "focus_border_width": "2px"
+    },
+    "status_chip": {
+      "Pending": {
+        "border": "on_surface",
+        "bg": "white"
+      },
+      "Active": {
+        "bg": "primary_container",
+        "text": "inverse_surface"
+      },
+      "Complete": {
+        "border": "green",
+        "bg": "white"
+      }
+    }
+  },
+  "surface_elevation": {
+    "background": "#f7f9ff",
+    "card": "#ffffff",
+    "card_hover": "#ffffff",
+    "tile": "white + 1px border"
+  },
+  "typography_scale": {
+    "headline_xl": {
+      "size": "48px",
+      "weight": "700",
+      "line_height": "1.1",
+      "letter_spacing": "-0.02em",
+      "font": "Barlow Condensed"
+    },
+    "headline_lg": {
+      "size": "32px",
+      "weight": "700",
+      "line_height": "1.1",
+      "font": "Barlow Condensed"
+    },
+    "body_lg": {
+      "size": "18px",
+      "weight": "400",
+      "line_height": "1.5",
+      "font": "Archivo Narrow"
+    },
+    "label_sm": {
+      "size": "12px",
+      "weight": "500",
+      "letter_spacing": "0.05em",
+      "font": "JetBrains Mono"
+    }
+  }
+}

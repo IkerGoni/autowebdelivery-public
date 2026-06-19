@@ -1,0 +1,40 @@
+<section class="px-margin-mobile mt-section-gap mb-12">
+<div class="bg-primary p-10 rounded-2xl text-center flex flex-col gap-6 relative overflow-hidden">
+<!-- Subtle botanical pattern background decorative element -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,100 C20,80 40,90 60,70 C80,50 100,60 100,0 L100,100 Z" fill="white"></path>
+</svg>
+</div>
+<div class="relative z-10 flex flex-col gap-2">
+<h3 class="font-headline-lg text-headline-lg text-white">{{cta_headline}}</h3>
+<p class="font-body-lg text-body-lg text-primary-fixed">{{cta_subtext}}</p>
+</div>
+<div class="relative z-10 flex flex-col gap-4 items-center">
+<a class="font-display text-headline-lg text-white underline decoration-primary-container decoration-4 underline-offset-8" href="tel:{{phone_raw}}">{{phone}}</a>
+<button class="bg-surface-container-lowest text-primary font-button text-button px-10 py-4 rounded-full active:scale-95 transition-all mt-4">{{cta_copy}}</button>
+{{#has_booking}}
+<a class="bg-surface-container-lowest text-primary font-button text-button px-10 py-4 rounded-full active:scale-95 transition-all inline-flex items-center justify-center gap-2" href="{{booking_url}}" target="_blank" rel="noopener">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_month">calendar_month</span>
+                {{booking_label}}
+            </a>
+{{/has_booking}}
+</div>
+
+<!-- Contact Form -->
+<div class="relative z-10 w-full mt-6 pt-6 border-t border-white/20">
+<h4 class="font-headline-sm text-headline-sm text-white mb-4">Send a Message</h4>
+<form action="mailto:business@email.com" method="post" enctype="text/plain" class="flex flex-col gap-4 text-left">
+<input type="text" name="name" placeholder="Your Name" required class="w-full px-4 py-3 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder:text-white/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-white/40">
+<input type="tel" name="phone" placeholder="{{phone}}" class="w-full px-4 py-3 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder:text-white/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-white/40">
+<input type="email" name="email" placeholder="your@email.com" required class="w-full px-4 py-3 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder:text-white/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-white/40">
+<textarea name="message" placeholder="How can we help you?" rows="4" required class="w-full px-4 py-3 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 text-white placeholder:text-white/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-white/40 resize-none"></textarea>
+<button type="submit" class="bg-surface-container-lowest text-primary font-button text-button px-8 py-3 rounded-full active:scale-95 transition-all w-full">
+                    Send Message
+                </button>
+</form>
+</div>
+<!-- /Contact Form -->
+
+</div>
+</section>

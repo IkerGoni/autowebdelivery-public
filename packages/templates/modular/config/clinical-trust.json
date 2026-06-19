@@ -1,0 +1,180 @@
+{
+  "family": "clinical-trust",
+  "tailwind_config_raw": "tailwind.config = {\n          darkMode: \"class\",\n          theme: {\n            extend: {\n              \"colors\": {\n                      \"on-secondary-fixed\": \"#001e2e\",\n                      \"outline-variant\": \"#bbcac6\",\n                      \"surface-variant\": \"#dfe3e5\",\n                      \"error-container\": \"#ffdad6\",\n                      \"inverse-primary\": \"#4bdbcb\",\n                      \"surface-container-high\": \"#e5e9eb\",\n                      \"tertiary-fixed-dim\": \"#bcc7dd\",\n                      \"secondary-fixed\": \"#c8e6ff\",\n                      \"secondary-container\": \"#c2e4fe\",\n                      \"surface-dim\": \"#d6dbdd\",\n                      \"on-surface\": \"#181c1e\",\n                      \"on-secondary\": \"#ffffff\",\n                      \"surface-container-highest\": \"#dfe3e5\",\n                      \"surface-tint\": \"#006a61\",\n                      \"on-secondary-container\": \"#46667d\",\n                      \"primary-fixed-dim\": \"#4bdbcb\",\n                      \"on-error\": \"#ffffff\",\n                      \"secondary\": \"#426278\",\n                      \"on-primary-fixed\": \"#00201d\",\n                      \"on-primary\": \"#ffffff\",\n                      \"background\": \"#f6fafc\",\n                      \"tertiary-container\": \"#9aa5ba\",\n                      \"inverse-on-surface\": \"#edf1f3\",\n                      \"surface-bright\": \"#f6fafc\",\n                      \"tertiary\": \"#545f72\",\n                      \"inverse-surface\": \"#2c3133\",\n                      \"on-tertiary-container\": \"#303b4d\",\n                      \"on-tertiary-fixed\": \"#111c2c\",\n                      \"primary-fixed\": \"#6df8e7\",\n                      \"surface-container-low\": \"#f0f4f6\",\n                      \"on-primary-fixed-variant\": \"#005049\",\n                      \"on-tertiary-fixed-variant\": \"#3c475a\",\n                      \"on-tertiary\": \"#ffffff\",\n                      \"on-secondary-fixed-variant\": \"#294a60\",\n                      \"on-primary-container\": \"#00423c\",\n                      \"tertiary-fixed\": \"#d8e3fa\",\n                      \"primary\": \"#006a61\",\n                      \"surface-container\": \"#eaeef0\",\n                      \"outline\": \"#6c7a77\",\n                      \"surface-container-lowest\": \"#ffffff\",\n                      \"on-background\": \"#181c1e\",\n                      \"primary-container\": \"#00b8a9\",\n                      \"error\": \"#ba1a1a\",\n                      \"on-surface-variant\": \"#3c4947\",\n                      \"secondary-fixed-dim\": \"#a9cbe4\",\n                      \"surface\": \"#f6fafc\",\n                      \"on-error-container\": \"#93000a\"\n              },\n              \"borderRadius\": {\n                      \"DEFAULT\": \"0.25rem\",\n                      \"lg\": \"0.5rem\",\n                      \"xl\": \"0.75rem\",\n                      \"full\": \"9999px\"\n              },\n              \"spacing\": {\n                      \"xl\": \"80px\",\n                      \"container-max\": \"1200px\",\n                      \"md\": \"24px\",\n                      \"sm\": \"12px\",\n                      \"lg\": \"48px\",\n                      \"gutter\": \"24px\",\n                      \"base\": \"8px\",\n                      \"xs\": \"4px\"\n              },\n              \"fontFamily\": {\n                      \"headline-md\": [\"Inter\"],\n                      \"body-lg\": [\"Inter\"],\n                      \"headline-sm\": [\"Inter\"],\n                      \"display-lg-mobile\": [\"Inter\"],\n                      \"label-sm\": [\"Inter\"],\n                      \"display-lg\": [\"Inter\"],\n                      \"body-md\": [\"Inter\"],\n                      \"label-md\": [\"Inter\"]\n              },\n              \"fontSize\": {\n                      \"headline-md\": [\"30px\", {\"lineHeight\": \"1.3\", \"letterSpacing\": \"-0.01em\", \"fontWeight\": \"600\"}],\n                      \"body-lg\": [\"18px\", {\"lineHeight\": \"1.6\", \"letterSpacing\": \"0.01em\", \"fontWeight\": \"400\"}],\n                      \"headline-sm\": [\"24px\", {\"lineHeight\": \"1.4\", \"fontWeight\": \"600\"}],\n                      \"display-lg-mobile\": [\"36px\", {\"lineHeight\": \"1.2\", \"letterSpacing\": \"-0.01em\", \"fontWeight\": \"700\"}],\n                      \"label-sm\": [\"12px\", {\"lineHeight\": \"1.2\", \"letterSpacing\": \"0.05em\", \"fontWeight\": \"600\"}],\n                      \"display-lg\": [\"48px\", {\"lineHeight\": \"1.1\", \"letterSpacing\": \"-0.02em\", \"fontWeight\": \"700\"}],\n                      \"body-md\": [\"16px\", {\"lineHeight\": \"1.6\", \"fontWeight\": \"400\"}],\n                      \"label-md\": [\"14px\", {\"lineHeight\": \"1.4\", \"letterSpacing\": \"0.03em\", \"fontWeight\": \"500\"}]\n              }\n            },\n          },\n        }",
+  "colors": {
+    "primary": "#006a61",
+    "primary_container": "#00b8a9",
+    "on_primary": "#ffffff",
+    "secondary": "#426278",
+    "background": "#f6fafc",
+    "surface": "#f6fafc",
+    "surface_container_lowest": "#ffffff",
+    "on_surface": "#181c1e",
+    "outline": "#6c7a77"
+  },
+  "borderRadius": {
+    "DEFAULT": "0.25rem",
+    "lg": "0.5rem",
+    "xl": "0.75rem",
+    "full": "9999px"
+  },
+  "spacing": {
+    "base": "8px",
+    "md": "24px",
+    "lg": "48px",
+    "xl": "80px",
+    "container_max": "1200px",
+    "gutter": "24px"
+  },
+  "fontFamily": {
+    "headline-md": [
+      "Inter"
+    ],
+    "body-lg": [
+      "Inter"
+    ],
+    "headline-sm": [
+      "Inter"
+    ],
+    "display-lg-mobile": [
+      "Inter"
+    ],
+    "label-sm": [
+      "Inter"
+    ],
+    "display-lg": [
+      "Inter"
+    ],
+    "body-md": [
+      "Inter"
+    ],
+    "label-md": [
+      "Inter"
+    ]
+  },
+  "fontSize": {
+    "lineHeight": "1.3",
+    "letterSpacing": "-0.01em",
+    "fontWeight": "600"
+  },
+  "styles": "\n        body {\n            font-family: 'Inter', sans-serif;\n            background-color: #f6fafc; /* Theme background maps to Ice Blue logic */\n        }\n        .material-symbols-outlined {\n            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;\n        }\n    ",
+  "font_links": [
+    "<link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap\" rel=\"stylesheet\"/>",
+    "<link href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap\" rel=\"stylesheet\"/>",
+    "<link href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap\" rel=\"stylesheet\"/>"
+  ],
+  "stitch_project_id": "8258740157123471283",
+  "display_name": "Smile Dental Clinic",
+  "brand_style": "Modern Corporate Minimalism \u2014 clinical sterility balanced with Ice Blue warmth. Clean, organized, calm environment.",
+  "aesthetic_keywords": [
+    "clinical",
+    "clean",
+    "professional",
+    "calm",
+    "trustworthy",
+    "modern healthcare"
+  ],
+  "fonts": {
+    "headline": "Inter",
+    "body": "Inter",
+    "label": "Inter"
+  },
+  "border_radius": {
+    "sm": "4px",
+    "DEFAULT": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "24px"
+  },
+  "shadows": {
+    "card": "0 4px 20px rgba(30, 64, 85, 0.06)",
+    "card_hover": "0 8px 30px rgba(30, 64, 85, 0.10)",
+    "button": "none"
+  },
+  "image_guidelines": {
+    "hero": {
+      "type": "background",
+      "subject": "modern dental clinic interior, clean treatment room with advanced equipment",
+      "mood": "professional, bright, trustworthy",
+      "aspect_ratio": "16:9",
+      "overlays": [
+        "text_overlay",
+        "gradient_bottom"
+      ]
+    },
+    "services": {
+      "type": "icon_illustration",
+      "subject": "clean medical/dental icon set, line art style",
+      "mood": "minimalist, professional",
+      "format": "SVG preferred"
+    },
+    "trust": {
+      "type": "team_photo",
+      "subject": "dental team in clinical setting, friendly and professional",
+      "mood": "warm but professional",
+      "aspect_ratio": "4:3"
+    },
+    "location": {
+      "type": "exterior_photo",
+      "subject": "modern medical building exterior, clean signage",
+      "mood": "professional, easy to find"
+    }
+  },
+  "component_specs": {
+    "button_primary": {
+      "bg": "primary_container",
+      "text": "white",
+      "radius": "8px",
+      "min_height": "48px",
+      "shadow": "none",
+      "hover": "slight lift"
+    },
+    "button_secondary": {
+      "bg": "transparent",
+      "border": "secondary",
+      "text": "secondary",
+      "radius": "8px"
+    },
+    "card": {
+      "bg": "white",
+      "radius": "16px",
+      "shadow": "card",
+      "padding": "24px"
+    },
+    "input": {
+      "bg": "white",
+      "border": "rgba(74,85,104,0.2)",
+      "focus_border": "primary_container",
+      "radius": "8px"
+    }
+  },
+  "surface_elevation": {
+    "background": "#f6fafc",
+    "card": "#ffffff",
+    "card_hover": "#ffffff",
+    "modal": "#ffffff"
+  },
+  "typography_scale": {
+    "display_lg": {
+      "size": "48px",
+      "weight": "700",
+      "line_height": "1.1",
+      "letter_spacing": "-0.02em"
+    },
+    "headline_md": {
+      "size": "30px",
+      "weight": "600",
+      "line_height": "1.3"
+    },
+    "body_lg": {
+      "size": "18px",
+      "weight": "400",
+      "line_height": "1.6"
+    },
+    "label_sm": {
+      "size": "12px",
+      "weight": "600",
+      "letter_spacing": "0.05em"
+    }
+  }
+}

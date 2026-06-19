@@ -1,0 +1,33 @@
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-container-max mx-auto px-gutter">
+<h2 class="font-headline-md text-headline-md text-on-surface text-center mb-lg">What Our Customers Say</h2>
+
+<div class="flex flex-wrap items-center justify-center gap-md mb-lg">
+  <div class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-warning" data-icon="star">star</span>
+    <span class="material-symbols-outlined text-warning" data-icon="star">star</span>
+    <span class="material-symbols-outlined text-warning" data-icon="star">star</span>
+    <span class="material-symbols-outlined text-warning" data-icon="star">star</span>
+    <span class="material-symbols-outlined text-warning" data-icon="star">star</span>
+  </div>
+  <span class="font-headline-sm text-headline-sm text-on-surface">{{rating}}</span>
+  <span class="font-body-md text-body-md text-on-surface-variant">({{review_count}} reviews)</span>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+{{#review_items}}
+  <div class="bg-surface-container-lowest rounded-xl p-lg shadow-sm border border-outline/10">
+    <div class="flex items-center gap-1 mb-sm">
+      <span class="material-symbols-outlined text-warning text-sm" data-icon="star">star</span>
+      <span class="material-symbols-outlined text-warning text-sm" data-icon="star">star</span>
+      <span class="material-symbols-outlined text-warning text-sm" data-icon="star">star</span>
+      <span class="material-symbols-outlined text-warning text-sm" data-icon="star">star</span>
+      <span class="material-symbols-outlined text-warning text-sm" data-icon="star">star</span>
+    </div>
+    <p class="font-body-md text-body-md text-on-surface-variant italic">&ldquo;{{text}}&rdquo;</p>
+  </div>
+{{/review_items}}
+</div>
+
+</div>
+</section>

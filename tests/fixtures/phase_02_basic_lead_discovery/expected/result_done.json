@@ -1,0 +1,24 @@
+{
+  "phase": "phase_02_basic_lead_discovery",
+  "status": "done",
+  "run_id": "test_run",
+  "inputs_used": ["raw_places_input"],
+  "outputs_created": [
+    "02_discovery/leads_raw.json",
+    "02_discovery/leads_normalized.json",
+    "02_discovery/discovery_report.json",
+    "02_discovery/result.json"
+  ],
+  "records_processed": 3,
+  "records_created": 3,
+  "records_skipped": 0,
+  "missing_fields": [],
+  "decisions": [
+    "Processed 3 raw places",
+    "Created 3 normalized leads",
+    "Deduped 0 duplicate records"
+  ],
+  "risks": [],
+  "errors": [],
+  "next_tasks": []
+}

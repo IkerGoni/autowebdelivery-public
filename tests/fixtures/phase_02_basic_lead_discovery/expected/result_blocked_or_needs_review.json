@@ -1,0 +1,24 @@
+{
+  "phase": "phase_02_basic_lead_discovery",
+  "status": "needs_review",
+  "run_id": "test_run",
+  "inputs_used": ["raw_places_input"],
+  "outputs_created": [
+    "02_discovery/leads_raw.json",
+    "02_discovery/leads_normalized.json",
+    "02_discovery/discovery_report.json",
+    "02_discovery/result.json"
+  ],
+  "records_processed": 2,
+  "records_created": 2,
+  "records_skipped": 0,
+  "missing_fields": ["website"],
+  "decisions": [
+    "Processed 2 raw places",
+    "Created 2 normalized leads",
+    "Deduped 0 duplicate records"
+  ],
+  "risks": ["Missing website field blocks downstream processing"],
+  "errors": ["1 records missing website field"],
+  "next_tasks": []
+}

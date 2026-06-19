@@ -1,0 +1,8 @@
+{
+  "business_slug": "failed-business",
+  "build_status": {
+    "run_id": "fixture_001",
+    "business_slug": "failed-business",
+    "status": "failed"
+  }
+}

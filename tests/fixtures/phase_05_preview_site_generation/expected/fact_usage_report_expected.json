@@ -1,0 +1,26 @@
+{
+  "run_id": "fixture_001",
+  "record_id": "rec_restaurant",
+  "business_slug": "mama-rose-restaurant",
+  "facts_used": [
+    {"field": "business_name", "value": "Mama Rose Restaurant", "source": "FACTS.md", "site_location": "hero.heading"},
+    {"field": "business_name", "value": "Mama Rose Restaurant", "source": "FACTS.md", "site_location": "footer"},
+    {"field": "category", "value": "Italian Restaurant", "source": "FACTS.md", "site_location": "hero.subheading"},
+    {"field": "category", "value": "Italian Restaurant", "source": "FACTS.md", "site_location": "overview.heading"},
+    {"field": "rating", "value": "4.6", "source": "FACTS.md", "site_location": "trust"},
+    {"field": "review_count", "value": "82", "source": "FACTS.md", "site_location": "trust"},
+    {"field": "address", "value": "145 Dockside Avenue, Bangkok 10500, Thailand", "source": "FACTS.md", "site_location": "location_and_hours.address"},
+    {"field": "hours", "value": "Daily 11:00-22:00", "source": "FACTS.md", "site_location": "location_and_hours.hours"},
+    {"field": "maps_url", "value": "https://maps.google.com/?cid=222", "source": "FACTS.md", "site_location": "map_or_maps_link"},
+    {"field": "phone", "value": "+66 2 555 0101", "source": "FACTS.md", "site_location": "contact_cta.phone_button"}
+  ],
+  "facts_omitted": [],
+  "generic_copy_blocks": [
+    {"site_location": "overview.body", "text": "Mama Rose Restaurant offers italian restaurant information in clean, mobile-first format to help visitors understand location, hours, and contact options quickly.", "rationale": "generic category-level copy; no business-specific claim"},
+    {"site_location": "contact_cta.body", "text": "View location details, check listed hours, and use available contact options to reach business.", "rationale": "neutral call to action; no unsupported claim"}
+  ],
+  "forbidden_claim_hits": [],
+  "placeholder_hits": [],
+  "needs_review": false,
+  "notes": []
+}

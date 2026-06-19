@@ -1,0 +1,24 @@
+Subject: Following up — preview website for {{ business_name }}
+
+Hi {{ contact_name or business_name }},
+
+I sent you a message last week about a preview website I built for {{ business_name }}. I wanted to follow up in case it got buried in your inbox.
+
+{% if preview_url %}
+Here's the link again: {{ preview_url }}
+{% endif %}
+
+{% if price_offer %}
+I'm still offering to customize and publish it for {{ price_offer }}. No pressure — just thought it could help {{ business_name }} attract more customers online.
+{% endif %}
+
+{% if sender_name %}
+Best,
+{{ sender_name }}
+{% else %}
+Best,
+Local Web Preview Team
+{% endif %}
+
+---
+You're receiving this because your business was found on Google Maps. Reply "unsubscribe" to opt out.

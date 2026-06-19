@@ -1,0 +1,7 @@
+[
+  {
+    "business_slug": "test-business",
+    "screenshot_desktop_path": "/runs/fixture_001/05_sites/test-business/screenshot_desktop.png",
+    "screenshot_mobile_path": "/runs/fixture_001/05_sites/test-business/screenshot_mobile.png"
+  }
+]

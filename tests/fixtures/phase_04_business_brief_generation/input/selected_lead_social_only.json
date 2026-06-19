@@ -1,0 +1,23 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_social_only",
+    "raw_record_id": "raw_social_only",
+    "business_name": "Riverfront Dental Lab",
+    "business_slug": "riverfront-dental-lab-social-only",
+    "category": "Dental clinic",
+    "rating": 4.5,
+    "review_count": 71,
+    "address": "19 River Road, Chiang Mai 50000, Thailand",
+    "phone": "",
+    "maps_url": "https://maps.google.com/?cid=444",
+    "hours": "Mon-Sun 09:00-20:00",
+    "business_status": "open",
+    "website_status": "social_only",
+    "website_confidence": 0.95,
+    "website_reason_codes": [
+      "social_media_profile",
+      "social_platform:facebook.com"
+    ]
+  }
+]

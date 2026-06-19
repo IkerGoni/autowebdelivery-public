@@ -1,0 +1,26 @@
+{
+  "business_slug": "mama-rose-restaurant",
+  "build_status": {
+    "run_id": "fixture_001",
+    "record_id": "rec_valid",
+    "business_slug": "mama-rose-restaurant",
+    "status": "done",
+    "site_path": "runs/fixture_001/05_sites/mama-rose-restaurant/site",
+    "screenshots": {
+      "desktop": "runs/fixture_001/05_sites/mama-rose-restaurant/screenshot_desktop.png",
+      "mobile": "runs/fixture_001/05_sites/mama-rose-restaurant/screenshot_mobile.png"
+    },
+    "notes": []
+  },
+  "facts": {
+    "business_name": "Mama Rose Restaurant",
+    "category": "Italian Restaurant",
+    "rating": "4.6",
+    "review_count": "82",
+    "address": "145 Dockside Avenue, Bangkok 10500, Thailand",
+    "phone": "+66 2 555 0101",
+    "hours": "Daily 11:00-22:00",
+    "maps_url": "https://maps.google.com/?cid=222"
+  },
+  "html_sample": "<!DOCTYPE html><html><head><title>Mama Rose Restaurant</title></head><body><h1>Mama Rose Restaurant</h1><p>Italian Restaurant</p></body></html>"
+}

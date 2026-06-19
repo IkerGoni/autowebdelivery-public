@@ -1,0 +1,86 @@
+{
+  "plumbing": {
+    "score": 20,
+    "tier": "standard",
+    "price_point": "$299",
+    "template_family": "industrial-reliable",
+    "template_variant": "plumbing"
+  },
+  "hvac": {
+    "score": 18,
+    "tier": "premium",
+    "price_point": "$399",
+    "template_family": "industrial-reliable",
+    "template_variant": "hvac"
+  },
+  "auto_detailing": {
+    "score": 18,
+    "tier": "standard",
+    "price_point": "$299",
+    "template_family": "industrial-reliable",
+    "template_variant": "auto-detailing"
+  },
+  "electrician": {
+    "score": 17,
+    "tier": "standard",
+    "price_point": "$299",
+    "template_family": "industrial-reliable",
+    "template_variant": "electrician"
+  },
+  "roofing": {
+    "score": 16,
+    "tier": "premium",
+    "price_point": "$399",
+    "template_family": "industrial-reliable",
+    "template_variant": "roofing"
+  },
+  "house_cleaning": {
+    "score": 16,
+    "tier": "starter",
+    "price_point": "$199",
+    "template_family": "fresh-utility",
+    "template_variant": "cleaning"
+  },
+  "landscaping": {
+    "score": 14,
+    "tier": "starter",
+    "price_point": "$199",
+    "template_family": "fresh-utility",
+    "template_variant": "landscaping"
+  },
+  "painting": {
+    "score": 14,
+    "tier": "starter",
+    "price_point": "$199",
+    "template_family": "fresh-utility",
+    "template_variant": "painting"
+  },
+  "auto_repair": {
+    "score": 15,
+    "tier": "standard",
+    "price_point": "$299",
+    "template_family": "industrial-reliable",
+    "template_variant": "auto-repair"
+  },
+  "salon_barber": {
+    "score": 12,
+    "tier": "starter",
+    "price_point": "$199",
+    "template_family": "warm-editorial",
+    "template_variant": "salon"
+  },
+  "dental": {
+    "score": 10,
+    "tier": "premium",
+    "price_point": "$499",
+    "template_family": "clinical-trust",
+    "template_variant": "dental"
+  },
+  "medical": {
+    "score": 8,
+    "tier": "premium",
+    "price_point": "$499",
+    "template_family": "clinical-trust",
+    "template_variant": "medical"
+  }
+}

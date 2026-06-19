@@ -1,0 +1,17 @@
+{
+  "run_id": "fixture_001",
+  "record_id": "rec_127",
+  "business_slug": "site-needs-edit",
+  "business_name": "Needs Edit Business",
+  "lead_score": 55,
+  "qualification_status": "qualified",
+  "recipient_channel": "email",
+  "recipient_value": "needs-edit@example.com",
+  "preview_url": "https://needs-edit.example.com",
+  "deployment_status": "live",
+  "site_status": "needs_edit",
+  "screenshot_desktop_path": "/runs/fixture_001/05_sites/site-needs-edit/screenshot_desktop.png",
+  "screenshot_mobile_path": "/runs/fixture_001/05_sites/site-needs-edit/screenshot_mobile.png",
+  "draft_status": "needs_edit",
+  "outreach_subject": "Website needs edits"
+}

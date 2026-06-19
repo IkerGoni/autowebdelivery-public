@@ -1,0 +1,17 @@
+{
+  "run_id": "fixture_001",
+  "record_id": "rec_123",
+  "business_slug": "test-business",
+  "business_name": "Test Business",
+  "lead_score": 75,
+  "qualification_status": "qualified",
+  "recipient_channel": "email",
+  "recipient_value": "test@example.com",
+  "preview_url": "https://test-business.example.com",
+  "deployment_status": "live",
+  "site_status": "approved_for_deploy",
+  "screenshot_desktop_path": "/runs/fixture_001/05_sites/test-business/screenshot_desktop.png",
+  "screenshot_mobile_path": "/runs/fixture_001/05_sites/test-business/screenshot_mobile.png",
+  "draft_status": "ready_for_review",
+  "outreach_subject": "Website preview for Test Business"
+}

@@ -1,0 +1,16 @@
+{
+  "run_id": "fixture_001",
+  "niche": "dentists",
+  "area": "Chiang Mai",
+  "country": "Thailand",
+  "language": "English",
+  "max_raw_results": 100,
+  "max_preview_sites": 5,
+  "minimum_rating": 4.3,
+  "minimum_reviews": 40,
+  "style_preset": "clean_professional",
+  "price_offer": "$299 one-time setup",
+  "mvp_stop_threshold": 20,
+  "created_at": "2026-01-01T00:00:00Z",
+  "_comment": "Copy to run_config.json and adjust values for your run"
+}

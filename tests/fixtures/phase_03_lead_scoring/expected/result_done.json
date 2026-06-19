@@ -1,0 +1,16 @@
+{
+  "phase": "phase_03_lead_scoring",
+  "status": "done",
+  "run_id": "test_run",
+  "inputs_used": ["leads_no_website", "run_config"],
+  "outputs_created": [
+    "03_scoring/leads_scored.json",
+    "03_scoring/leads_scored.csv",
+    "03_scoring/qualified_leads.json",
+    "03_scoring/selected_for_preview.json",
+    "03_scoring/result.json"
+  ],
+  "records_processed": 2,
+  "records_created": 2,
+  "records_skipped": 0
+}

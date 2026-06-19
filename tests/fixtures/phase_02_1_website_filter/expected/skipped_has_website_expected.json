@@ -1,0 +1,21 @@
+[
+  {
+    "run_id": "test_run",
+    "record_id": "norm_rec_e5f6g7h8",
+    "raw_record_id": "rec_e5f6g7h8",
+    "business_name": "Central Dental Center",
+    "business_slug": "chiang-mai-dental-center-f6g7",
+    "place_id": "ChIJSYNTHETIC00000000000000005",
+    "category": "Dentist",
+    "rating": 4.3,
+    "review_count": 85,
+    "address": "456 Southgate Rd, Chiang Mai",
+    "phone": "+66 53 000 006",
+    "website_raw": "https://centraldentalcenter.example",
+    "maps_url": "https://maps.google.com/?cid=0987654321",
+    "hours": "Daily 8AM-8PM",
+    "business_status": "open",
+    "dedupe_key": "g7h8i9j0k1l2",
+    "normalization_notes": []
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "run_id": "fixture_001",
+    "business_slug": "bright-smile-clinic-complete",
+    "business_name": "Bright Smile Clinic",
+    "brief_path": "runs/fixture_001/04_briefs/bright-smile-clinic-complete",
+    "recipient_channel": "phone",
+    "manual_override": false,
+    "manual_override_reason": "",
+    "missing_fields": [],
+    "website_status": "no_website"
+  },
+  {
+    "run_id": "fixture_001",
+    "business_slug": "quiet-canal-dental-missing-phone",
+    "business_name": "Quiet Canal Dental",
+    "brief_path": "runs/fixture_001/04_briefs/quiet-canal-dental-missing-phone",
+    "recipient_channel": "unknown",
+    "manual_override": false,
+    "manual_override_reason": "",
+    "missing_fields": [
+      "phone"
+    ],
+    "website_status": "no_website"
+  },
+  {
+    "run_id": "fixture_001",
+    "business_slug": "lantern-dental-care-missing-hours",
+    "business_name": "Lantern Dental Care",
+    "brief_path": "runs/fixture_001/04_briefs/lantern-dental-care-missing-hours",
+    "recipient_channel": "phone",
+    "manual_override": false,
+    "manual_override_reason": "",
+    "missing_fields": [
+      "hours"
+    ],
+    "website_status": "no_website"
+  },
+  {
+    "run_id": "fixture_001",
+    "business_slug": "riverfront-dental-lab-social-only",
+    "business_name": "Riverfront Dental Lab",
+    "brief_path": "runs/fixture_001/04_briefs/riverfront-dental-lab-social-only",
+    "recipient_channel": "facebook_message",
+    "manual_override": false,
+    "manual_override_reason": "",
+    "missing_fields": [
+      "phone"
+    ],
+    "website_status": "social_only"
+  },
+  {
+    "run_id": "fixture_001",
+    "business_slug": "hilltop-dental-corner-unknown-recipient",
+    "business_name": "Hilltop Dental Corner",
+    "brief_path": "runs/fixture_001/04_briefs/hilltop-dental-corner-unknown-recipient",
+    "recipient_channel": "unknown",
+    "manual_override": false,
+    "manual_override_reason": "",
+    "missing_fields": [
+      "phone",
+      "hours"
+    ],
+    "website_status": "social_only"
+  }
+]

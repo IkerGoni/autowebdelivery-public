@@ -1,0 +1,12 @@
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-section-padding-sm py-4 max-w-container-max mx-auto">
+<div class="font-display-lg text-headline-sm text-primary tracking-tighter">{{name}}</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1" href="#">Treatments</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Gallery</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+<a class="bg-primary text-on-primary font-label-caps text-label-caps font-bold px-lg py-sm rounded-sm hover:bg-primary/90 transition-colors" href="tel:{{phone_raw}}">Call {{phone}}</a>
+</div>
+<button class="md:hidden material-symbols-outlined text-on-surface" data-icon="menu">menu</button>
+</div>
+</nav>

@@ -1,0 +1,11 @@
+{
+  "niche": "dentists",
+  "area": "Chiang Mai",
+  "country": "Thailand",
+  "max_raw_results": 60,
+  "max_preview_sites": 10,
+  "minimum_rating": 4.0,
+  "minimum_reviews": 20,
+  "mvp_stop_threshold": 15,
+  "price_offer": "$199 launch price"
+}

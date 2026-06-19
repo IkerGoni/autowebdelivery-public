@@ -1,0 +1,10 @@
+{
+  "business_slug": "name-mismatch-business",
+  "build_status": {
+    "status": "done"
+  },
+  "facts": {
+    "business_name": "Correct Business Name"
+  },
+  "html_sample": "<html><body><h1>Wrong Business Name</h1></body></html>"
+}

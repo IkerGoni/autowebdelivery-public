@@ -1,0 +1,18 @@
+[
+  {
+    "run_id": "fixture_001",
+    "record_id": "rec_unknown_hours",
+    "business_slug": "sunset-spa",
+    "business_name": "Sunset Spa",
+    "category": "Spa",
+    "rating": 4.7,
+    "review_count": 94,
+    "address": "32 Beach Road, Phuket 83100, Thailand",
+    "phone": "+66 76 123 456",
+    "maps_url": "https://maps.google.com/?cid=555",
+    "hours": "",
+    "recipient_channel": "instagram_dm",
+    "manual_override": false,
+    "manual_override_reason": ""
+  }
+]

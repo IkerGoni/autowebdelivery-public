@@ -1,0 +1,10 @@
+{
+  "business_slug": "fake-claims-business",
+  "build_status": {
+    "status": "done"
+  },
+  "facts": {
+    "business_name": "Fake Claims Business"
+  },
+  "html_sample": "<html><body><p>We are the best in town, award-winning and #1 rated!</p></body></html>"
+}

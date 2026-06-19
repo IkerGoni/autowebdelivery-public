@@ -1,0 +1,30 @@
+[
+  {
+    "record_id": "rec_qualified_1",
+    "business_name": "Excellent Restaurant",
+    "business_slug": "excellent-restaurant",
+    "category": "Restaurant",
+    "rating": 4.7,
+    "review_count": 156,
+    "phone": "+1-555-123-4567",
+    "website_raw": "",
+    "website_status": "no_website",
+    "maps_url": "https://maps.google.com/?cid=123",
+    "business_status": "open",
+    "address": "123 Main St, Portland, OR"
+  },
+  {
+    "record_id": "rec_qualified_2",
+    "business_name": "Great Coffee Shop",
+    "business_slug": "great-coffee-shop",
+    "category": "Coffee Shop",
+    "rating": 4.8,
+    "review_count": 203,
+    "phone": "+1-555-987-6543",
+    "website_raw": "https://facebook.com/greatcoffees",
+    "website_status": "social_only",
+    "maps_url": "https://maps.google.com/?cid=456",
+    "business_status": "open",
+    "address": "456 Oak Ave, Portland, OR"
+  }
+]

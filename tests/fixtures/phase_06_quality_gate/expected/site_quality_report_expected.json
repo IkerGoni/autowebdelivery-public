@@ -1,0 +1,11 @@
+{
+  "status": "approved_for_deploy",
+  "findings": [
+    {"check": "build", "result": "pass"},
+    {"check": "screenshots", "result": "pass"},
+    {"check": "business_name_match", "result": "pass"},
+    {"check": "placeholders", "result": "pass"},
+    {"check": "fake_claims", "result": "pass"}
+  ],
+  "approved_for_deploy": true
+}

@@ -1,0 +1,14 @@
+{
+  "run_id": "test_run_custom",
+  "niche": "restaurants",
+  "area": "Bangkok",
+  "country": "Thailand",
+  "language": "Thai",
+  "max_raw_results": 200,
+  "max_preview_sites": 10,
+  "minimum_rating": 4.5,
+  "minimum_reviews": 100,
+  "style_preset": "modern_minimal",
+  "price_offer": "฿2990 ติดตั้ง",
+  "mvp_stop_threshold": 15
+}
