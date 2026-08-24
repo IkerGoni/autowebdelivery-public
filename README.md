@@ -8,11 +8,11 @@ An end-to-end automated system that discovers local businesses with weak or no w
 
 | Metric | Value |
 |--------|-------|
-| Pipeline phases | 11 + 16 vNext modules |
+| Pipeline phases | 11 + 15 vNext modules |
 | Test suite | 1,306 tests passing |
 | Source code | ~24,600 lines (Python) |
 | Test code | ~21,500 lines |
-| Feature flags | 13 (all backward-compatible) |
+| Feature flags | 14 (all backward-compatible) |
 | Template families | 4 design systems |
 
 ## Architecture
@@ -43,7 +43,7 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 
 ### vNext Architecture (Feature-Flagged)
 
-16 additional modules behind feature flags, providing next-generation capabilities:
+15 additional modules behind feature flags, providing next-generation capabilities:
 
 | Module | Capability |
 |--------|-----------|
