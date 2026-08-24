@@ -134,7 +134,7 @@ auto-web-leads/
 Orchestration rule:
 
 ```text
-Hermes/Kanban may track tasks and human gates.
+External task trackers (e.g. Kanban) may track tasks and human gates.
 The repo, docs, and run artifacts remain the source of truth.
 Do not build autonomous end-to-end orchestration until the MVP gets real demand signals.
 ```

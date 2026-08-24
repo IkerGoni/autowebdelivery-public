@@ -10,7 +10,7 @@ from packages.phases.phase_04_business_brief import (
     run_phase_04,
 )
 
-FIXTURE_DIR = Path("/home/user/project") / "tests" / "fixtures" / "phase_04_business_brief_generation"
+FIXTURE_DIR = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "phase_04_business_brief_generation"
 
 
 def _load_fixture(name: str):
