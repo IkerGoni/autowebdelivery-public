@@ -216,9 +216,10 @@ def _build_feeling(style: str, category: str) -> str:
     """Derive a concise feeling/vibe phrase from design_style and category."""
     style_lower = style.lower()
     # If the user set a specific, non-generic feeling, use it directly
-    if style_lower not in ("premium local-business website", "local business", ""):
-        if any(word in style_lower for word in ("luxury", "clean", "warm", "clinical", "modern", "bold", "dark")):
-            return style.split(",")[0].strip()
+    if style_lower not in ("premium local-business website", "local business", "") and any(
+        word in style_lower for word in ("luxury", "clean", "warm", "clinical", "modern", "bold", "dark")
+    ):
+        return style.split(",")[0].strip()
     # Derive feeling from category
     cat_lower = category.lower()
     if any(word in cat_lower for word in ("dental", "medical", "clinic", "health")):

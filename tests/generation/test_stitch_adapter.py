@@ -347,9 +347,11 @@ def test_http_client_raises_on_http_error():
     def raise_http_error(req, **kwargs):
         raise urllib.error.HTTPError("url", 403, "Forbidden", {}, None)
 
-    with patch("urllib.request.urlopen", side_effect=raise_http_error):
-        with pytest.raises(RuntimeError, match="HTTP 403"):
-            client.create_project(title="Fail")
+    with (
+        patch("urllib.request.urlopen", side_effect=raise_http_error),
+        pytest.raises(RuntimeError, match="HTTP 403"),
+    ):
+        client.create_project(title="Fail")
 
 
 def test_http_client_download_assets_fetches_html_with_url(tmp_path):

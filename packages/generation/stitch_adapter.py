@@ -261,7 +261,7 @@ class StitchAdapter:
                 outputs_created=outputs,
                 metadata=metadata,
             )
-        except Exception as error:  # noqa: BLE001
+        except Exception as error:
             return StitchGenerationResult(
                 status="failed",
                 run_id=request.run_id,

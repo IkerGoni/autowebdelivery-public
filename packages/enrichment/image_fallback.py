@@ -283,7 +283,4 @@ def should_generate_fallback_images(enrichment_data: dict[str, Any]) -> bool:
         return False
     
     # Check if has necessary data for generation
-    if not enrichment_data.get("city"):
-        return False
-    
-    return True
+    return bool(enrichment_data.get("city"))

@@ -309,7 +309,7 @@ def parse_all_families() -> dict[str, list[Path]]:
     for family in ["clinical-trust", "warm-editorial", "industrial-reliable", "fresh-utility"]:
         try:
             results[family] = parser.extract_and_save(family)
-        except Exception as e:
+        except (OSError, ValueError, KeyError) as e:
             print(f"Warning: Failed to parse {family}: {e}")
             results[family] = []
     return results

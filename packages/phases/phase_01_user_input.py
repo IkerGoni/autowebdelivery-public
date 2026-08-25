@@ -37,9 +37,12 @@ def validate_config(config: dict[str, Any]) -> list[str]:
             missing.append(field)
 
     # Threshold constraints
-    if "max_preview_sites" in config and "max_raw_results" in config:
-        if config["max_preview_sites"] > config["max_raw_results"]:
-            errors.append("max_preview_sites exceeds max_raw_results")
+    if (
+        "max_preview_sites" in config
+        and "max_raw_results" in config
+        and config["max_preview_sites"] > config["max_raw_results"]
+    ):
+        errors.append("max_preview_sites exceeds max_raw_results")
 
     # Generation mode validation
     valid_modes = ["stitch", "modular", "template", "auto"]

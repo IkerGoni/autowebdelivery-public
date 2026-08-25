@@ -7,7 +7,7 @@ from packages.pipeline.json_io import write_json
 
 class FakeFailingStitchClient:
     def create_project(self, title):
-        raise Exception("Stitch API offline")
+        raise RuntimeError("Stitch API offline")
         
 class FakeSuccessStitchClient:
     def create_project(self, title):

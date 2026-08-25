@@ -460,7 +460,8 @@ class TestPhase03Run:
         run("test_run_csv", workspace)
 
         p03_dir = Path(workspace) / "runs" / "test_run_csv" / "03_scoring"
-        csv_content = open(p03_dir / "leads_scored.csv").read()
+        with open(p03_dir / "leads_scored.csv", encoding="utf-8") as csv_file:
+            csv_content = csv_file.read()
 
         assert "record_id,business_name,rating,review_count" in csv_content
         assert "lead_score" in csv_content

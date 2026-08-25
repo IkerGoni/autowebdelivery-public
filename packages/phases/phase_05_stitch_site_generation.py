@@ -255,7 +255,6 @@ def build_stitch_site_record(
 
     # After exhausting retries on retryable_error, treat as failed
     if result.status == "retryable_error":
-        result = result  # already assigned; will hit the "failed" branch below
         # Replace status with "failed" for downstream consumers
         from dataclasses import replace as _dc_replace
         result = _dc_replace(result, status="failed")

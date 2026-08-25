@@ -56,10 +56,11 @@ def main() -> None:
     stitch_api_key = args.stitch_api_key or os.environ.get("STITCH_API_KEY")
     stitch_client = _build_stitch_client(stitch_api_key)
 
+    logger = logging.getLogger(__name__)
     if stitch_client is not None:
-        logging.info("Stitch MCP client initialized (HTTP JSON-RPC)")
+        logger.info("Stitch MCP client initialized (HTTP JSON-RPC)")
     elif args.generation_mode == "stitch":
-        logging.warning("generation_mode=stitch but no STITCH_API_KEY — will fail at Phase 05")
+        logger.warning("generation_mode=stitch but no STITCH_API_KEY — will fail at Phase 05")
 
     # Configure logging
     log_level = logging.DEBUG if args.verbose else logging.INFO

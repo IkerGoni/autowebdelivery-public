@@ -170,16 +170,18 @@ class TestPhase02OverpassRouting:
             _make_overpass_results(), "auto detailing", "Frisco TX"
         )
 
-        with patch(
-            "packages.phases.phase_02_basic_lead_discovery.fetch_overpass_leads",
-            create=True,
-        ) as _mock_fetch:
+        with (
+            patch(
+                "packages.phases.phase_02_basic_lead_discovery.fetch_overpass_leads",
+                create=True,
+            ) as _mock_fetch,
             # We need to patch the import inside the function
-            with patch(
+            patch(
                 "packages.discovery.overpass_fetcher.OverpassClient.discover",
                 return_value=_make_overpass_results(),
-            ):
-                result = _resolve_discovery_input("test_overpass_run", workspace)
+            ),
+        ):
+            result = _resolve_discovery_input("test_overpass_run", workspace)
 
         # The function should have called OverpassClient.discover internally
         # via fetch_overpass_leads and returned converted dicts

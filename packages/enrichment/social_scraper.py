@@ -10,6 +10,7 @@ import json
 import logging
 import re
 import time
+import typing
 from dataclasses import asdict, dataclass, field
 from typing import Any
 from urllib.parse import urlparse
@@ -119,9 +120,9 @@ def normalize_social_url(url: str) -> str:
 
 class RobotsChecker:
     """Simple robots.txt checker for ethical scraping."""
-    
-    # Known disallowed patterns for major platforms
-    KNOWN_RULES = {
+
+    # Known disallowed patterns for major platforms (immutable lookup table)
+    KNOWN_RULES: typing.ClassVar[dict[str, list[str]]] = {
         "facebook.com": [
             "/ajax/", "/dialog/", "/connect/", "/intern/",
             "/api/", "/tr/", "/plugins/", "/l.php"
