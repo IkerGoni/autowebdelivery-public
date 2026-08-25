@@ -327,7 +327,7 @@ def test_sanitize_request_url_strips_secret_values_query_fragment_and_local_path
     assert sanitized == "file:///[local-file]/index.html"
     assert "abc123" not in sanitized
     assert "token" not in sanitized
-    assert "/Users/igoni" not in sanitized
+    assert "/Users/demo" not in sanitized
     assert "frag" not in sanitized
 
 
