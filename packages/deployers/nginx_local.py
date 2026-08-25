@@ -19,14 +19,13 @@ def deploy_nginx_local(site_path: str) -> dict[str, Any]:
         http://{HOST}:{PORT}/sites/{run_id}/05_sites/{slug}/
 
     where:
-      - HOST comes from env ``SITE_HOST`` (default ``192.0.2.1`` — Tailscale IP of rs host)
+      - HOST comes from env ``SITE_HOST`` (default ``192.0.2.1`` — documentation address, RFC 5737)
       - PORT comes from env ``SITE_PORT`` (default ``8081``)
       - ``site_path`` is the absolute or relative path to the site
         directory (e.g. ``runs/run_xxx/05_sites/business-slug/``).
 
-    The default Tailscale-only host assumes nginx is bound to the
-    tailnet interface on the rs host, keeping previews off the public
-    internet until the operator is ready to ship.
+    The default host is a placeholder: set the real preview host via env
+    ``SITE_HOST`` at deploy time.
 
     Args:
         site_path: Path to the site directory.

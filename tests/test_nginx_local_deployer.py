@@ -93,7 +93,7 @@ class TestNginxLocalDeployer:
             assert result["preview_url"].startswith("http://myhost.example.com:9090/")
 
     def test_default_host_and_port(self):
-        """Default host is the Tailscale IP and port is 8081."""
+        """Default host is the RFC 5737 placeholder and port is 8081."""
         with tempfile.TemporaryDirectory() as tmp:
             site_root = Path(tmp) / "runs" / "run_005" / "05_sites" / "def-biz"
             (site_root / "site").mkdir(parents=True, exist_ok=True)
