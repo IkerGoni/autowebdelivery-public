@@ -110,5 +110,30 @@ class TestNginxLocalDeployer:
                 if old_port is not None:
                     os.environ["SITE_PORT"] = old_port
 
-            # Default points at the Tailscale tailnet — not localhost, not public.
+            # Default points at the RFC 5737 documentation address - not localhost, not a real host.
             assert result["preview_url"].startswith("http://192.0.2.1:8081/")
+
+    def test_default_host_is_rfc5737(self):
+        """Default SITE_HOST must be RFC 5737 TEST-NET-1 (192.0.2.0/24)."""
+        import ipaddress
+
+        old_host = os.environ.pop("SITE_HOST", None)
+        old_port = os.environ.pop("SITE_PORT", None)
+        try:
+            site_root = Path(tempfile.mkdtemp()) / "site"
+            site_root.mkdir(parents=True, exist_ok=True)
+            (site_root / "index.html").write_text("<html></html>", encoding="utf-8")
+            result = deploy_nginx_local(str(site_root))
+        finally:
+            if old_host is not None:
+                os.environ["SITE_HOST"] = old_host
+            if old_port is not None:
+                os.environ["SITE_PORT"] = old_port
+
+        assert result["preview_url"].startswith("http://192.0.2.1:")
+        host = result["preview_url"].split("://")[1].split(":")[0]
+        assert host == "192.0.2.1"
+        assert host != "127.0.0.1"
+        assert host != "localhost"
+        ip = ipaddress.ip_address(host)
+        assert ip in ipaddress.ip_network("192.0.2.0/24")
