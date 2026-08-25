@@ -1,7 +1,9 @@
 """Integration tests for social-only detection in Phase 02."""
 
-import pytest
 from pathlib import Path
+
+import pytest
+
 from packages.phases import phase_02_basic_lead_discovery as phase_02
 
 
@@ -161,6 +163,7 @@ def workspace(tmp_path):
 def _setup_phase_01(workspace: str, run_id: str):
     """Setup Phase 01 artifacts needed for Phase 02 to run."""
     from pathlib import Path
+
     from packages.pipeline.json_io import write_json
     
     config_dir = Path(workspace) / "runs" / run_id / "config"

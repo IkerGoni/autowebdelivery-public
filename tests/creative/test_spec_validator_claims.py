@@ -6,9 +6,8 @@ Verifies:
 """
 from __future__ import annotations
 
-
-from packages.creative.creative_spec_validator import validate_creative_spec
 from packages.creative.creative_spec_models import FORBIDDEN_PUBLIC_CLAIMS
+from packages.creative.creative_spec_validator import validate_creative_spec
 
 
 def _minimal_spec() -> dict:

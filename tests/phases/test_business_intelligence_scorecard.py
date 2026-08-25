@@ -1,7 +1,7 @@
 """Tests for business-intelligence sellability scorecard."""
 
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 from packages.phases.business_intelligence_scorecard import score_business_intelligence
 from packages.phases.phase_03_lead_scoring import run

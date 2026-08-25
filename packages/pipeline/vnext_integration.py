@@ -840,12 +840,12 @@ def run_vnext_post_phase_06_patch_plan(
     if not flags.get("use_patch_phase"):
         return []
 
-    from packages.patching.patch_plan import build_patch_plan, write_patch_plan
-    from packages.patching.html_patch_engine import apply_html_patches
     from packages.evaluation.website_evaluator import (
         evaluate_website,
         write_evaluation_report,
     )
+    from packages.patching.html_patch_engine import apply_html_patches
+    from packages.patching.patch_plan import build_patch_plan, write_patch_plan
 
     sites_dir = _runs(workspace, run_id) / "05_sites"
     briefs_dir = _runs(workspace, run_id) / "04_briefs"

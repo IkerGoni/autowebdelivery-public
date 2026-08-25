@@ -14,7 +14,6 @@ from pipeline.contracts import WebsiteClassification
 from pipeline.json_io import read_json, write_json
 from pipeline.result_envelope import ResultEnvelope
 
-
 PHASE_NAME = "phase_02_1_website_filter"
 
 # Social media domains that indicate social_only status
@@ -31,7 +30,7 @@ SHORTLINK_DOMAINS = {
 }
 
 # Google Maps pattern
-MAPS_PATTERN = re.compile(r"maps\.google\.com|google\..*maps", re.I)
+MAPS_PATTERN = re.compile(r"maps\.google\.com|google\..*maps", re.IGNORECASE)
 
 
 def classify_website(website_raw: str) -> tuple[str, str, list[str]]:
@@ -53,8 +52,7 @@ def classify_website(website_raw: str) -> tuple[str, str, list[str]]:
         parsed = urlparse(url)
         domain = parsed.netloc.lower()
         # Remove www. prefix
-        if domain.startswith("www."):
-            domain = domain[4:]
+        domain = domain.removeprefix("www.")
     except Exception:
         return "invalid_url", "malformed", ["malformed_url"]
 
@@ -115,8 +113,7 @@ def make_website_classification(
         try:
             parsed = urlparse(website_raw if website_raw.startswith("http") else "https://" + website_raw)
             registered_domain = parsed.netloc.lower()
-            if registered_domain.startswith("www."):
-                registered_domain = registered_domain[4:]
+            registered_domain = registered_domain.removeprefix("www.")
         except Exception:
             registered_domain = ""
 

@@ -5,7 +5,6 @@ from __future__ import annotations
 import re
 from typing import Any
 
-
 DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 DAY_MAP = {d.lower(): d for d in DAYS}
 DAY_ABBREV_MAP = {

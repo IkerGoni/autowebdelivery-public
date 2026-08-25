@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, field, asdict
-from typing import List, Optional
+from dataclasses import asdict, dataclass, field
 
 
 def _digits_only(value: str) -> str:
@@ -17,13 +16,13 @@ class ServiceItem:
     name: str
     description: str
     icon: str  # Material Symbols icon name, e.g. "dentistry"
-    tag: Optional[str] = None  # Optional label tag like "Weekly / Bi-Weekly"
+    tag: str | None = None  # Optional label tag like "Weekly / Bi-Weekly"
 
     def to_dict(self) -> dict:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: dict) -> "ServiceItem":
+    def from_dict(cls, data: dict) -> ServiceItem:
         return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
 
 
@@ -34,13 +33,13 @@ class HoursSchedule:
     weekday_hours: str = "9:00 AM - 6:00 PM"
     weekend_day: str = "Sunday"
     weekend_hours: str = "Closed"
-    note: Optional[str] = None  # Additional note like "Emergency drop-off available"
+    note: str | None = None  # Additional note like "Emergency drop-off available"
 
     def to_dict(self) -> dict:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: dict) -> "HoursSchedule":
+    def from_dict(cls, data: dict) -> HoursSchedule:
         return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
 
 
@@ -72,7 +71,7 @@ class BusinessData:
     hours: HoursSchedule = field(default_factory=HoursSchedule)
 
     # Services (typically 3)
-    services: List[ServiceItem] = field(default_factory=list)
+    services: list[ServiceItem] = field(default_factory=list)
 
     # CTA copy
     cta_headline: str = "Ready to get started?"
@@ -81,20 +80,20 @@ class BusinessData:
     cta_secondary_label: str = "View Services"
 
     # Hero/media/supporting copy
-    hero_description: Optional[str] = None
+    hero_description: str | None = None
     hero_image_url: str = "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80"
     hero_image_alt: str = "Business hero image"
-    coverage_area: Optional[str] = None
+    coverage_area: str | None = None
 
     # Booking
     booking_url: str = ""  # Online booking link
 
     # Reviews
-    review_samples: List[str] = field(default_factory=list)  # Sample review texts
+    review_samples: list[str] = field(default_factory=list)  # Sample review texts
 
     # SEO
-    page_title: Optional[str] = None
-    meta_description: Optional[str] = None
+    page_title: str | None = None
+    meta_description: str | None = None
     website_url: str = ""  # For OG tags and structured data
 
     def __post_init__(self):
@@ -164,7 +163,7 @@ class BusinessData:
         return d
 
     @classmethod
-    def from_dict(cls, data: dict) -> "BusinessData":
+    def from_dict(cls, data: dict) -> BusinessData:
         hours_data = data.pop("hours", None)
         services_data = data.pop("services", None)
         hours = HoursSchedule.from_dict(hours_data) if hours_data else HoursSchedule()
@@ -175,7 +174,7 @@ class BusinessData:
         return cls(hours=hours, services=services, **filtered)
 
     @classmethod
-    def from_json(cls, path: str) -> "BusinessData":
+    def from_json(cls, path: str) -> BusinessData:
         with open(path, "r") as f:
             data = json.load(f)
         return cls.from_dict(data)

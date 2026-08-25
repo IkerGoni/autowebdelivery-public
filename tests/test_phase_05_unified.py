@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
 
-from packages.pipeline.json_io import write_json
 from packages.phases.phase_05_unified import run_phase_05_unified
+from packages.pipeline.json_io import write_json
+
 
 class FakeFailingStitchClient:
     def create_project(self, title):

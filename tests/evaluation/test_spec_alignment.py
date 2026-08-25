@@ -3,13 +3,12 @@
 from __future__ import annotations
 
 from packages.evaluation.spec_alignment import (
-    check_spec_alignment,
-    _check_sections,
     _check_cta,
     _check_forbidden_claims,
     _check_missing_data_handling,
+    _check_sections,
+    check_spec_alignment,
 )
-
 
 # ---------------------------------------------------------------------------
 # HTML Fixtures

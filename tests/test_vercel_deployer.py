@@ -1,7 +1,9 @@
 import subprocess
-from packages.pipeline.json_io import read_json, write_json
-from packages.phases.phase_07_deployment import run_phase_07
+
 from packages.deployers.vercel import deploy_to_vercel
+from packages.phases.phase_07_deployment import run_phase_07
+from packages.pipeline.json_io import read_json, write_json
+
 
 class MockCompletedProcess:
     def __init__(self, returncode, stdout, stderr=""):

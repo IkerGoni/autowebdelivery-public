@@ -26,15 +26,16 @@ except ModuleNotFoundError:  # pragma: no cover - CLI fallback
     from packages.pipeline.result_envelope import ResultEnvelope
 
 try:
+    from generation.html_sanitizer import sanitize_html, write_sanitized_html, write_sanitizer_report
     from templates.modular.composer import TemplateComposer
-    from templates.modular.models import BusinessData, ServiceItem, HoursSchedule
-    from generation.html_sanitizer import sanitize_html, write_sanitizer_report, write_sanitized_html
+    from templates.modular.models import BusinessData, HoursSchedule, ServiceItem
+
     from phases.phase_05_preview_site_generation import write_screenshot_png
 except ModuleNotFoundError:  # pragma: no cover
-    from packages.templates.modular.composer import TemplateComposer
-    from packages.templates.modular.models import BusinessData, ServiceItem, HoursSchedule
-    from packages.generation.html_sanitizer import sanitize_html, write_sanitizer_report, write_sanitized_html
+    from packages.generation.html_sanitizer import sanitize_html, write_sanitized_html, write_sanitizer_report
     from packages.phases.phase_05_preview_site_generation import write_screenshot_png
+    from packages.templates.modular.composer import TemplateComposer
+    from packages.templates.modular.models import BusinessData, HoursSchedule, ServiceItem
 
 
 def _parse_facts_md(path: Path) -> dict[str, str]:
@@ -104,7 +105,7 @@ def _extract_services_from_enrichment(enrichment_path: Path, business_name: str,
         enrichment = read_json(str(enrichment_path))
         
         # Try to extract from enrichment
-        if "services" in enrichment and enrichment["services"]:
+        if enrichment.get("services"):
             for svc in enrichment["services"][:3]:  # Max 3 services
                 if isinstance(svc, dict):
                     services.append(ServiceItem(

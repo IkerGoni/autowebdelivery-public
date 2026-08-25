@@ -6,16 +6,16 @@ import json
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json
 from packages.intelligence.business_profile import (
     SCHEMA_VERSION,
     _forbidden_public_claims,
     _missing_data,
-    _public_safe,
     _provenance,
+    _public_safe,
     build_business_profile,
     write_business_profile,
 )
+from pipeline.json_io import read_json
 
 FIXTURE_DIR = Path.cwd() / "tests" / "fixtures" / "phase_04_business_brief_generation"
 

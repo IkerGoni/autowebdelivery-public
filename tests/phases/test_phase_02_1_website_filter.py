@@ -1,15 +1,16 @@
 """Tests for Phase 02.1 Website Filter per pipeline_data_contract.md."""
 
-import pytest
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json, write_json
+import pytest
+
 from packages.phases.phase_02_1_website_filter import (
-    run,
     classify_website,
     make_website_classification,
+    run,
 )
+from pipeline.json_io import read_json, write_json
 
 
 class TestClassifyWebsite:

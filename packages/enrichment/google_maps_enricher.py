@@ -52,69 +52,69 @@ class BusinessEnrichment:
 
 # Phrases from reviews that signal real service differentiators.
 DIFFERENTIATOR_PATTERNS: list[tuple[re.Pattern[str], str]] = [
-    (re.compile(r"came to my (?:office|work|house|home|location|job site)", re.I),
+    (re.compile(r"came to my (?:office|work|house|home|location|job site)", re.IGNORECASE),
      "mobile/on-site service"),
-    (re.compile(r"came to (?:my|the) (?:workplace|apartment|complex)", re.I),
+    (re.compile(r"came to (?:my|the) (?:workplace|apartment|complex)", re.IGNORECASE),
      "mobile/on-site service"),
-    (re.compile(r"mobile detailing|mobile wash|came to me", re.I),
+    (re.compile(r"mobile detailing|mobile wash|came to me", re.IGNORECASE),
      "mobile service"),
-    (re.compile(r"my car looks (?:brand new|like new|showroom)", re.I),
+    (re.compile(r"my car looks (?:brand new|like new|showroom)", re.IGNORECASE),
      "restoration quality"),
-    (re.compile(r"(?:looks|feels) brand new", re.I),
+    (re.compile(r"(?:looks|feels) brand new", re.IGNORECASE),
      "restoration quality"),
-    (re.compile(r"very detail[\s-]?oriented|attention to detail", re.I),
+    (re.compile(r"very detail[\s-]?oriented|attention to detail", re.IGNORECASE),
      "attention to detail"),
-    (re.compile(r"finished (?:ahead of schedule|early|before the deadline)", re.I),
+    (re.compile(r"finished (?:ahead of schedule|early|before the deadline)", re.IGNORECASE),
      "efficiency / fast turnaround"),
-    (re.compile(r"finished in under|done in under|completed in", re.I),
+    (re.compile(r"finished in under|done in under|completed in", re.IGNORECASE),
      "fast service"),
-    (re.compile(r"explained everything|walked me through|took time to explain", re.I),
+    (re.compile(r"explained everything|walked me through|took time to explain", re.IGNORECASE),
      "education / transparency"),
-    (re.compile(r"brought (?:his|their|her) own (?:water|supplies|equipment|products)", re.I),
+    (re.compile(r"brought (?:his|their|her) own (?:water|supplies|equipment|products)", re.IGNORECASE),
      "self-sufficient / brings own supplies"),
-    (re.compile(r"went above and beyond|extra mile|beyond expectations", re.I),
+    (re.compile(r"went above and beyond|extra mile|beyond expectations", re.IGNORECASE),
      "goes above and beyond"),
-    (re.compile(r"very (?:professional|punctual|reliable|responsive)", re.I),
+    (re.compile(r"very (?:professional|punctual|reliable|responsive)", re.IGNORECASE),
      "professionalism"),
-    (re.compile(r"on time|punctual|showed up (?:on time|early)", re.I),
+    (re.compile(r"on time|punctual|showed up (?:on time|early)", re.IGNORECASE),
      "punctuality"),
-    (re.compile(r"scheduled (?:same day|next day|last minute)", re.I),
+    (re.compile(r"scheduled (?:same day|next day|last minute)", re.IGNORECASE),
      "flexible scheduling"),
-    (re.compile(r"(?:fair|reasonable|great) price(?:ing)?|best price|competitive rate", re.I),
+    (re.compile(r"(?:fair|reasonable|great) price(?:ing)?|best price|competitive rate", re.IGNORECASE),
      "fair pricing"),
-    (re.compile(r"before and after (?:photos|pics|pictures)", re.I),
+    (re.compile(r"before and after (?:photos|pics|pictures)", re.IGNORECASE),
      "documents work with photos"),
-    (re.compile(r"interior (?:was|looked|smelled)|inside (?:was|looked|smelled)", re.I),
+    (re.compile(r"interior (?:was|looked|smelled)|inside (?:was|looked|smelled)", re.IGNORECASE),
      "interior detailing expertise"),
-    (re.compile(r"paint (?:correction|protection|coating|ceramic)", re.I),
+    (re.compile(r"paint (?:correction|protection|coating|ceramic)", re.IGNORECASE),
      "paint correction / coating specialist"),
-    (re.compile(r"ceramic (?:coat|coating|pro)", re.I),
+    (re.compile(r"ceramic (?:coat|coating|pro)", re.IGNORECASE),
      "ceramic coating specialist"),
-    (re.compile(r"steam clean|shampoo|deep clean", re.I),
+    (re.compile(r"steam clean|shampoo|deep clean", re.IGNORECASE),
      "deep cleaning capability"),
 ]
 
 # Phrases that signal owner personality.
 OWNER_SIGNAL_PATTERNS: list[tuple[re.Pattern[str], str]] = [
-    (re.compile(r"the owner (?:himself|herself|personally)", re.I),
+    (re.compile(r"the owner (?:himself|herself|personally)", re.IGNORECASE),
      "owner personally involved"),
-    (re.compile(r"(?:he|she) (?:is|was) (?:super |very )?(?:friendly|nice|kind|personable|warm)", re.I),
+    (re.compile(r"(?:he|she) (?:is|was) (?:super |very )?(?:friendly|nice|kind|personable|warm)", re.IGNORECASE),
      "friendly personality"),
-    (re.compile(r"great (?:guy|dude|person|fellow|gal|lady)", re.I),
+    (re.compile(r"great (?:guy|dude|person|fellow|gal|lady)", re.IGNORECASE),
      "personal warmth"),
-    (re.compile(r"(?:super |very )?friendly (?:guy|dude|person|staff|team)", re.I),
+    (re.compile(r"(?:super |very )?friendly (?:guy|dude|person|staff|team)", re.IGNORECASE),
      "friendly team"),
-    (re.compile(r"(?:he|she) (?:really |truly )?cares", re.I),
+    (re.compile(r"(?:he|she) (?:really |truly )?cares", re.IGNORECASE),
      "cares about customers"),
-    (re.compile(r"passionate (?:about|for)", re.I),
+    (re.compile(r"passionate (?:about|for)", re.IGNORECASE),
      "passionate about work"),
-    (re.compile(r"honest|trustworthy|straight shooter", re.I),
+    (re.compile(r"honest|trustworthy|straight shooter", re.IGNORECASE),
      "honest / trustworthy"),
-    (re.compile(r"easy to (?:talk to|work with|communicate with)", re.I),
+    (re.compile(r"easy to (?:talk to|work with|communicate with)", re.IGNORECASE),
      "easy to work with"),
-    (re.compile(r"(?:will |definitely |absolutely )?(?:use again|coming back|return customer|repeat customer)", re.I),
+    (re.compile(r"(?:will |definitely |absolutely )?(?:use again|coming back|return customer|repeat customer)", re.IGNORECASE),
      "repeat customer magnet"),
-    (re.compile(r"(?:highly |strongly )?recommend", re.I),
+    (re.compile(r"(?:highly |strongly )?recommend", re.IGNORECASE),
      "highly recommended"),
 ]
 
@@ -157,7 +157,7 @@ def _parse_hours(text: str) -> dict[str, str]:
     for day in days:
         pattern = re.compile(
             rf"{day}[:\s]+([\w:\s\-–\.]+?)(?:\n|$|,)",
-            re.I,
+            re.IGNORECASE,
         )
         m = pattern.search(text)
         if m:
@@ -176,7 +176,7 @@ def _parse_services(text: str) -> list[str]:
     ]
     services: list[str] = []
     for pat in service_indicators:
-        for m in re.finditer(pat, text, re.I | re.DOTALL):
+        for m in re.finditer(pat, text, re.IGNORECASE | re.DOTALL):
             block = m.group(1)
             # Split on commas, semicolons, bullets, or newlines with bullets
             items = re.split(r"[,;|]|[\n\r]+\s*[\u2022\u00b7•\-*]\s*", block)
@@ -197,7 +197,7 @@ def _parse_rating(text: str) -> float:
         r"(\d+\.?\d*)\s*\(\d+\s*(?:reviews?|Google reviews)\)",
     ]
     for pat in patterns:
-        m = re.search(pat, text, re.I)
+        m = re.search(pat, text, re.IGNORECASE)
         if m:
             try:
                 return float(m.group(1))
@@ -213,7 +213,7 @@ def _parse_review_count(text: str) -> int:
         r"(\d[\d,]*)\s*(?:reviews?|ratings?)",
     ]
     for pat in patterns:
-        m = re.search(pat, text, re.I)
+        m = re.search(pat, text, re.IGNORECASE)
         if m:
             try:
                 return int(m.group(1).replace(",", ""))
@@ -226,7 +226,7 @@ def _parse_photos(text: str) -> list[str]:
     """Extract photo image URLs from page text."""
     url_pattern = re.compile(
         r"https?://[^\s\"'<>)\]]+?\.(?:jpg|jpeg|png|webp|gif)[^\s\"'<>)\]]*",
-        re.I,
+        re.IGNORECASE,
     )
     urls: list[str] = []
     seen: set[str] = set()
@@ -282,7 +282,7 @@ def _parse_description(text: str) -> str:
         r"(?:About|Description)\s*[:\-]\s*(.+?)(?:\n\n|\n[A-Z])",
     ]
     for pat in patterns:
-        m = re.search(pat, text, re.I | re.DOTALL)
+        m = re.search(pat, text, re.IGNORECASE | re.DOTALL)
         if m:
             desc = m.group(1).strip()
             if len(desc) > 20:

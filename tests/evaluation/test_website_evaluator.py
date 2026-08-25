@@ -5,23 +5,22 @@ from __future__ import annotations
 import json
 
 from packages.evaluation.website_evaluator import (
+    SCHEMA_VERSION,
+    _score_accessibility,
+    _score_branding,
+    _score_conversion,
+    _score_factual_safety,
+    _score_hierarchy,
+    _score_imagery,
+    _score_local_relevance,
+    _score_mobile_experience,
+    _score_originality,
+    _score_spacing,
+    _score_trust,
+    _score_typography,
     evaluate_website,
     write_evaluation_report,
-    SCHEMA_VERSION,
-    _score_hierarchy,
-    _score_branding,
-    _score_typography,
-    _score_spacing,
-    _score_imagery,
-    _score_trust,
-    _score_conversion,
-    _score_accessibility,
-    _score_originality,
-    _score_mobile_experience,
-    _score_factual_safety,
-    _score_local_relevance,
 )
-
 
 # ---------------------------------------------------------------------------
 # HTML Fixtures

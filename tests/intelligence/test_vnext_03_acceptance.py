@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
+
 from packages.intelligence.brand_reconstruction import build_brand_profile, write_brand_profile
+
 
 def test_vnext_03_acceptance(tmp_path):
     run_id = "test-run-123"

@@ -48,7 +48,7 @@ def _deterministic_generated_at(run_id: str, business_slug: str) -> str:
       - no wall-clock dependence
       - no process-id or import-order dependence
     """
-    digest = hashlib.sha256(f"{run_id}|{business_slug}".encode("utf-8")).hexdigest()
+    digest = hashlib.sha256(f"{run_id}|{business_slug}".encode()).hexdigest()
     day_offset = int(digest[:8], 16) % 3650
     epoch = datetime(2026, 1, 1, tzinfo=timezone.utc)
     moment = epoch + timedelta(days=day_offset)

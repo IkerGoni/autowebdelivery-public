@@ -9,7 +9,6 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 # Base directory for this module
 MODULE_DIR = Path(__file__).parent
@@ -66,7 +65,7 @@ SECTION_ORDER = ["header", "hero", "services", "trust", "location", "cta", "foot
 class TemplateParser:
     """Parses Stitch-generated HTML templates into modular sections."""
 
-    def __init__(self, artifacts_dir: Optional[Path] = None):
+    def __init__(self, artifacts_dir: Path | None = None):
         self.artifacts_dir = artifacts_dir or ARTIFACTS_DIR
 
     def _read_file(self, family: str, variant: str) -> str:
@@ -98,7 +97,7 @@ class TemplateParser:
         styles = re.findall(r"<style[^>]*>(.*?)</style>", html, re.DOTALL)
         return "\n".join(styles)
 
-    def _extract_font_links(self, html: str) -> List[str]:
+    def _extract_font_links(self, html: str) -> list[str]:
         """Extract Google Fonts link tags."""
         return re.findall(r'<link[^>]*fonts\.googleapis\.com[^>]*/>', html)
 
@@ -107,7 +106,7 @@ class TemplateParser:
         match = re.search(r"<head[^>]*>(.*?)</head>", html, re.DOTALL)
         return match.group(1).strip() if match else ""
 
-    def _find_section_ranges(self, html: str) -> Dict[str, Tuple[int, int]]:
+    def _find_section_ranges(self, html: str) -> dict[str, tuple[int, int]]:
         """Find start/end positions of each section in the HTML."""
         ranges = {}
         section_starts = []
@@ -134,7 +133,7 @@ class TemplateParser:
 
         return ranges
 
-    def _extract_section_html(self, html: str, section_name: str) -> Optional[str]:
+    def _extract_section_html(self, html: str, section_name: str) -> str | None:
         """Extract raw HTML for a named section."""
         ranges = self._find_section_ranges(html)
         if section_name not in ranges:
@@ -171,7 +170,7 @@ class TemplateParser:
 
         return html
 
-    def parse_family(self, family: str) -> Dict:
+    def parse_family(self, family: str) -> dict:
         """Parse all sections and config for a template family.
 
         Returns dict with:
@@ -208,7 +207,7 @@ class TemplateParser:
 
         return result
 
-    def extract_and_save(self, family: str, output_dir: Optional[Path] = None) -> List[Path]:
+    def extract_and_save(self, family: str, output_dir: Path | None = None) -> list[Path]:
         """Extract all sections for a family and save to files.
 
         Returns list of created file paths.
@@ -237,7 +236,7 @@ class TemplateParser:
 
         return created
 
-    def _parse_config_to_json(self, config: Dict, family: str) -> Dict:
+    def _parse_config_to_json(self, config: dict, family: str) -> dict:
         """Convert raw config strings into structured JSON."""
         tw_config_str = config.get("tailwind_config", "")
 
@@ -262,7 +261,7 @@ class TemplateParser:
             "font_links": config.get("font_links", []),
         }
 
-    def _js_object_to_python(self, js: str) -> Dict:
+    def _js_object_to_python(self, js: str) -> dict:
         """Rough conversion of JS config object to Python dict."""
         result = {}
 
@@ -277,15 +276,13 @@ class TemplateParser:
 
         return result
 
-    def _parse_js_dict(self, s: str) -> Dict:
+    def _parse_js_dict(self, s: str) -> dict:
         """Parse a simple JS dict string into Python dict."""
         result = {}
         # Remove outer braces
         s = s.strip()
-        if s.startswith("{"):
-            s = s[1:]
-        if s.endswith("}"):
-            s = s[:-1]
+        s = s.removeprefix("{")
+        s = s.removesuffix("}")
 
         # Match "key": "value" or "key": ["value"]
         for match in re.finditer(r'"([^"]+)"\s*:\s*(?:"([^"]*)"|\[([^\]]*)\]|\{([^}]*)\})', s):
@@ -302,7 +299,7 @@ class TemplateParser:
         return result
 
 
-def parse_all_families() -> Dict[str, List[Path]]:
+def parse_all_families() -> dict[str, list[Path]]:
     """Parse all 4 template families and save to disk.
 
     Returns dict mapping family name -> list of created files.

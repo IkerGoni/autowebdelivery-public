@@ -95,37 +95,37 @@ THEME_PATTERNS = {
 # ---------------------------------------------------------------------------
 
 DIFFERENTIATOR_PATTERNS: list[tuple[re.Pattern[str], str]] = [
-    (re.compile(r"came to my (?:office|work|house|home|location|job site)", re.I),
+    (re.compile(r"came to my (?:office|work|house|home|location|job site)", re.IGNORECASE),
      "mobile/on-site service"),
-    (re.compile(r"mobile detailing|mobile wash|came to me", re.I),
+    (re.compile(r"mobile detailing|mobile wash|came to me", re.IGNORECASE),
      "mobile service"),
-    (re.compile(r"my car looks (?:brand new|like new|showroom)", re.I),
+    (re.compile(r"my car looks (?:brand new|like new|showroom)", re.IGNORECASE),
      "restoration quality"),
-    (re.compile(r"very detail[\\s-]?oriented|attention to detail", re.I),
+    (re.compile(r"very detail[\\s-]?oriented|attention to detail", re.IGNORECASE),
      "attention to detail"),
-    (re.compile(r"finished (?:ahead of schedule|early|before)", re.I),
+    (re.compile(r"finished (?:ahead of schedule|early|before)", re.IGNORECASE),
      "efficiency / fast turnaround"),
-    (re.compile(r"explained everything|walked me through", re.I),
+    (re.compile(r"explained everything|walked me through", re.IGNORECASE),
      "education / transparency"),
-    (re.compile(r"brought (?:his|their|her) own (?:water|supplies|equipment)", re.I),
+    (re.compile(r"brought (?:his|their|her) own (?:water|supplies|equipment)", re.IGNORECASE),
      "self-sufficient / brings own supplies"),
-    (re.compile(r"went above and beyond|extra mile", re.I),
+    (re.compile(r"went above and beyond|extra mile", re.IGNORECASE),
      "goes above and beyond"),
-    (re.compile(r"very (?:professional|punctual|reliable|responsive)", re.I),
+    (re.compile(r"very (?:professional|punctual|reliable|responsive)", re.IGNORECASE),
      "professionalism"),
-    (re.compile(r"on time|punctual|showed up (?:on time|early)", re.I),
+    (re.compile(r"on time|punctual|showed up (?:on time|early)", re.IGNORECASE),
      "punctuality"),
-    (re.compile(r"scheduled (?:same day|next day|last minute)", re.I),
+    (re.compile(r"scheduled (?:same day|next day|last minute)", re.IGNORECASE),
      "flexible scheduling"),
-    (re.compile(r"(?:fair|reasonable|great) price|best price", re.I),
+    (re.compile(r"(?:fair|reasonable|great) price|best price", re.IGNORECASE),
      "fair pricing"),
-    (re.compile(r"before and after (?:photos|pics|pictures)", re.I),
+    (re.compile(r"before and after (?:photos|pics|pictures)", re.IGNORECASE),
      "documents work with photos"),
-    (re.compile(r"paint (?:correction|protection|coating|ceramic)", re.I),
+    (re.compile(r"paint (?:correction|protection|coating|ceramic)", re.IGNORECASE),
      "paint correction / coating specialist"),
-    (re.compile(r"ceramic (?:coat|coating|pro)", re.I),
+    (re.compile(r"ceramic (?:coat|coating|pro)", re.IGNORECASE),
      "ceramic coating specialist"),
-    (re.compile(r"steam clean|shampoo|deep clean", re.I),
+    (re.compile(r"steam clean|shampoo|deep clean", re.IGNORECASE),
      "deep cleaning capability"),
 ]
 
@@ -143,10 +143,10 @@ def clean_review_text(text: str) -> str:
     text = re.sub(r'\s+', ' ', text)
     
     # Remove common non-content patterns
-    text = re.sub(r'Read more|Show less|Helpful\?|Report', '', text, flags=re.I)
+    text = re.sub(r'Read more|Show less|Helpful\?|Report', '', text, flags=re.IGNORECASE)
     
     # Remove star ratings in text
-    text = re.sub(r'\d+\s*(?:star|stars|out of \d+)', '', text, flags=re.I)
+    text = re.sub(r'\d+\s*(?:star|stars|out of \d+)', '', text, flags=re.IGNORECASE)
     
     return text.strip()
 
@@ -167,7 +167,7 @@ def extract_themes(reviews: list[str]) -> list[tuple[str, int]]:
     for theme_name, patterns in THEME_PATTERNS.items():
         count = 0
         for pattern in patterns:
-            matches = re.findall(pattern, combined_text, re.I)
+            matches = re.findall(pattern, combined_text, re.IGNORECASE)
             count += len(matches)
         
         if count > 0:
@@ -283,10 +283,10 @@ def analyze_sentiment(reviews: list[str]) -> dict[str, int]:
     combined_text = " ".join(reviews).lower()
     
     for pattern in positive_patterns:
-        sentiment["positive"] += len(re.findall(pattern, combined_text, re.I))
+        sentiment["positive"] += len(re.findall(pattern, combined_text, re.IGNORECASE))
     
     for pattern in negative_patterns:
-        sentiment["negative"] += len(re.findall(pattern, combined_text, re.I))
+        sentiment["negative"] += len(re.findall(pattern, combined_text, re.IGNORECASE))
     
     # If mostly neutral (few strong signals), mark as neutral
     total_signals = sentiment["positive"] + sentiment["negative"]

@@ -1,14 +1,14 @@
-import tempfile
 import json
+import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json, write_json
 from packages.phases.phase_04_business_brief import (
     BLOCKED_REASON,
     detect_recipient_channel,
     route_briefs,
     run_phase_04,
 )
+from pipeline.json_io import read_json, write_json
 
 FIXTURE_DIR = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "phase_04_business_brief_generation"
 

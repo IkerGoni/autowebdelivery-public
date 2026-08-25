@@ -6,14 +6,13 @@ from pathlib import Path
 
 from packages.enrichment.image_fallback import (
     ImageGenerationRequest,
-    has_sufficient_images,
-    get_image_urls_from_enrichment,
-    generate_image_prompt,
-    generate_fallback_images,
     add_fallback_images_to_enrichment,
+    generate_fallback_images,
+    generate_image_prompt,
+    get_image_urls_from_enrichment,
+    has_sufficient_images,
     should_generate_fallback_images,
 )
-
 
 # ===========================================================================
 # ImageGenerationRequest

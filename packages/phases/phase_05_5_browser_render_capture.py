@@ -374,9 +374,7 @@ def _broken_link_count_from_html(html_text: str) -> int:
     ids = set(re.findall(r"\bid=[\"']([^\"']+)[\"']", html_text, flags=re.IGNORECASE))
     for href in re.findall(r"<a\b[^>]*\bhref=[\"']?([^\"'\s>]+)", html_text, flags=re.IGNORECASE):
         value = href.strip()
-        if not value or value == "#":
-            count += 1
-        elif value.startswith("#") and value[1:] not in ids:
+        if not value or value == "#" or value.startswith("#") and value[1:] not in ids:
             count += 1
     count += len(re.findall(r"<a\b(?![^>]*\bhref=)", html_text, flags=re.IGNORECASE))
     return count

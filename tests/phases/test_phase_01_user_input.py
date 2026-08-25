@@ -1,16 +1,17 @@
 """Tests for Phase 01 User Input per pipeline_data_contract.md."""
 
-import pytest
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json
+import pytest
+
 from packages.phases.phase_01_user_input import (
+    make_query_plan,
+    make_run_config,
     run,
     validate_config,
-    make_run_config,
-    make_query_plan,
 )
+from pipeline.json_io import read_json
 
 
 class TestValidateConfig:

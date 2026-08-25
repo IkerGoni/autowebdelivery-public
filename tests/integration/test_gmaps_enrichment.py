@@ -13,13 +13,11 @@ import json
 from pathlib import Path
 from unittest.mock import patch
 
-
 from packages.enrichment.google_maps_enricher import BusinessEnrichment
 from packages.pipeline.vnext_integration import (
-    run_vnext_post_phase_04_5_gmaps_enrichment,
     _VNEXT_FLAG_DEFAULTS,
+    run_vnext_post_phase_04_5_gmaps_enrichment,
 )
-
 
 # ---------------------------------------------------------------------------
 # Flag presence

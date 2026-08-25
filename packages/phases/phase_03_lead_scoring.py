@@ -8,13 +8,14 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 from typing import Any
-from pipeline.json_io import read_json, write_json
-from pipeline.result_envelope import ResultEnvelope
+
 from packages.phases.business_intelligence_scorecard import (
     safe_float,
     safe_int,
     score_business_intelligence,
 )
+from pipeline.json_io import read_json, write_json
+from pipeline.result_envelope import ResultEnvelope
 
 PHASE_NAME = "phase_03_lead_scoring"
 
@@ -322,9 +323,7 @@ def run(
             ])
 
     # Determine status
-    if len(input_leads) == 0:
-        status = "blocked"
-    elif len(scored_leads) == 0:
+    if len(input_leads) == 0 or len(scored_leads) == 0:
         status = "blocked"
     else:
         status = "done"

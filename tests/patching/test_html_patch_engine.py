@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 from packages.patching.html_patch_engine import (
-    apply_html_patches,
     _insert_before,
     _remove,
     _replace,
+    apply_html_patches,
 )
-
 
 # ---------------------------------------------------------------------------
 # HTML Fixtures

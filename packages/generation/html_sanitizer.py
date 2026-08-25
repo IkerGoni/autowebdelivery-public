@@ -16,7 +16,6 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
-
 # ---------------------------------------------------------------------------
 # Data classes
 # ---------------------------------------------------------------------------

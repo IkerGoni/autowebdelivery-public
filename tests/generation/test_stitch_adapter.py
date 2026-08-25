@@ -7,8 +7,8 @@ import pytest
 from packages.generation.stitch_adapter import (
     CommandResult,
     HttpStitchClient,
-    McpStitchClient,
     McporterStitchClient,
+    McpStitchClient,
     StitchAdapter,
     StitchGenerationRequest,
 )
@@ -336,9 +336,8 @@ def test_http_client_raises_on_rpc_error():
     client = HttpStitchClient(api_key="test-key")
     response = _make_rpc_error("Project not found", code=404)
 
-    with _mock_urlopen(response):
-        with pytest.raises(RuntimeError, match="Project not found"):
-            client.get_project(project_id="nonexistent")
+    with _mock_urlopen(response), pytest.raises(RuntimeError, match="Project not found"):
+        client.get_project(project_id="nonexistent")
 
 
 def test_http_client_raises_on_http_error():

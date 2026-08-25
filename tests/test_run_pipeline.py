@@ -3,6 +3,7 @@ from pathlib import Path
 
 from packages.pipeline.run_pipeline import run_full_pipeline
 
+
 class MockCompletedProcess:
     def __init__(self, returncode, stdout, stderr=""):
         self.returncode = returncode
@@ -19,12 +20,12 @@ def test_full_pipeline_dry_run_template(tmp_path, monkeypatch):
     monkeypatch.setattr(subprocess, "run", mock_run)
     
     # Mock Phase 02 run method to return a valid ResultEnvelope with mock leads
-    import packages.phases.phase_02_basic_lead_discovery as phase_02_basic_lead_discovery
-    import packages.pipeline.run_pipeline as run_pipeline
+    from packages.phases import phase_02_basic_lead_discovery
+    from packages.pipeline import run_pipeline
     
     def mock_phase_02_run(run_id, workspace, input_places=None):
-        from packages.pipeline.result_envelope import ResultEnvelope
         from packages.pipeline.json_io import write_json
+        from packages.pipeline.result_envelope import ResultEnvelope
         
         p2_dir = Path(workspace) / "runs" / run_id / "02_discovery"
         p2_dir.mkdir(parents=True, exist_ok=True)
@@ -106,13 +107,13 @@ def test_vnext_13_overpass_enrichment_flag(tmp_path, monkeypatch):
         return MockCompletedProcess(0, "mock-site.vercel.app")
     monkeypatch.setattr(subprocess, "run", mock_run)
     
-    import packages.phases.phase_02_basic_lead_discovery as phase_02_basic_lead_discovery
-    import packages.pipeline.run_pipeline as run_pipeline
     from packages.discovery import overpass_fetcher
+    from packages.phases import phase_02_basic_lead_discovery
+    from packages.pipeline import run_pipeline
     
     def mock_phase_02_run(run_id, workspace, input_places=None):
-        from packages.pipeline.result_envelope import ResultEnvelope
         from packages.pipeline.json_io import write_json
+        from packages.pipeline.result_envelope import ResultEnvelope
         
         p2_dir = Path(workspace) / "runs" / run_id / "02_discovery"
         p2_dir.mkdir(parents=True, exist_ok=True)
@@ -210,13 +211,13 @@ def test_vnext_13_no_enrichment_without_flag(tmp_path, monkeypatch):
         return MockCompletedProcess(0, "mock-site.vercel.app")
     monkeypatch.setattr(subprocess, "run", mock_run)
     
-    import packages.phases.phase_02_basic_lead_discovery as phase_02_basic_lead_discovery
-    import packages.pipeline.run_pipeline as run_pipeline
     from packages.discovery import overpass_fetcher
+    from packages.phases import phase_02_basic_lead_discovery
+    from packages.pipeline import run_pipeline
     
     def mock_phase_02_run(run_id, workspace, input_places=None):
-        from packages.pipeline.result_envelope import ResultEnvelope
         from packages.pipeline.json_io import write_json
+        from packages.pipeline.result_envelope import ResultEnvelope
         
         p2_dir = Path(workspace) / "runs" / run_id / "02_discovery"
         p2_dir.mkdir(parents=True, exist_ok=True)

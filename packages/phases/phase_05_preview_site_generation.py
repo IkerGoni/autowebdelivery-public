@@ -31,11 +31,11 @@ except ModuleNotFoundError:  # pragma: no cover - CLI fallback
     from packages.pipeline.template_slots import find_unresolved_slots
 
 try:
-    from generation.niche_copy import generate_copy_from_facts, copy_slots_to_dict
-    from generation.html_sanitizer import sanitize_html, write_sanitizer_report, write_sanitized_html
+    from generation.html_sanitizer import sanitize_html, write_sanitized_html, write_sanitizer_report
+    from generation.niche_copy import copy_slots_to_dict, generate_copy_from_facts
 except ModuleNotFoundError:  # pragma: no cover
-    from packages.generation.niche_copy import generate_copy_from_facts, copy_slots_to_dict
-    from packages.generation.html_sanitizer import sanitize_html, write_sanitizer_report, write_sanitized_html
+    from packages.generation.html_sanitizer import sanitize_html, write_sanitized_html, write_sanitizer_report
+    from packages.generation.niche_copy import copy_slots_to_dict, generate_copy_from_facts
 
 PHASE_NAME = "phase_05_preview_site_generation"
 PHASE_SLUG = "05_sites"

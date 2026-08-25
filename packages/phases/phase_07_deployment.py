@@ -9,13 +9,13 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from deployers.local_only import deploy_local_site
     from pipeline.json_io import read_json, write_json
     from pipeline.result_envelope import ResultEnvelope
-    from deployers.local_only import deploy_local_site
 except ModuleNotFoundError:  # pragma: no cover - CLI fallback
+    from packages.deployers.local_only import deploy_local_site
     from packages.pipeline.json_io import read_json, write_json
     from packages.pipeline.result_envelope import ResultEnvelope
-    from packages.deployers.local_only import deploy_local_site
 
 PHASE_NAME = "phase_07_deployment"
 PHASE_SLUG = "07_deployments"

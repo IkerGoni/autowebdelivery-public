@@ -11,10 +11,9 @@ import unicodedata
 from pathlib import Path
 from typing import Any
 
-from pipeline.contracts import RawPlace, NormalizedPlace
+from pipeline.contracts import NormalizedPlace, RawPlace
 from pipeline.json_io import read_json, write_json
 from pipeline.result_envelope import ResultEnvelope
-
 
 PHASE_NAME = "phase_02_basic_lead_discovery"
 

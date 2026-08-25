@@ -81,7 +81,7 @@ def extract_username_from_url(url: str, platform: str) -> str:
         path = parsed.path.strip("/")
         
         # Remove common prefixes
-        path = re.sub(r"^(profile\.php|pages?|pg)/", "", path, flags=re.I)
+        path = re.sub(r"^(profile\.php|pages?|pg)/", "", path, flags=re.IGNORECASE)
         
         # Extract first path segment
         parts = path.split("/")
@@ -238,7 +238,7 @@ def _fetch_facebook_og(url: str, rate_limiter: RateLimiter | None = None) -> Soc
     )
 
     # page <title>
-    title_match = re.search(r"<title[^>]*>(.+?)</title>", html, re.I | re.DOTALL)
+    title_match = re.search(r"<title[^>]*>(.+?)</title>", html, re.IGNORECASE | re.DOTALL)
     if title_match:
         profile.business_category = title_match.group(1).strip()[:200]
 
@@ -246,13 +246,13 @@ def _fetch_facebook_og(url: str, rate_limiter: RateLimiter | None = None) -> Soc
     og_title = re.search(
         r'<meta\s+property=["\']og:title["\']\s+content=["\']([^"\']+)["\']',
         html,
-        re.I,
+        re.IGNORECASE,
     )
     if not og_title:
         og_title = re.search(
             r'<meta\s+content=["\']([^"\']+)["\']\s+property=["\']og:title["\']',
             html,
-            re.I,
+            re.IGNORECASE,
         )
     if og_title and not profile.about_text:
         profile.about_text = og_title.group(1).strip()[:500]
@@ -261,13 +261,13 @@ def _fetch_facebook_og(url: str, rate_limiter: RateLimiter | None = None) -> Soc
     og_desc = re.search(
         r'<meta\s+property=["\']og:description["\']\s+content=["\']([^"\']+)["\']',
         html,
-        re.I,
+        re.IGNORECASE,
     )
     if not og_desc:
         og_desc = re.search(
             r'<meta\s+content=["\']([^"\']+)["\']\s+property=["\']og:description["\']',
             html,
-            re.I,
+            re.IGNORECASE,
         )
     if og_desc:
         profile.about_text = og_desc.group(1).strip()[:500]
@@ -276,13 +276,13 @@ def _fetch_facebook_og(url: str, rate_limiter: RateLimiter | None = None) -> Soc
     og_image = re.search(
         r'<meta\s+property=["\']og:image["\']\s+content=["\']([^"\']+)["\']',
         html,
-        re.I,
+        re.IGNORECASE,
     )
     if not og_image:
         og_image = re.search(
             r'<meta\s+content=["\']([^"\']+)["\']\s+property=["\']og:image["\']',
             html,
-            re.I,
+            re.IGNORECASE,
         )
     if og_image:
         img_url = og_image.group(1).strip()
@@ -349,7 +349,7 @@ def _fetch_instagram_profile(url: str, rate_limiter: RateLimiter | None = None) 
     script_match = re.search(
         r'<script[^>]*id="__NEXT_DATA__"[^>]*type="application/json"[^>]*>(.*?)</script>',
         html,
-        re.I | re.DOTALL,
+        re.IGNORECASE | re.DOTALL,
     )
     if script_match:
         try:
@@ -363,7 +363,7 @@ def _fetch_instagram_profile(url: str, rate_limiter: RateLimiter | None = None) 
         init_match = re.search(
             r'<script[^>]*>window\.__INITIAL_STATE__\s*=\s*({.*?});</script>',
             html,
-            re.I | re.DOTALL,
+            re.IGNORECASE | re.DOTALL,
         )
         if init_match:
             try:
@@ -376,7 +376,7 @@ def _fetch_instagram_profile(url: str, rate_limiter: RateLimiter | None = None) 
         ld_match = re.search(
             r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>',
             html,
-            re.I | re.DOTALL,
+            re.IGNORECASE | re.DOTALL,
         )
         if ld_match:
             try:
@@ -509,7 +509,7 @@ def extract_facebook_profile_data(page_text: str, profile_url: str) -> SocialPro
         r"\"description\":\s*\"([^\"]+)\"",
     ]
     for pattern in about_patterns:
-        match = re.search(pattern, page_text, re.I | re.DOTALL)
+        match = re.search(pattern, page_text, re.IGNORECASE | re.DOTALL)
         if match:
             profile.about_text = match.group(1).strip()[:500]
             break
@@ -517,7 +517,7 @@ def extract_facebook_profile_data(page_text: str, profile_url: str) -> SocialPro
     # Extract photos (look for image URLs)
     photo_pattern = re.compile(
         r"https?://[^\\s\"'<>)]+?\.(?:jpg|jpeg|png|webp)(?:\?[^\\s\"'<>)]*)?",
-        re.I
+        re.IGNORECASE
     )
     seen_photos = set()
     for match in photo_pattern.finditer(page_text):
@@ -538,7 +538,7 @@ def extract_facebook_profile_data(page_text: str, profile_url: str) -> SocialPro
         r"(?:followers?|likes?)[\s:]+(\d[\d,\.]+)",
     ]
     for pattern in follower_patterns:
-        match = re.search(pattern, page_text, re.I)
+        match = re.search(pattern, page_text, re.IGNORECASE)
         if match:
             try:
                 count_str = match.group(1).replace(",", "").replace(".", "")
@@ -553,7 +553,7 @@ def extract_facebook_profile_data(page_text: str, profile_url: str) -> SocialPro
         r"\"category\":\s*\"([^\"]+)\"",
     ]
     for pattern in category_patterns:
-        match = re.search(pattern, page_text, re.I)
+        match = re.search(pattern, page_text, re.IGNORECASE)
         if match:
             profile.business_category = match.group(1).strip()[:100]
             break
@@ -577,7 +577,7 @@ def extract_instagram_profile_data(page_text: str, profile_url: str) -> SocialPr
         r"<meta\s+property=\"og:description\"\s+content=\"([^\"]+)\"",
     ]
     for pattern in bio_patterns:
-        match = re.search(pattern, page_text, re.I)
+        match = re.search(pattern, page_text, re.IGNORECASE)
         if match:
             profile.about_text = match.group(1).strip()[:500]
             break
@@ -585,7 +585,7 @@ def extract_instagram_profile_data(page_text: str, profile_url: str) -> SocialPr
     # Extract photos from page
     photo_pattern = re.compile(
         r"https?://[^\\s\"'<>)]+?\.(?:cdninstagram|fbcdn)\.net/[^\\s\"'<>)]+?\.(?:jpg|jpeg|png|webp)",
-        re.I
+        re.IGNORECASE
     )
     seen_photos = set()
     for match in photo_pattern.finditer(page_text):

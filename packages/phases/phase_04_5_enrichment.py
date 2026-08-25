@@ -30,30 +30,31 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from pipeline.json_io import read_json, write_json
-    from pipeline.result_envelope import ResultEnvelope
+    from enrichment.hours_extractor import merge_hours, parse_hours_text
+    from enrichment.pricing_extractor import (
+        create_internal_pricing_fields,  # noqa: F401
+        extract_pricing_from_html,  # noqa: F401
+        format_pricing_hint,  # noqa: F401
+    )
     from enrichment.services_extractor import (
         extract_services_from_html,
         merge_services_with_existing,  # noqa: F401
     )
-    from enrichment.pricing_extractor import (
-        extract_pricing_from_html,  # noqa: F401
-        format_pricing_hint,  # noqa: F401
-        create_internal_pricing_fields,  # noqa: F401
-    )
-    from enrichment.hours_extractor import parse_hours_text, merge_hours
+
+    from pipeline.json_io import read_json, write_json
+    from pipeline.result_envelope import ResultEnvelope
 except ModuleNotFoundError:  # pragma: no cover - CLI fallback
-    from packages.pipeline.json_io import read_json, write_json
-    from packages.pipeline.result_envelope import ResultEnvelope
+    from packages.enrichment.hours_extractor import merge_hours, parse_hours_text
     from packages.enrichment.services_extractor import (
         extract_services_from_html,
     )
-    from packages.enrichment.hours_extractor import parse_hours_text, merge_hours
+    from packages.pipeline.json_io import read_json, write_json
+    from packages.pipeline.result_envelope import ResultEnvelope
 
 try:
-    from generation.niche_copy import generate_copy_from_facts, copy_slots_to_dict
+    from generation.niche_copy import copy_slots_to_dict, generate_copy_from_facts
 except ModuleNotFoundError:  # pragma: no cover
-    from packages.generation.niche_copy import generate_copy_from_facts, copy_slots_to_dict
+    from packages.generation.niche_copy import copy_slots_to_dict, generate_copy_from_facts
 
 from packages.shared.provenance import _safe_str
 

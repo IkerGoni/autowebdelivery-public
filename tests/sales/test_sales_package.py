@@ -6,10 +6,9 @@ import json
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json
 from packages.sales.sales_package import (
-    SCHEMA_VERSION,
     _FORBIDDEN_PUBLIC_CLAIMS,
+    SCHEMA_VERSION,
     _build_business_summary,
     _build_compliance_notes,
     _build_evaluation_summary,
@@ -22,7 +21,7 @@ from packages.sales.sales_package import (
     build_sales_package,
     write_sales_package,
 )
-
+from pipeline.json_io import read_json
 
 # ---------------------------------------------------------------------------
 # Fixtures / helpers

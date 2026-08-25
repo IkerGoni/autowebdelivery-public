@@ -34,10 +34,10 @@ def test_import_forbidden_public_claims_fn():
 def test_top_level_re_exports():
     """Verify top-level packages.shared re-exports work."""
     from packages.shared import (
-        _safe_str,
-        _has_value,
-        _envelope,
         FORBIDDEN_PUBLIC_CLAIMS,
+        _envelope,
+        _has_value,
+        _safe_str,
         forbidden_public_claims,
     )
     assert callable(_safe_str)

@@ -32,33 +32,34 @@ except ModuleNotFoundError:  # pragma: no cover - CLI fallback
     from packages.pipeline.result_envelope import ResultEnvelope
 
 try:
-    from generation.stitch_prompt_builder import (
-        StitchPromptInput,
-        build_premium_stitch_prompt,
+    from generation.html_sanitizer import (
+        sanitize_html,
+        write_sanitized_html,
+        write_sanitizer_report,
     )
     from generation.stitch_adapter import (
         StitchAdapter,
         StitchGenerationRequest,
     )
-    from generation.html_sanitizer import (
-        sanitize_html,
-        write_sanitizer_report,
-        write_sanitized_html,
-    )
-    from phases.phase_05_preview_site_generation import write_screenshot_png
-except ModuleNotFoundError:  # pragma: no cover
-    from packages.generation.stitch_prompt_builder import (
+    from generation.stitch_prompt_builder import (
         StitchPromptInput,
         build_premium_stitch_prompt,
+    )
+
+    from phases.phase_05_preview_site_generation import write_screenshot_png
+except ModuleNotFoundError:  # pragma: no cover
+    from packages.generation.html_sanitizer import (
+        sanitize_html,
+        write_sanitized_html,
+        write_sanitizer_report,
     )
     from packages.generation.stitch_adapter import (
         StitchAdapter,
         StitchGenerationRequest,
     )
-    from packages.generation.html_sanitizer import (
-        sanitize_html,
-        write_sanitizer_report,
-        write_sanitized_html,
+    from packages.generation.stitch_prompt_builder import (
+        StitchPromptInput,
+        build_premium_stitch_prompt,
     )
     from packages.phases.phase_05_preview_site_generation import write_screenshot_png
 

@@ -8,13 +8,6 @@ from pathlib import Path
 
 from packages.enrichment.google_maps_enricher import (
     BusinessEnrichment,
-    extract_differentiators,
-    extract_owner_signals,
-    find_maps_url_from_results,
-    parse_maps_page,
-    run_enrichment,
-    save_enrichment,
-    slugify,
     _parse_description,
     _parse_hours,
     _parse_photos,
@@ -22,8 +15,14 @@ from packages.enrichment.google_maps_enricher import (
     _parse_review_count,
     _parse_review_snippets,
     _parse_services,
+    extract_differentiators,
+    extract_owner_signals,
+    find_maps_url_from_results,
+    parse_maps_page,
+    run_enrichment,
+    save_enrichment,
+    slugify,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures

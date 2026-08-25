@@ -1,19 +1,20 @@
 """Tests for Phase 02 Basic Lead Discovery per pipeline_data_contract.md."""
 
-import pytest
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json
+import pytest
+
 from packages.phases.phase_01_user_input import run as run_phase_01
 from packages.phases.phase_02_basic_lead_discovery import (
-    run,
     make_business_slug,
     make_dedupe_key,
-    make_record_id,
     make_raw_place,
+    make_record_id,
     normalize_place,
+    run,
 )
+from pipeline.json_io import read_json
 
 
 class TestMakeBusinessSlug:

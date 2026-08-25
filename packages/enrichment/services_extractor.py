@@ -5,7 +5,6 @@ from __future__ import annotations
 import re
 from typing import Any
 
-
 SERVICE_PATTERNS: dict[str, list[tuple[str, str]]] = {
     "auto_detailing": [
         (r"ceramic\s*coating", "Ceramic Coating"),

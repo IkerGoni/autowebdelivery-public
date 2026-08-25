@@ -1,6 +1,8 @@
 import json
 from unittest.mock import patch
+
 from packages.pipeline.vnext_integration import run_vnext_post_phase_03_competitor_intel
+
 
 def test_run_vnext_post_phase_03_competitor_intel_no_flag():
     result = run_vnext_post_phase_03_competitor_intel(

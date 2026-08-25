@@ -1,16 +1,16 @@
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json, write_json
 from packages.phases.phase_09_manual_approval_pack import (
-    run_phase_09,
-    build_review_record,
-    generate_review_table_csv,
-    generate_review_pack_md,
-    generate_screenshots_index,
-    generate_approval_decisions,
     SEND_APPROVAL_CHECKLIST_FIELDS,
+    build_review_record,
+    generate_approval_decisions,
+    generate_review_pack_md,
+    generate_review_table_csv,
+    generate_screenshots_index,
+    run_phase_09,
 )
+from pipeline.json_io import read_json, write_json
 
 FIXTURE_DIR = Path.cwd() / "tests" / "fixtures" / "phase_09_manual_approval_pack"
 

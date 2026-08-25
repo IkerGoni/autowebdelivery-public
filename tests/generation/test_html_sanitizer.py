@@ -13,7 +13,6 @@ from packages.generation.html_sanitizer import (
     write_sanitizer_report,
 )
 
-
 # ---------------------------------------------------------------------------
 # 1. Clean HTML passes through unchanged
 # ---------------------------------------------------------------------------

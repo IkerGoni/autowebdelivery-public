@@ -8,10 +8,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from pipeline.contracts import RunConfig, QueryPlan
+from pipeline.contracts import QueryPlan, RunConfig
 from pipeline.json_io import read_json, write_json
 from pipeline.result_envelope import ResultEnvelope
-
 
 PHASE_NAME = "phase_01_user_input"
 

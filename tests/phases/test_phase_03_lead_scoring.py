@@ -1,19 +1,20 @@
 """Tests for Phase 03 Lead Scoring per pipeline_data_contract.md."""
 
-import pytest
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json, write_json
+import pytest
+
 from packages.phases.phase_03_lead_scoring import (
-    run,
+    USE_MARKET_PROFILE_CONTRACT_FLAG,
+    calculate_contactability_score,
     calculate_rating_score,
     calculate_review_score,
-    calculate_contactability_score,
     check_chain_franchise,
+    run,
     score_lead,
-    USE_MARKET_PROFILE_CONTRACT_FLAG,
 )
+from pipeline.json_io import read_json, write_json
 
 
 class TestCalculateRatingScore:

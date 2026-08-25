@@ -11,16 +11,16 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from packages.pipeline.json_io import read_json, write_json
-from packages.phases.phase_02_basic_lead_discovery import run as run_phase_02
 from packages.phases.phase_02_1_website_filter import run as run_phase_02_1
+from packages.phases.phase_02_basic_lead_discovery import run as run_phase_02
 from packages.phases.phase_03_lead_scoring import run as run_phase_03
-from packages.phases.phase_04_business_brief import run_phase_04
 from packages.phases.phase_04_5_enrichment import run as run_phase_04_5
+from packages.phases.phase_04_business_brief import run_phase_04
 from packages.phases.phase_05_preview_site_generation import run_phase_05
 from packages.phases.phase_06_quality_gate import run_phase_06
 from packages.phases.phase_07_deployment import run_phase_07
 from packages.phases.phase_09_manual_approval_pack import run_phase_09
+from packages.pipeline.json_io import read_json, write_json
 
 
 def _setup_phase_08_stubs(root: Path, run_id: str, business_slugs: list[str], config: dict):

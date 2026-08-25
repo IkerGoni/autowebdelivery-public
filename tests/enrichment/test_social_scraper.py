@@ -2,24 +2,23 @@
 
 from __future__ import annotations
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 import httpx
 
 from packages.enrichment.social_scraper import (
-    SocialProfile,
-    detect_social_platform,
-    extract_username_from_url,
-    normalize_social_url,
-    RobotsChecker,
     RateLimiter,
+    RobotsChecker,
+    SocialProfile,
     _fetch_facebook_og,
     _fetch_instagram_profile,
-    scrape_social_profile,
+    detect_social_platform,
     extract_social_photos,
+    extract_username_from_url,
     merge_social_data_into_enrichment,
+    normalize_social_url,
+    scrape_social_profile,
 )
-
 
 # ===========================================================================
 # URL detection

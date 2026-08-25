@@ -1,7 +1,7 @@
 """Phase data contracts from pipeline_data_contract.md."""
 
 from datetime import datetime, timezone
-from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -21,7 +21,7 @@ class RunConfig(BaseModel):
     max_preview_sites: int = 5
     minimum_rating: float = 4.3
     minimum_reviews: int = 40
-    style_preset: Optional[str] = "clinical_trust"
+    style_preset: str | None = "clinical_trust"
     deploy_mode: str = "production_deploy_mode"
     price_offer: str
     offer_type: str = "setup_only"

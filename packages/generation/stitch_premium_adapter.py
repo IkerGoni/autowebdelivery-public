@@ -8,17 +8,17 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from packages.generation.html_sanitizer import (
+    sanitize_html,
+    write_sanitized_html,
+    write_sanitizer_report,
+)
 from packages.generation.stitch_adapter import (
-    StitchClient,
     StitchAdapter,
+    StitchClient,
     StitchGenerationRequest,
     StitchGenerationResult,
     _extract_id,
-)
-from packages.generation.html_sanitizer import (
-    sanitize_html,
-    write_sanitizer_report,
-    write_sanitized_html,
 )
 
 logger = logging.getLogger(__name__)

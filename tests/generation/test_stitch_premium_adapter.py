@@ -14,7 +14,6 @@ from packages.generation.stitch_premium_adapter import (
     PremiumStitchAdapter,
 )
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------

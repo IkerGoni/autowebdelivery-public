@@ -6,7 +6,6 @@ import json
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json
 from packages.learning.learning_record import (
     SCHEMA_VERSION,
     _compute_analytics_keys,
@@ -21,7 +20,7 @@ from packages.learning.learning_record import (
     write_learning_record,
 )
 from packages.shared.forbidden_claims import FORBIDDEN_PUBLIC_CLAIMS as _FORBIDDEN_PUBLIC_CLAIMS
-
+from pipeline.json_io import read_json
 
 # ---------------------------------------------------------------------------
 # Fixtures / helpers

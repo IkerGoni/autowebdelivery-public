@@ -4,15 +4,14 @@ from __future__ import annotations
 
 from packages.enrichment.reviews_extractor import (
     ReviewInsights,
+    analyze_sentiment,
     clean_review_text,
-    extract_themes,
     extract_differentiators_from_reviews,
     extract_key_phrases,
-    analyze_sentiment,
     extract_review_insights,
+    extract_themes,
     merge_review_insights_into_enrichment,
 )
-
 
 # ===========================================================================
 # Review text cleaning

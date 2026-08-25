@@ -9,11 +9,11 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from packages.pipeline.json_io import read_json, write_json
-from packages.pipeline.result_envelope import ResultEnvelope
+from packages.phases.phase_05_modular_site_generation import run_modular_phase_05
 from packages.phases.phase_05_preview_site_generation import run_phase_05 as run_template_phase_05
 from packages.phases.phase_05_stitch_site_generation import run_stitch_phase_05
-from packages.phases.phase_05_modular_site_generation import run_modular_phase_05
+from packages.pipeline.json_io import read_json, write_json
+from packages.pipeline.result_envelope import ResultEnvelope
 
 logger = logging.getLogger(__name__)
 

@@ -1,13 +1,13 @@
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json
 from packages.phases.phase_05_5_browser_render_capture import (
     _is_file_url_under_site_dir,
     _sanitize_log_text,
     _sanitize_request_url,
     run_phase_05_5,
 )
+from pipeline.json_io import read_json
 
 
 class FakeBrowserCaptureBackend:

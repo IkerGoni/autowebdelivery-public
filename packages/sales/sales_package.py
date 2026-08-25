@@ -19,10 +19,10 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
+from packages.shared.forbidden_claims import FORBIDDEN_PUBLIC_CLAIMS as _FORBIDDEN_PUBLIC_CLAIMS
 from packages.shared.provenance import (
     _has_value,
 )
-from packages.shared.forbidden_claims import FORBIDDEN_PUBLIC_CLAIMS as _FORBIDDEN_PUBLIC_CLAIMS
 
 try:  # pragma: no cover - import-shim for tests and CLI
     from pipeline.json_io import write_json
@@ -66,7 +66,7 @@ _BUSINESS_SUMMARY_FIELDS: tuple[str, ...] = (
 
 
 def _provenance(
-    field_name: str,  # noqa: ARG001 — reserved for future audit logging
+    field_name: str,
     value: Any,
     *,
     source: str,
@@ -82,7 +82,7 @@ def _deterministic_generated_at(run_id: str, business_slug: str) -> str:
     Uses the same algorithm as business_profile: SHA-256 → day offset → epoch + offset.
     """
     digest = hashlib.sha256(
-        f"sales_pkg|{run_id}|{business_slug}".encode("utf-8")
+        f"sales_pkg|{run_id}|{business_slug}".encode()
     ).hexdigest()
     day_offset = int(digest[:8], 16) % 3650
     epoch = datetime(2026, 1, 1, tzinfo=timezone.utc)
@@ -156,7 +156,7 @@ def _build_offer(config: dict | None) -> dict[str, dict[str, Any]]:
 
 def _build_owner_facing_summary(
     business_profile: dict,
-    evaluation_report: dict | None,  # noqa: ARG001 — reserved for future template logic
+    evaluation_report: dict | None,
 ) -> str:
     """Generate a safe, factual 1-2 sentence summary for the owner.
 

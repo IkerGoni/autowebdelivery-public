@@ -1,16 +1,16 @@
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json, write_json
 from packages.phases.phase_05_preview_site_generation import (
-    FORBIDDEN_PLACEHOLDERS,
     FORBIDDEN_CLAIMS,
-    run_phase_05,
+    FORBIDDEN_PLACEHOLDERS,
+    _render_stylesheet,
+    _scan_hits,
     build_site_record,
     capture_screenshots,
-    _scan_hits,
-    _render_stylesheet,
+    run_phase_05,
 )
+from pipeline.json_io import read_json, write_json
 
 FIXTURE_DIR = Path.cwd() / "tests" / "fixtures" / "phase_05_preview_site_generation"
 

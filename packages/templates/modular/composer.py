@@ -12,7 +12,6 @@ import json
 import re
 from html import escape
 from pathlib import Path
-from typing import Dict, List, Optional
 from urllib.parse import quote
 
 from .models import BusinessData
@@ -27,8 +26,8 @@ class TemplateComposer:
 
     def __init__(
         self,
-        sections_dir: Optional[Path] = None,
-        config_dir: Optional[Path] = None,
+        sections_dir: Path | None = None,
+        config_dir: Path | None = None,
     ):
         self.sections_dir = sections_dir or SECTIONS_DIR
         self.config_dir = config_dir or CONFIG_DIR
@@ -37,7 +36,7 @@ class TemplateComposer:
         """Map variant name to section suffix."""
         return "" if variant == "desktop" else f"_{variant}"
 
-    def _load_section(self, family: str, section_name: str) -> Optional[str]:
+    def _load_section(self, family: str, section_name: str) -> str | None:
         """Load a section HTML template from disk.
 
         Supports two naming conventions:
@@ -64,14 +63,14 @@ class TemplateComposer:
 
         return None
 
-    def _load_config(self, family: str) -> Dict:
+    def _load_config(self, family: str) -> dict:
         """Load family config from disk."""
         path = self.config_dir / f"{family}.json"
         if not path.exists():
             return {}
         return json.loads(path.read_text(encoding="utf-8"))
 
-    def _render_mustache(self, template: str, data: Dict) -> str:
+    def _render_mustache(self, template: str, data: dict) -> str:
         """Simple mustache-style template rendering.
 
         Supports:
@@ -143,7 +142,7 @@ class TemplateComposer:
             )
         return "\n".join(cards)
 
-    def _build_data_dict(self, business: BusinessData) -> Dict:
+    def _build_data_dict(self, business: BusinessData) -> dict:
         """Convert BusinessData to flat dict suitable for template rendering."""
         d = business.to_dict()
 
@@ -188,7 +187,7 @@ class TemplateComposer:
 
         return d
 
-    def _render_meta_description(self, meta_description: Optional[str]) -> str:
+    def _render_meta_description(self, meta_description: str | None) -> str:
         """Render optional meta description tag."""
         if not meta_description:
             return ""
@@ -238,7 +237,7 @@ class TemplateComposer:
     def _build_document_shell(
         self,
         family: str,
-        config: Dict,
+        config: dict,
         business: BusinessData,
         body_content: str,
     ) -> str:
@@ -294,7 +293,7 @@ class TemplateComposer:
         family: str,
         business: BusinessData,
         variant: str = "desktop",
-        mixins: Optional[Dict[str, str]] = None,
+        mixins: dict[str, str] | None = None,
     ) -> str:
         """Compose a complete HTML page.
 
@@ -344,7 +343,7 @@ class TemplateComposer:
         self,
         family: str,
         business: BusinessData,
-        mixins: Optional[Dict[str, str]] = None,
+        mixins: dict[str, str] | None = None,
     ) -> str:
         """Compose desktop variant."""
         return self.compose(family, business, "desktop", mixins)
@@ -353,7 +352,7 @@ class TemplateComposer:
         self,
         family: str,
         business: BusinessData,
-        mixins: Optional[Dict[str, str]] = None,
+        mixins: dict[str, str] | None = None,
     ) -> str:
         """Compose mobile variant."""
         return self.compose(family, business, "mobile", mixins)
@@ -362,8 +361,8 @@ class TemplateComposer:
         self,
         family: str,
         business: BusinessData,
-        mixins: Optional[Dict[str, str]] = None,
-    ) -> Dict[str, str]:
+        mixins: dict[str, str] | None = None,
+    ) -> dict[str, str]:
         """Compose both desktop and mobile variants.
 
         Returns dict with "desktop" and "mobile" keys.
@@ -373,7 +372,7 @@ class TemplateComposer:
             "mobile": self.compose_mobile(family, business, mixins),
         }
 
-    def list_available_families(self) -> List[str]:
+    def list_available_families(self) -> list[str]:
         """List available template families."""
         if not self.sections_dir.exists():
             return []
@@ -392,7 +391,7 @@ class TemplateComposer:
 
         return sorted(families)
 
-    def list_available_sections(self, family: str) -> List[str]:
+    def list_available_sections(self, family: str) -> list[str]:
         """List available sections for a family."""
         family_dir = self.sections_dir / family
         if not family_dir.exists():
@@ -414,8 +413,8 @@ def compose_page(
     family: str,
     data_path: str,
     output_dir: str,
-    mixins: Optional[Dict[str, str]] = None,
-) -> List[str]:
+    mixins: dict[str, str] | None = None,
+) -> list[str]:
     """High-level compose function: read data JSON, generate pages.
 
     Returns list of created file paths.

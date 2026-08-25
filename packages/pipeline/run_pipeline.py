@@ -12,25 +12,24 @@ from typing import Any
 
 # Import all phases
 from packages.phases.phase_01_user_input import run as run_phase_01
-from packages.phases.phase_02_basic_lead_discovery import run as run_phase_02
 from packages.phases.phase_02_1_website_filter import run as run_phase_02_1
+from packages.phases.phase_02_basic_lead_discovery import run as run_phase_02
 from packages.phases.phase_03_lead_scoring import run as run_phase_03
-from packages.phases.phase_04_business_brief import run_phase_04
 from packages.phases.phase_04_5_enrichment import run as run_phase_04_5
+from packages.phases.phase_04_business_brief import run_phase_04
 from packages.phases.phase_05_unified import run_phase_05_unified
 from packages.phases.phase_06_strict_quality_gate import run_strict_phase_06
 from packages.phases.phase_07_deployment import run_phase_07
 from packages.phases.phase_08_outreach_generation import run_phase_08
 from packages.phases.phase_09_manual_approval_pack import run_phase_09
-
 from packages.pipeline.vnext_integration import (
     get_vnext_flags,
     run_vnext_post_phase_03,
     run_vnext_post_phase_03_overpass_enrichment,
     run_vnext_post_phase_04_5,
     run_vnext_post_phase_04_5_gmaps_enrichment,
-    run_vnext_post_phase_04_5_social_enrichment,
     run_vnext_post_phase_04_5_image_fallback,
+    run_vnext_post_phase_04_5_social_enrichment,
     run_vnext_post_phase_06,
     run_vnext_post_phase_08,
     run_vnext_post_phase_09,

@@ -12,16 +12,19 @@ from unittest.mock import patch
 
 import pytest
 
-from pipeline.json_io import read_json, write_json
-from packages.phases.phase_02_basic_lead_discovery import (
-    run as run_phase_02,
-    _resolve_discovery_input,
-)
 from packages.discovery.overpass_fetcher import (
     RawPlace as OverpassRawPlace,
+)
+from packages.discovery.overpass_fetcher import (
     overpass_to_raw_place_dicts,
 )
-
+from packages.phases.phase_02_basic_lead_discovery import (
+    _resolve_discovery_input,
+)
+from packages.phases.phase_02_basic_lead_discovery import (
+    run as run_phase_02,
+)
+from pipeline.json_io import read_json, write_json
 
 # ---------------------------------------------------------------------------
 # Fixtures

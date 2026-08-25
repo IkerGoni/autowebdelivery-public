@@ -1,8 +1,9 @@
 from pathlib import Path
 
-from packages.pipeline.result_envelope import Status
 from packages.phases.phase_04_7_brand import run_phase_04_7
-from packages.pipeline.json_io import write_json, read_json
+from packages.pipeline.json_io import read_json, write_json
+from packages.pipeline.result_envelope import Status
+
 
 def test_phase_04_7_skipped_when_flag_off(tmp_path: Path):
     run_id = "run_test_04_7_off"

@@ -1,19 +1,19 @@
 """Tests for Phase 04.5 enrichment extractors."""
 
 
-from packages.enrichment.services_extractor import (
-    extract_services_from_html,
-    extract_services_from_text,
-    merge_services_with_existing,
+from packages.enrichment.hours_extractor import (
+    format_hours_display,
+    merge_hours,
+    parse_hours_text,
 )
 from packages.enrichment.pricing_extractor import (
     extract_pricing_from_html,
     format_pricing_hint,
 )
-from packages.enrichment.hours_extractor import (
-    parse_hours_text,
-    format_hours_display,
-    merge_hours,
+from packages.enrichment.services_extractor import (
+    extract_services_from_html,
+    extract_services_from_text,
+    merge_services_with_existing,
 )
 
 

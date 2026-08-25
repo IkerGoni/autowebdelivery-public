@@ -20,7 +20,6 @@ from packages.generation.stitch_prompt_builder import (
     build_prompt_from_creative_spec,
 )
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------

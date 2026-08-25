@@ -3,10 +3,10 @@
 import tempfile
 from pathlib import Path
 
+from pipeline.artifact_paths import artifact_path, cache_path, input_path, output_path
 from pipeline.contracts import RunMeta, utc_now
-from pipeline.result_envelope import ResultEnvelope, Status
-from pipeline.artifact_paths import artifact_path, input_path, output_path, cache_path
 from pipeline.json_io import read_json, write_json, write_result
+from pipeline.result_envelope import ResultEnvelope, Status
 from pipeline.slug import make_slug, make_uuid_slug
 
 

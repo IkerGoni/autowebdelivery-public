@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 from packages.patching.css_patch_engine import (
-    apply_css_patches,
     _fix_overflow,
     _fix_spacing,
+    apply_css_patches,
 )
-
 
 # ---------------------------------------------------------------------------
 # HTML Fixtures

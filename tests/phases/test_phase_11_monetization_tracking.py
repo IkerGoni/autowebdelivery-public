@@ -1,7 +1,6 @@
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json, write_json
 from packages.phases.phase_11_monetization_tracking import (
     DEFAULT_MVP_STOP_THRESHOLD,
     PROCEED_DECISION,
@@ -10,6 +9,7 @@ from packages.phases.phase_11_monetization_tracking import (
     summarize_monetization,
     write_objections_log,
 )
+from pipeline.json_io import read_json, write_json
 
 
 class TestPhase11MonetizationTracking:

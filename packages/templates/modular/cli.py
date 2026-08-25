@@ -31,9 +31,9 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from templates.modular.parser import parse_all_families  # noqa: E402
-from templates.modular.composer import TemplateComposer  # noqa: E402
-from templates.modular.models import BusinessData, ServiceItem, HoursSchedule  # noqa: E402
+from templates.modular.composer import TemplateComposer
+from templates.modular.models import BusinessData, HoursSchedule, ServiceItem
+from templates.modular.parser import parse_all_families
 
 
 def cmd_parse(args):

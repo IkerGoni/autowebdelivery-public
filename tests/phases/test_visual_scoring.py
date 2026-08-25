@@ -2,9 +2,10 @@ import json
 from pathlib import Path
 
 from packages.phases.phase_06_strict_quality_gate import (
-    run_strict_quality_check,
     _compute_visual_quality_score,
+    run_strict_quality_check,
 )
+
 
 def _write_json(path: Path, data: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)

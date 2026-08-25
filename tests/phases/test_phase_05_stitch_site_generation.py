@@ -6,14 +6,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from packages.pipeline.json_io import read_json, write_json
 from packages.phases.phase_05_stitch_site_generation import (
     PHASE_NAME,
     PHASE_SLUG,
     build_stitch_site_record,
     run_stitch_phase_05,
 )
-
+from packages.pipeline.json_io import read_json, write_json
 
 # ---------------------------------------------------------------------------
 # Fixtures & Fakes

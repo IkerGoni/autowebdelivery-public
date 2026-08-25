@@ -1,6 +1,8 @@
 from unittest.mock import patch
-from packages.phases.phase_04_8_creative_spec import run_phase_04_8
+
 from packages.creative.creative_spec_models import SCHEMA_VERSION
+from packages.phases.phase_04_8_creative_spec import run_phase_04_8
+
 
 def test_phase_04_8_creative_spec_success(tmp_path):
     run_id = "test_run"

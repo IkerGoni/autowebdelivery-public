@@ -1,16 +1,16 @@
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import write_json
 from packages.phases.phase_06_quality_gate import (
-    FORBIDDEN_PLACEHOLDERS,
     FORBIDDEN_CLAIMS,
-    run_phase_06,
-    run_quality_check,
-    _scan_hits,
+    FORBIDDEN_PLACEHOLDERS,
     _check_build_status,
     _check_business_name_match,
+    _scan_hits,
+    run_phase_06,
+    run_quality_check,
 )
+from pipeline.json_io import write_json
 from pipeline.template_slots import find_unresolved_slots
 
 FIXTURE_DIR = Path.cwd() / "tests" / "fixtures" / "phase_06_quality_gate"

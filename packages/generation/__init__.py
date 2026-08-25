@@ -10,8 +10,8 @@ from packages.generation.html_sanitizer import (
 )
 from packages.generation.stitch_adapter import (
     CommandResult,
-    McpStitchClient,
     McporterStitchClient,
+    McpStitchClient,
     StitchAdapter,
     StitchGenerationRequest,
     StitchGenerationResult,

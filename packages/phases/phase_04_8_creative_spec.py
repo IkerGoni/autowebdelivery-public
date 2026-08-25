@@ -33,8 +33,8 @@ from packages.creative.creative_spec_builder import (
     build_creative_spec,
     write_creative_spec,
 )
-from packages.creative.creative_spec_validator import validate_creative_spec
 from packages.creative.creative_spec_models import FEATURE_FLAG
+from packages.creative.creative_spec_validator import validate_creative_spec
 from packages.shared.provenance import _safe_str
 
 PHASE_SLUG = "04_8_creative_spec"

@@ -32,12 +32,12 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from packages.shared.forbidden_claims import FORBIDDEN_PUBLIC_CLAIMS as _FORBIDDEN_PUBLIC_CLAIMS
 from packages.shared.provenance import (
     _deterministic_generated_at,
     _has_value,
     _safe_str,
 )
-from packages.shared.forbidden_claims import FORBIDDEN_PUBLIC_CLAIMS as _FORBIDDEN_PUBLIC_CLAIMS
 
 try:  # pragma: no cover - import-shim for tests and CLI
     from pipeline.json_io import write_json

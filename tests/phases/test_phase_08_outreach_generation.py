@@ -1,12 +1,12 @@
 import tempfile
 from pathlib import Path
 
-from pipeline.json_io import read_json, write_json
 from packages.phases.phase_08_outreach_generation import (
     BLOCKED_REASON,
     build_outreach_draft,
     run_phase_08,
 )
+from pipeline.json_io import read_json, write_json
 
 
 class TestPhase08OutreachGeneration:

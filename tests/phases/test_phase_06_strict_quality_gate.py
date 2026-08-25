@@ -9,10 +9,9 @@ from typing import Any
 from packages.phases.phase_06_strict_quality_gate import (
     MAX_BROKEN_IMAGES,
     MIN_SECTION_COUNT,
-    run_strict_quality_check,
     run_strict_phase_06,
+    run_strict_quality_check,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

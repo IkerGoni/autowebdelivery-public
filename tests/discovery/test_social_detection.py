@@ -1,9 +1,9 @@
 """Tests for social-only presence detection."""
 
 from packages.discovery.social_detection import (
-    is_social_only_website,
     classify_website_presence,
     extract_domain,
+    is_social_only_website,
 )
 
 
