@@ -225,8 +225,8 @@ def run_phase_09(run_id: str, workspace: str, *, skip_missing_stubs: bool = Fals
             missing_fields=missing_fields,
             inputs_used=[],
             errors=[
-                "Phase 05, 06, 03, and 04 outputs required before Phase 09. "
-                "Phase 07/08 can be stubbed with skip_missing_stubs=True."
+                ("Phase 05, 06, 03, and 04 outputs required before Phase 09. "
+                "Phase 07/08 can be stubbed with skip_missing_stubs=True.")
             ],
         ).to_dict()
 

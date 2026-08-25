@@ -63,9 +63,7 @@ def _has_value(value: Any) -> bool:
         return False
     if isinstance(value, str) and not value.strip():
         return False
-    if isinstance(value, (list, dict, tuple)) and len(value) == 0:
-        return False
-    return True
+    return not (isinstance(value, (list, dict, tuple)) and len(value) == 0)
 
 
 def _envelope(value: Any, *, source: str, confidence: str) -> dict[str, Any]:

@@ -62,7 +62,7 @@ class TestPhase06QualityGate:
         assert "failed" in reason
 
     def test_check_business_name_match_pass(self):
-        ok, reason = _check_business_name_match("<html>Mama Rose Restaurant</html>", "Mama Rose Restaurant")
+        ok, _reason = _check_business_name_match("<html>Mama Rose Restaurant</html>", "Mama Rose Restaurant")
         assert ok
 
     def test_check_business_name_match_fail(self):

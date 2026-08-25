@@ -21,21 +21,21 @@ class TestClassifyWebsite:
         assert "empty_website_field" in reasons
 
     def test_null_website(self):
-        status, domain_type, reasons = classify_website(None)
+        status, _domain_type, _reasons = classify_website(None)
         assert status == "no_website"
 
     def test_business_domain(self):
-        status, domain_type, reasons = classify_website("https://example.com")
+        status, domain_type, _reasons = classify_website("https://example.com")
         assert status == "has_website"
         assert domain_type == "business_domain"
 
     def test_facebook_url(self):
-        status, domain_type, reasons = classify_website("https://facebook.com/business")
+        status, domain_type, _reasons = classify_website("https://facebook.com/business")
         assert status == "social_only"
         assert domain_type == "social"
 
     def test_instagram_url(self):
-        status, domain_type, reasons = classify_website("https://instagram.com/business")
+        status, _domain_type, _reasons = classify_website("https://instagram.com/business")
         assert status == "social_only"
 
     def test_maps_url(self):
@@ -45,22 +45,22 @@ class TestClassifyWebsite:
         assert "maps_url_no_website" in reasons
 
     def test_shortlink(self):
-        status, domain_type, reasons = classify_website("https://bit.ly/abc123")
+        status, _domain_type, reasons = classify_website("https://bit.ly/abc123")
         assert status == "uncertain"
         assert "shortlink_url" in reasons
 
     def test_bio_link(self):
-        status, domain_type, reasons = classify_website("https://linktr.ee/business")
+        status, _domain_type, reasons = classify_website("https://linktr.ee/business")
         assert status == "uncertain"
         assert "bio_link_url" in reasons
 
     def test_url_without_scheme(self):
-        status, domain_type, reasons = classify_website("example.com")
+        status, domain_type, _reasons = classify_website("example.com")
         assert status == "has_website"
         assert domain_type == "business_domain"
 
     def test_line_url(self):
-        status, domain_type, reasons = classify_website("https://line.me/R/ti/p/@business")
+        status, _domain_type, _reasons = classify_website("https://line.me/R/ti/p/@business")
         assert status == "social_only"
 
 

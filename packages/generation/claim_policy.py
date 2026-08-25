@@ -57,9 +57,8 @@ def validate_claim_allowed(text: str, source_verified: bool = False, verified_fi
 
     # Check verified claims - only allow if in verified fields
     for claim, field in CLAIM_ALLOWANCE_MAP.items():
-        if claim in lower:
-            if field not in verified_fields and source_verified is False:
-                return False
+        if claim in lower and field not in verified_fields and source_verified is False:
+            return False
 
     return True
 

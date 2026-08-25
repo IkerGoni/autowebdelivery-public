@@ -472,7 +472,7 @@ class TestBusinessSummary:
 
     def test_provenance_envelopes(self):
         summary = _build_business_summary(_COMPLETE_BUSINESS_PROFILE)
-        for field, envelope in summary.items():
+        for envelope in summary.values():
             assert "value" in envelope
             assert "source" in envelope
             assert "confidence" in envelope

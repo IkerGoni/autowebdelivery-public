@@ -191,9 +191,8 @@ def _extract_bi_from_spec(creative_spec: dict[str, Any]) -> dict[str, Any]:
                 "use_enriched_services_in_prompt",
                 "use_visual_business_context",
                 "use_enriched_business_summary",
-            ):
-                if pos_str not in hints:
-                    hints.append(pos_str)
+            ) and pos_str not in hints:
+                hints.append(pos_str)
 
     return {"prompt_hints": hints}
 

@@ -75,7 +75,7 @@ class TestDesignSystemPresets:
         assert set(DESIGN_SYSTEM_PRESETS.keys()) == expected
 
     def test_presets_have_required_fields(self):
-        for name, config in DESIGN_SYSTEM_PRESETS.items():
+        for config in DESIGN_SYSTEM_PRESETS.values():
             assert isinstance(config, DesignSystemConfig)
             assert config.display_name
             assert config.color_mode in ("LIGHT", "DARK")

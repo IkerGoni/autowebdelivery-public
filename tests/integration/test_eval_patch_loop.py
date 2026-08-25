@@ -121,7 +121,7 @@ def test_eval_patch_loop_score_delta_logged(tmp_path: Path):
         config={"vnext_flags": {"use_patch_phase": True}},
     )
 
-    meta_path = Path([p for p in written if "patch_eval_meta" in p][0])
+    meta_path = Path(next(p for p in written if "patch_eval_meta" in p))
     meta = json.loads(meta_path.read_text())
 
     # Delta should be calculated (may be positive, negative, or zero)

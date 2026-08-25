@@ -257,12 +257,10 @@ def _check_screenshots(site_dir: Path) -> tuple[bool, list[str]]:
     # Standard naming: screenshot_desktop.png, screenshot_mobile.png
     # Modular sites produce: screenshot.png (fallback for both)
     has_fallback = (site_dir / "screenshot.png").exists()
-    if not (site_dir / "screenshot_desktop.png").exists():
-        if not has_fallback:
-            missing.append("screenshot_desktop.png")
-    if not (site_dir / "screenshot_mobile.png").exists():
-        if not has_fallback:
-            missing.append("screenshot_mobile.png")
+    if not (site_dir / "screenshot_desktop.png").exists() and not has_fallback:
+        missing.append("screenshot_desktop.png")
+    if not (site_dir / "screenshot_mobile.png").exists() and not has_fallback:
+        missing.append("screenshot_mobile.png")
     return len(missing) == 0, missing
 
 

@@ -226,77 +226,77 @@ class TestDimensionScorers:
         assert score >= 50  # Good site should score well
 
     def test_hierarchy_bad(self):
-        score, notes = _score_hierarchy(_BAD_SITE_HTML)
+        score, _notes = _score_hierarchy(_BAD_SITE_HTML)
         assert 0 <= score <= 100
         assert score < 50
 
     def test_branding_good(self):
-        score, notes = _score_branding(_GOOD_SITE_HTML)
+        score, _notes = _score_branding(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_branding_bad(self):
-        score, notes = _score_branding(_BAD_SITE_HTML)
+        score, _notes = _score_branding(_BAD_SITE_HTML)
         assert 0 <= score <= 100
 
     def test_typography_good(self):
-        score, notes = _score_typography(_GOOD_SITE_HTML)
+        score, _notes = _score_typography(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_spacing_good(self):
-        score, notes = _score_spacing(_GOOD_SITE_HTML)
+        score, _notes = _score_spacing(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_imagery_good(self):
-        score, notes = _score_imagery(_GOOD_SITE_HTML)
+        score, _notes = _score_imagery(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_imagery_bad(self):
-        score, notes = _score_imagery(_BAD_SITE_HTML)
+        score, _notes = _score_imagery(_BAD_SITE_HTML)
         assert 0 <= score <= 100
 
     def test_trust_good(self):
-        score, notes = _score_trust(_GOOD_SITE_HTML)
+        score, _notes = _score_trust(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_trust_bad(self):
-        score, notes = _score_trust(_BAD_SITE_HTML)
+        score, _notes = _score_trust(_BAD_SITE_HTML)
         assert 0 <= score <= 100
 
     def test_conversion_good(self):
-        score, notes = _score_conversion(_GOOD_SITE_HTML)
+        score, _notes = _score_conversion(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_conversion_bad(self):
-        score, notes = _score_conversion(_BAD_SITE_HTML)
+        score, _notes = _score_conversion(_BAD_SITE_HTML)
         assert 0 <= score <= 100
 
     def test_accessibility_good(self):
-        score, notes = _score_accessibility(_GOOD_SITE_HTML)
+        score, _notes = _score_accessibility(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_accessibility_bad(self):
-        score, notes = _score_accessibility(_BAD_SITE_HTML)
+        score, _notes = _score_accessibility(_BAD_SITE_HTML)
         assert 0 <= score <= 100
         assert score < 60
 
     def test_originality_good(self):
-        score, notes = _score_originality(_GOOD_SITE_HTML)
+        score, _notes = _score_originality(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
 
     def test_mobile_good(self):
-        score, notes = _score_mobile_experience(_GOOD_SITE_HTML)
+        score, _notes = _score_mobile_experience(_GOOD_SITE_HTML)
         assert 0 <= score <= 100
         assert score >= 50
 
     def test_mobile_bad(self):
-        score, notes = _score_mobile_experience(_BAD_SITE_HTML)
+        score, _notes = _score_mobile_experience(_BAD_SITE_HTML)
         assert 0 <= score <= 100
         assert score < 50
 
@@ -306,16 +306,16 @@ class TestDimensionScorers:
         assert "No forbidden claims" in notes
 
     def test_factual_safety_with_claims(self):
-        score, notes = _score_factual_safety(_BAD_SITE_HTML, ["guaranteed", "#1 rated"])
+        score, _notes = _score_factual_safety(_BAD_SITE_HTML, ["guaranteed", "#1 rated"])
         assert score < 100
 
     def test_local_relevance_good(self):
-        score, notes = _score_local_relevance(_GOOD_SITE_HTML, "acme-auto-detailing")
+        score, _notes = _score_local_relevance(_GOOD_SITE_HTML, "acme-auto-detailing")
         assert 0 <= score <= 100
         assert score >= 40
 
     def test_local_relevance_bad(self):
-        score, notes = _score_local_relevance(_BAD_SITE_HTML, "unknown-biz")
+        score, _notes = _score_local_relevance(_BAD_SITE_HTML, "unknown-biz")
         assert 0 <= score <= 100
 
 

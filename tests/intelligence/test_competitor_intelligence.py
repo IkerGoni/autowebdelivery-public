@@ -214,12 +214,12 @@ class TestDisclaimerPresent:
 # ---------------------------------------------------------------------------
 class TestDeterministicOutput:
     def test_same_inputs_produce_same_output(self):
-        kwargs = dict(
-            category="Auto Detailing Service",
-            area="Dallas, TX",
-            run_id="run_det_001",
-            business_slug="det-test",
-        )
+        kwargs = {
+            "category": "Auto Detailing Service",
+            "area": "Dallas, TX",
+            "run_id": "run_det_001",
+            "business_slug": "det-test",
+        }
         a = build_competitor_profile(**kwargs)
         b = build_competitor_profile(**kwargs)
         assert a == b

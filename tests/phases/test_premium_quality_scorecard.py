@@ -129,7 +129,7 @@ class TestRejectFromSanitizerHardBlock:
 
         result = score_site(site, brief)
         assert result.overall_verdict == "REJECT"
-        factual = [d for d in result.dimensions if d.name == "factual_safety"][0]
+        factual = next(d for d in result.dimensions if d.name == "factual_safety")
         assert factual.score == 0.0
         assert factual.verdict == "reject"
 
@@ -145,7 +145,7 @@ class TestRejectFromHorizontalOverflow:
 
         result = score_site(site, brief)
         assert result.overall_verdict == "REJECT"
-        mobile = [d for d in result.dimensions if d.name == "mobile_quality"][0]
+        mobile = next(d for d in result.dimensions if d.name == "mobile_quality")
         assert mobile.score == 0.0
         assert mobile.verdict == "reject"
 
@@ -161,7 +161,7 @@ class TestRejectFromZeroCTAs:
 
         result = score_site(site, brief)
         assert result.overall_verdict == "REJECT"
-        cta = [d for d in result.dimensions if d.name == "cta_clarity"][0]
+        cta = next(d for d in result.dimensions if d.name == "cta_clarity")
         assert cta.score == 0.0
         assert cta.verdict == "reject"
 
@@ -203,7 +203,7 @@ class TestFactualSafety:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "factual_safety"][0]
+        dim = next(d for d in result.dimensions if d.name == "factual_safety")
         assert dim.score == 1.0
         assert dim.verdict == "pass"
 
@@ -215,7 +215,7 @@ class TestFactualSafety:
         _write_json(site / "sanitizer_report.json", {"hard_block": True, "findings": ["x"]})
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "factual_safety"][0]
+        dim = next(d for d in result.dimensions if d.name == "factual_safety")
         assert dim.score == 0.0
         assert dim.verdict == "reject"
 
@@ -230,7 +230,7 @@ class TestFactualSafety:
         })
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "factual_safety"][0]
+        dim = next(d for d in result.dimensions if d.name == "factual_safety")
         assert dim.score == 0.7  # 1.0 - 3 * 0.1
 
     def test_no_sanitizer_report_defaults_safe(self, tmp_path: Path) -> None:
@@ -240,7 +240,7 @@ class TestFactualSafety:
         brief.mkdir(parents=True, exist_ok=True)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "factual_safety"][0]
+        dim = next(d for d in result.dimensions if d.name == "factual_safety")
         assert dim.score == 1.0
 
 
@@ -251,7 +251,7 @@ class TestVisualCompleteness:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "visual_completeness"][0]
+        dim = next(d for d in result.dimensions if d.name == "visual_completeness")
         assert dim.score >= 0.8
         assert dim.verdict == "pass"
 
@@ -267,7 +267,7 @@ class TestVisualCompleteness:
         })
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "visual_completeness"][0]
+        dim = next(d for d in result.dimensions if d.name == "visual_completeness")
         assert dim.score < 0.4
         assert dim.verdict == "reject"
 
@@ -278,7 +278,7 @@ class TestVisualCompleteness:
         brief.mkdir(parents=True, exist_ok=True)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "visual_completeness"][0]
+        dim = next(d for d in result.dimensions if d.name == "visual_completeness")
         assert dim.score == 0.0
         assert dim.verdict == "reject"
 
@@ -290,7 +290,7 @@ class TestMobileQuality:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "mobile_quality"][0]
+        dim = next(d for d in result.dimensions if d.name == "mobile_quality")
         assert dim.score == 1.0
         assert dim.verdict == "pass"
 
@@ -302,7 +302,7 @@ class TestMobileQuality:
         _write_json(site / "dom_metrics.json", {"horizontal_overflow": True})
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "mobile_quality"][0]
+        dim = next(d for d in result.dimensions if d.name == "mobile_quality")
         assert dim.score == 0.0
         assert dim.verdict == "reject"
 
@@ -315,7 +315,7 @@ class TestMobileQuality:
         })
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "mobile_quality"][0]
+        dim = next(d for d in result.dimensions if d.name == "mobile_quality")
         assert dim.score == 0.0
         assert dim.verdict == "reject"
 
@@ -327,7 +327,7 @@ class TestCtaClarity:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "cta_clarity"][0]
+        dim = next(d for d in result.dimensions if d.name == "cta_clarity")
         assert dim.score == 1.0
 
     def test_one_cta_scores_07(self, tmp_path: Path) -> None:
@@ -340,7 +340,7 @@ class TestCtaClarity:
         (site / "site" / "index.html").write_text("<html><body><p>hello</p></body></html>")
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "cta_clarity"][0]
+        dim = next(d for d in result.dimensions if d.name == "cta_clarity")
         assert dim.score == 0.7
 
     def test_zero_ctas_reject(self, tmp_path: Path) -> None:
@@ -351,7 +351,7 @@ class TestCtaClarity:
         _write_json(site / "dom_metrics.json", {"cta_count": 0})
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "cta_clarity"][0]
+        dim = next(d for d in result.dimensions if d.name == "cta_clarity")
         assert dim.score == 0.0
         assert dim.verdict == "reject"
 
@@ -367,7 +367,7 @@ class TestCtaClarity:
         )
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "cta_clarity"][0]
+        dim = next(d for d in result.dimensions if d.name == "cta_clarity")
         assert any("above-fold" in f for f in dim.findings)
 
 
@@ -378,7 +378,7 @@ class TestLocalRelevance:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "local_relevance"][0]
+        dim = next(d for d in result.dimensions if d.name == "local_relevance")
         assert dim.score >= 0.75
 
     def test_no_signals_low_score(self, tmp_path: Path) -> None:
@@ -392,7 +392,7 @@ class TestLocalRelevance:
         (site / "site" / "index.html").write_text("<html><body><p>Generic</p></body></html>")
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "local_relevance"][0]
+        dim = next(d for d in result.dimensions if d.name == "local_relevance")
         assert dim.score <= 0.5
 
 
@@ -403,7 +403,7 @@ class TestCopySpecificity:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "copy_specificity"][0]
+        dim = next(d for d in result.dimensions if d.name == "copy_specificity")
         assert dim.score >= 0.8
 
     def test_low_word_count_penalty(self, tmp_path: Path) -> None:
@@ -420,7 +420,7 @@ class TestCopySpecificity:
         (site / "site" / "index.html").write_text("<html><body><p>Hi</p></body></html>")
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "copy_specificity"][0]
+        dim = next(d for d in result.dimensions if d.name == "copy_specificity")
         assert dim.score < 0.3
 
     def test_placeholder_text_penalty(self, tmp_path: Path) -> None:
@@ -439,7 +439,7 @@ class TestCopySpecificity:
         )
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "copy_specificity"][0]
+        dim = next(d for d in result.dimensions if d.name == "copy_specificity")
         assert dim.score < 1.0
 
 
@@ -450,7 +450,7 @@ class TestTemplateSmellPenalty:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "template_smell_penalty"][0]
+        dim = next(d for d in result.dimensions if d.name == "template_smell_penalty")
         assert dim.score >= 0.8
 
     def test_high_duplicates_penalty(self, tmp_path: Path) -> None:
@@ -464,7 +464,7 @@ class TestTemplateSmellPenalty:
         })
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "template_smell_penalty"][0]
+        dim = next(d for d in result.dimensions if d.name == "template_smell_penalty")
         assert dim.score <= 0.7
 
     def test_many_generic_blocks_penalty(self, tmp_path: Path) -> None:
@@ -481,7 +481,7 @@ class TestTemplateSmellPenalty:
         })
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "template_smell_penalty"][0]
+        dim = next(d for d in result.dimensions if d.name == "template_smell_penalty")
         assert dim.score <= 0.6
 
     def test_very_low_word_count_penalty(self, tmp_path: Path) -> None:
@@ -495,7 +495,7 @@ class TestTemplateSmellPenalty:
         })
 
         result = score_site(site, brief)
-        dim = [d for d in result.dimensions if d.name == "template_smell_penalty"][0]
+        dim = next(d for d in result.dimensions if d.name == "template_smell_penalty")
         assert dim.score <= 0.7
 
 
@@ -550,19 +550,19 @@ class TestMissingArtifactsGraceful:
         assert result.overall_verdict == "REJECT"
 
         # factual_safety: no sanitizer report = 1.0 (assumes safe)
-        factual = [d for d in result.dimensions if d.name == "factual_safety"][0]
+        factual = next(d for d in result.dimensions if d.name == "factual_safety")
         assert factual.score == 1.0
 
         # visual_completeness: no dom_metrics = 0.0
-        visual = [d for d in result.dimensions if d.name == "visual_completeness"][0]
+        visual = next(d for d in result.dimensions if d.name == "visual_completeness")
         assert visual.score == 0.0
 
         # mobile_quality: no dom_metrics = 0.0
-        mobile = [d for d in result.dimensions if d.name == "mobile_quality"][0]
+        mobile = next(d for d in result.dimensions if d.name == "mobile_quality")
         assert mobile.score == 0.0
 
         # cta_clarity: no dom_metrics = 0.0
-        cta = [d for d in result.dimensions if d.name == "cta_clarity"][0]
+        cta = next(d for d in result.dimensions if d.name == "cta_clarity")
         assert cta.score == 0.0
 
     def test_missing_some_artifacts_degrades_gracefully(self, tmp_path: Path) -> None:
@@ -589,7 +589,7 @@ class TestMissingArtifactsGraceful:
 
         result = score_site(site, brief)
         # Should not crash; visual_completeness will be slightly lower (no screenshots)
-        visual = [d for d in result.dimensions if d.name == "visual_completeness"][0]
+        visual = next(d for d in result.dimensions if d.name == "visual_completeness")
         assert visual.score >= 0.5  # sections+headings+images still score well
 
 

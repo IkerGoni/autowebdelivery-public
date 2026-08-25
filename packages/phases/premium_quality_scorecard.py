@@ -206,9 +206,8 @@ def _score_mobile_quality(site_dir: Path, _html: str) -> QualityDimension:
 
     # Check render_capture for mobile screenshot
     render = _read_json_safe(site_dir / "render_capture.json")
-    if render is not None:
-        if render.get("capture_status") == "done":
-            findings.append("render_capture mobile confirmed")
+    if render is not None and render.get("capture_status") == "done":
+        findings.append("render_capture mobile confirmed")
 
     return QualityDimension("mobile_quality", score, weight, "pass", findings)
 

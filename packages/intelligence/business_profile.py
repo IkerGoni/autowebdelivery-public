@@ -205,13 +205,12 @@ def _resolve_enriched_fact(
                 return su
 
     # Overpass enrichment provides hours via OSM tags
-    if overpass_enrichment:
-        if field == "hours":
-            osm_tags = overpass_enrichment.get("osm_tags", {})
-            if isinstance(osm_tags, dict):
-                hrs = osm_tags.get("hours")
-                if hrs:
-                    return hrs
+    if overpass_enrichment and field == "hours":
+        osm_tags = overpass_enrichment.get("osm_tags", {})
+        if isinstance(osm_tags, dict):
+            hrs = osm_tags.get("hours")
+            if hrs:
+                return hrs
 
     return None
 

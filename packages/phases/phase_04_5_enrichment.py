@@ -278,7 +278,7 @@ def _record_id(run_id: str, business_slug: str) -> str:
 
 def _build_visual_profile(run_id: str, business_slug: str, config: dict[str, Any], facts: dict[str, Any]) -> dict[str, Any]:
     now = _utc_now_iso()
-    preset_id, preset_confidence, preset_reason = _select_preset(config)
+    preset_id, preset_confidence, _preset_reason = _select_preset(config)
     trust_chips = _trust_chip_candidates(facts)
     local_visual_cues = _local_visual_cues(facts)
     hero_mode = _hero_mode(facts)

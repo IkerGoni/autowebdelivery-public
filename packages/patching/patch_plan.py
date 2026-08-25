@@ -345,9 +345,7 @@ def _should_plan_mobile_overflow(
     mobile = dimensions.get("mobile_experience", {})
     if mobile.get("score", 100) < 50:
         return True
-    if "mobile_experience" in patchable_failures:
-        return True
-    return False
+    return "mobile_experience" in patchable_failures
 
 
 def _should_plan_spacing(
@@ -359,9 +357,7 @@ def _should_plan_spacing(
     spacing = dimensions.get("spacing", {})
     if spacing.get("score", 100) < 50:
         return True
-    if "spacing" in patchable_failures:
-        return True
-    return False
+    return "spacing" in patchable_failures
 
 
 def _should_plan_cta_link(html: str) -> bool:
