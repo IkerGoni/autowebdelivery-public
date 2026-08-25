@@ -187,4 +187,4 @@ python -m packages.cli.run --dry-run --niche "restaurant" --area "Dallas, TX"
 
 ## License
 
-Private — not for redistribution.
+MIT License — see LICENSE file.
