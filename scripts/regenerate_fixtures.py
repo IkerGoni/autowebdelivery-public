@@ -83,14 +83,17 @@ RAW_REPLACEMENTS = {
     "riverfrontdental.example": "riverfrontdental.example",
     "centraldentalcenter.example": "centraldentalcenter.example",
     "brightsmile-dental.example": "brightsmile-dental.example",
-    "facebook.com/chiangmaidentalpark": "chiangmaidentalpark.example",
-    "facebook.com/northgatedental": "northgatedentalclinic.example",
-    "facebook.com/centraldentalcm": "centraldentalcenter.example",
-    "facebook.com/riverfrontdental": "riverfrontdental.example",
-    "instagram.com/cedargrovedental": "cedargrovedental.example",
-    "instagram.com/socialsmiledental": "socialsmiledental.example",
-    "bit.ly/grin-house-dental": "grinhousedental.example",
-    "maps.google.com/?cid=synthetic0001": "harborviewdental.example",
+    # === SOCIAL PROFILE URLS (class-preserving: platform stays public, handle synthetic) ===
+    "facebook.com/chiangmaidentalpark": "facebook.com/chiangmaidentalpark",
+    "facebook.com/northgatedental": "facebook.com/northgatedental",
+    "facebook.com/centraldentalcm": "facebook.com/centraldentalcm",
+    "facebook.com/riverfrontdental": "facebook.com/riverfrontdental",
+    "instagram.com/cedargrovedental": "instagram.com/cedargrovedental",
+    "instagram.com/socialsmiledental": "instagram.com/socialsmiledental",
+    # === SHORTLINKS (class-preserving) ===
+    "bit.ly/grin-house-dental": "bit.ly/grin-house-dental",
+    # === UNCERTAIN MAPS URLS (class-preserving; DoD#3 only bans ?cid=oldtown) ===
+    "maps.google.com/?cid=synthetic0001": "maps.google.com/?cid=synthetic0001",
     # === EXTRA ADDRESSES (v2.1) ===
     "145 Dockside Avenue, Bangkok 10500, Thailand": "145 Dockside Avenue, Bangkok 10500, Thailand",
     "9 Southgate Lane, Chiang Mai 50200, Thailand": "9 Southgate Lane, Chiang Mai 50200, Thailand",
