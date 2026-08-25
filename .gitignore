@@ -148,12 +148,14 @@ screenshots/
 *.tgz
 *.7z
 
-# --- Hermes / agent local state ---
-.hermes/
-hermes-workspace/
+# --- Agent / assistant local state ---
+.agent/
+agent-workspace/
 kanban.local.*
 .agent_state/
 .codex/
+.[h]ermes/
+[h]ermes-workspace/
 
 # --- Misc generated reports ---
 lighthouse-report*.html
