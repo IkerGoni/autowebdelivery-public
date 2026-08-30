@@ -1,4 +1,50 @@
-"""Generate scripts/filter_repo_callback.py from the merged replacements JSON."""
+"""
+Generate scripts/filter_repo_callback.py from the merged replacements JSON.
+
+PURPOSE
+    This script reads a JSON mapping of real-to-synthetic identifiers from
+    `/tmp/awd_merged_replacements.json` and emits the complete
+    `scripts/filter_repo_callback.py` module used by `git filter-repo` for
+    history rewriting.
+
+    This is a ONE-OFF MAINTENANCE TOOL. It is NOT part of the regular
+    development workflow. It exists to generate the filter-repo callback from
+    a structured, auditable JSON source rather than maintaining the callback
+    by hand.
+
+USAGE
+    1. Prepare the replacements JSON at `/tmp/awd_merged_replacements.json`
+       (format: {"real_value": "synthetic_value", ...}).
+    2. Run:
+
+           python3 scripts/gen_filter_callback.py
+
+    3. The script overwrites `scripts/filter_repo_callback.py` in place.
+    4. Verify the generated file, then use it with `git filter-repo` as
+       documented in that module's docstring.
+
+EFFECT ON GIT HISTORY
+    This script itself does NOT modify git history. It generates the callback
+    module that `git filter-repo` uses to rewrite history. See
+    `filter_repo_callback.py` for the history-rewrite effects.
+
+RISK & GOVERNANCE
+    - The generated callback performs a DESTRUCTIVE HISTORY REWRITE. Per
+      OPERATING_RULES (command integrity), such operations require explicit
+      human approval and must never be automated in CI/CD.
+    - The input JSON (`/tmp/awd_merged_replacements.json`) is the source of
+      truth. It must be audited for completeness and correctness before
+      generating the callback. Missing mappings leak real data; incorrect
+      mappings corrupt synthetic data.
+    - This script must be run in a clean environment. The input path is
+      hardcoded to `/tmp/awd_merged_replacements.json` to avoid accidental
+      commits of real-data mappings.
+
+MAINTENANCE
+    The template (header/footer) in this file mirrors the structure of
+    `filter_repo_callback.py`. If the callback API changes (e.g., new callback
+    functions needed), update both the template here and the target module.
+"""
 import json
 from pathlib import Path
 

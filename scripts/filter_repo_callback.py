@@ -1,19 +1,69 @@
-"""git-filter-repo callbacks for autowebdelivery-public history rewrite.
+"""
+git-filter-repo callbacks for autowebdelivery-public history rewrite.
 
-Replaces all real-business identifiers with synthetic equivalents across every
-blob and commit message, and rewrites original commit authors to the GitHub
-noreply address. Keys are processed LONGEST-FIRST to avoid substring collisions
-(e.g. b"Central Dental Center" inside b"Central Dental Center").
+PURPOSE
+    This module provides the callback functions used by `git filter-repo` to
+    rewrite the entire repository history, replacing all real-business
+    identifiers (names, addresses, phones, domains, social handles, place IDs,
+    emails, paths) with synthetic equivalents. It also normalizes commit authors
+    to the GitHub noreply address.
 
-URL-class-preserving (v2.2.1): social profiles stay on their public platform
-with synthetic handles, shorteners stay shorteners, maps URLs stay maps URLs,
-so website classifiers keep each fixture's original class.
+    This is a ONE-OFF MAINTENANCE TOOL. It is NOT part of the regular
+    development workflow. It exists solely to sanitize the public repository
+    history for open-source publication, ensuring no real business data leaks
+    into git blobs, commit messages, or author metadata.
+
+USAGE
+    This module is NOT executed directly. It is invoked by `git filter-repo`:
+
+        git filter-repo --commit-callback scripts/filter_repo_callback.py \
+                        --blob-callback scripts/filter_repo_callback.py \
+                        --tag-name-callback scripts/filter_repo_callback.py \
+                        --tag-message-callback scripts/filter_repo_callback.py \
+                        --force
+
+    The `--force` flag is required because this rewrites history destructively.
+
+EFFECT ON GIT HISTORY
+    - REWRITES ALL COMMIT HASHES: every commit in the repository gets a new SHA.
+    - REWRITES ALL BLOB CONTENTS: every file at every revision is rewritten.
+    - REWRITES ALL TAGS: tag messages and names are filtered.
+    - CHANGES AUTHOR/COMMITTER INFO: all commits are attributed to the GitHub
+      noreply address (iker.goni@users.noreply.github.com).
+    - THIS IS IRREVERSIBLE without a backup or reflog recovery.
+
+    After running, ALL COLLABORATORS MUST RE-CLONE. Force-pushing the rewritten
+    history (`git push --force --all && git push --force --tags`) invalidates
+    every existing clone.
+
+RISK & GOVERNANCE
+    - This script implements a DESTRUCTIVE HISTORY REWRITE. Per OPERATING_RULES
+      (command integrity), such operations require explicit human approval and
+      must never be automated in CI/CD.
+    - The replacement mapping (`raw_replacements`) must be audited before use.
+      Missing or incorrect mappings will leave real data in history or corrupt
+      synthetic data.
+    - Key ordering (LONGEST-FIRST) prevents substring collisions (e.g.,
+      "Central Dental Center" must be replaced before "Central Dental").
+
+URL-CLASS PRESERVATION (v2.2.1)
+    Social profile URLs retain their public platform (facebook.com, instagram.com)
+    with synthetic handles. URL shorteners (bit.ly) remain shorteners. Maps URLs
+    (maps.google.com) retain their class. This preserves fixture validity for
+    website classifiers that depend on URL structure.
+
+MAINTENANCE
+    To update the replacement map, edit the JSON source at
+    `/tmp/awd_merged_replacements.json` and regenerate this file via:
+
+        python3 scripts/gen_filter_callback.py
+
+    Do NOT hand-edit the `raw_replacements` dict in this file; it is generated.
 """
 
 raw_replacements = {
     b"Central Dental Center": b"Central Dental Center",
     b"Bright Smile Dental Clinic": b"Bright Smile Dental Clinic",
-    b"Meridian Dental Care": b"Meridian Dental Care",
     b"Meridian Dental Care": b"Meridian Dental Care",
     b"Riverfront Dental Studio": b"Riverfront Dental Studio",
     b"Pearl Wave Dental Clinic": b"Pearl Wave Dental Clinic",
@@ -30,15 +80,12 @@ raw_replacements = {
     b"Harborview Dental Care": b"Harborview Dental Care",
     b"Grin House Dental": b"Grin House Dental",
     b"Social Smile Dental": b"Social Smile Dental",
-    b"Central Dental Center": b"Central Dental Center",
     b"meridiandentalcare.example": b"meridiandentalcare.example",
     b"brightsmile-dental.example": b"brightsmile-dental.example",
     b"centraldentalcenter.example": b"centraldentalcenter.example",
     b"novadentalclinic.example": b"novadentalclinic.example",
     b"valuedentalcare.example": b"valuedentalcare.example",
     b"riverfrontdental.example": b"riverfrontdental.example",
-    b"centraldentalcenter.example": b"centraldentalcenter.example",
-    b"brightsmile-dental.example": b"brightsmile-dental.example",
     b"facebook.com/chiangmaidentalpark": b"facebook.com/chiangmaidentalpark",
     b"facebook.com/northgatedental": b"facebook.com/northgatedental",
     b"facebook.com/centraldentalcm": b"facebook.com/centraldentalcm",

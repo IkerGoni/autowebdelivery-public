@@ -16,6 +16,8 @@ except ModuleNotFoundError:  # pragma: no cover - CLI fallback
     from packages.pipeline.json_io import write_json
     from packages.pipeline.result_envelope import ResultEnvelope
 
+from packages.pipeline.failure_semantics import classify_scorecard_verdict
+
 PHASE_NAME = "premium_quality_scorecard"
 PHASE_SLUG = "06_quality"
 
@@ -117,9 +119,15 @@ def _score_factual_safety(site_dir: Path, _html: str) -> QualityDimension:
 
     sanitizer = _read_json_safe(site_dir / "sanitizer_report.json")
     if sanitizer is None:
-        # No sanitizer report — assume safe, informational finding
-        findings.append("no sanitizer_report.json found")
-        return QualityDimension("factual_safety", 1.0, weight, "pass", findings)
+        # U-06 fail-closed: missing OR malformed sanitizer evidence means
+        # factual_safety is NOT_VERIFIED — never PASS. We distinguish the two
+        # in the finding text for humans, but both degrade identically.
+        missing_asset = site_dir / "sanitizer_report.json"
+        if missing_asset.exists():
+            findings.append("sanitizer_report.json present but malformed/not JSON")
+        else:
+            findings.append("sanitizer_report.json missing — factual safety not verified")
+        return QualityDimension("factual_safety", 0.0, weight, "not_verified", findings)
 
     if sanitizer.get("hard_block") is True:
         findings.append("sanitizer hard_block")
@@ -531,8 +539,18 @@ def run_premium_scorecard(
     *,
     pass_threshold: float = PASS_THRESHOLD,
     reject_threshold: float = REJECT_THRESHOLD,
+    mode: str = "production",
 ) -> dict[str, Any]:
-    """Score all sites and write premium_quality_score.json for each."""
+    """Score all sites and write premium_quality_score.json for each.
+
+    Args:
+        mode: ``"production"`` (fail-closed: any NOT_VERIFIED site blocks the
+            run as a missing-evidence failure) or ``"preview"`` (non-production:
+            NOT_VERIFIED sites are recorded but the phase completes). A
+            NOT_VERIFIED verdict always means "never PASS" in both modes.
+    """
+    if mode not in ("production", "preview"):
+        raise ValueError(f"unknown scorecard mode {mode!r} (expected 'production' or 'preview')")
     root = Path(workspace)
     sites_dir = root / "runs" / run_id / "05_sites"
 
@@ -553,6 +571,8 @@ def run_premium_scorecard(
     pass_count = 0
     needs_edit_count = 0
     reject_count = 0
+    not_verified_count = 0
+    not_verified_slugs: list[str] = []
 
     for site_subdir in sorted(sites_dir.iterdir()):
         if not site_subdir.is_dir():
@@ -592,6 +612,9 @@ def run_premium_scorecard(
             pass_count += 1
         elif result.overall_verdict == "NEEDS_EDIT":
             needs_edit_count += 1
+        elif result.overall_verdict == "NOT_VERIFIED":
+            not_verified_count += 1
+            not_verified_slugs.append(business_slug)
         else:
             reject_count += 1
 

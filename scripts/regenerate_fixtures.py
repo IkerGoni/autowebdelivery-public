@@ -1,42 +1,79 @@
 #!/usr/bin/env python
 """Regenerate C1 fixtures with 18 synthetic dental clinics (DEV PLAN v2.2, D1/A1).
 
-Scope: the three fixture families touched by the plan:
-  - tests/fixtures/phase_02_basic_lead_discovery/
-  - tests/fixtures/phase_02_1_website_filter/
-  - tests/fixtures/phase_02/
+PURPOSE
+    This script regenerates the golden test fixtures in three families:
+      - tests/fixtures/phase_02_basic_lead_discovery/
+      - tests/fixtures/phase_02_1_website_filter/
+      - tests/fixtures/phase_02/
 
-Method:
-  1. Apply the raw_replacements mapping from the D2 filter-repo callback
-     (LONGEST-FIRST order) as plain text replacement over every file in the
-     three families. The four *derived-slug* keys of the callback are
-     deliberately EXCLUDED here: slugs are repaired structurally in step 2,
-     which is strictly more accurate than text substitution.
-  2. Repair every ``business_slug`` value so it matches what the real
-     pipeline would produce (make_business_slug from
-     packages/phases/phase_02_basic_lead_discovery.py):
-       - records that carry ``business_name`` get their slug recomputed
-         directly from (business_name, record id);
-       - records without a name (website classifications) get their slug
-         base translated through the 18-name bijection table, keeping the
-         record-id suffix.
-  3. Integrated verification (empirical evidence, not self-report):
-       - pre-pass sanity: real tokens ARE present before rewriting;
-       - post-pass: zero real tokens remain in the three families
-         (including non-synthetic ChIJ* place ids);
-       - positive: all 18 synthetic names present;
-       - consistency: every business_slug equals make_business_slug(...)
-         recomputed live;
-       - idempotency: a second execution changes nothing.
+    It applies the same real-to-synthetic replacement mapping used by the
+    git-filter-repo history rewrite (D2 callback), but operates ONLY on the
+    fixture files — NOT on git history. It also structurally repairs
+    `business_slug` values to match the pipeline's `make_business_slug()`
+    function, which is more accurate than text substitution for slugs.
 
-The script is idempotent and exits non-zero on any failed assertion.
+    This is a MAINTENANCE TOOL for fixture hygiene. It is NOT part of the
+    regular test workflow. It exists to keep synthetic fixtures in sync with
+    the replacement mapping when the mapping changes, or to bootstrap fixtures
+    in a fresh clone after history rewrite.
+
+USAGE
+    Run from the repository root:
+
+        python3 scripts/regenerate_fixtures.py
+
+    The script is idempotent: running it twice changes nothing on the second
+    pass. It exits with code 0 on success, non-zero on any verification failure.
+
+EFFECT ON GIT HISTORY
+    This script does NOT rewrite git history. It modifies working-tree fixture
+    files only. Changes appear as normal uncommitted modifications and should
+    be committed like any other fixture update:
+
+        git add tests/fixtures/phase_02* && git commit -m "test: regenerate synthetic fixtures"
+
+    The fixture families are tracked in git; this script keeps their content
+    consistent with the synthetic data mapping.
+
+VERIFICATION (INTEGRATED, NOT SELF-REPORT)
+    The script performs empirical verification and FAILS (exits non-zero) if:
+      1. PRE-PASS SANITY: Real tokens ARE present before rewriting (confirms
+         input is dirty, not already clean).
+      2. POST-PASS: Zero real tokens remain in the three families (including
+         non-synthetic ChIJ* place IDs).
+      3. POSITIVE: All 18 synthetic business names are present in the corpus.
+      4. CONSISTENCY: Every `business_slug` equals `make_business_slug(...)`
+         recomputed live from the pipeline code.
+      5. IDEMPOTENCY: A second execution changes nothing.
+
+RISK & GOVERNANCE
+    - This script modifies TEST FIXTURES, which are the ground truth for 1,400+
+      tests. A broken regeneration silently corrupts the test baseline.
+    - The `RAW_REPLACEMENTS` dict in this file MUST stay in sync with the
+      `raw_replacements` in `scripts/filter_repo_callback.py` (generated from
+      `/tmp/awd_merged_replacements.json`). Divergence causes fixture/history
+      mismatch.
+    - The four *derived-slug* keys from the filter-repo callback are
+      deliberately EXCLUDED here; slugs are repaired structurally in step 2.
+    - Per OPERATING_RULES, fixture regeneration is a controlled maintenance
+      action. Do not run blindly; review the diff before committing.
+
+MAINTENANCE
+    To update the replacement mapping:
+      1. Update `/tmp/awd_merged_replacements.json`.
+      2. Run `python3 scripts/gen_filter_callback.py` to update the filter-repo
+         callback.
+      3. Copy the updated `RAW_REPLACEMENTS` (minus derived-slug keys) into
+         this script.
+      4. Run this script and verify all 7 checks pass.
+      5. Commit the fixture changes.
 """
 
 from __future__ import annotations
 
 import json
 import re
-import subprocess
 import sys
 from pathlib import Path
 
@@ -57,7 +94,6 @@ RAW_REPLACEMENTS = {
     "Central Dental Center": "Central Dental Center",
     "Bright Smile Dental Clinic": "Bright Smile Dental Clinic",
     "Meridian Dental Care": "Meridian Dental Care",
-    "Meridian Dental Care": "Meridian Dental Care",
     "Riverfront Dental Studio": "Riverfront Dental Studio",
     "Pearl Wave Dental Clinic": "Pearl Wave Dental Clinic",
     "Royal Crown Dental": "Royal Crown Dental",
@@ -73,7 +109,6 @@ RAW_REPLACEMENTS = {
     "Harborview Dental Care": "Harborview Dental Care",
     "Grin House Dental": "Grin House Dental",
     "Social Smile Dental": "Social Smile Dental",
-    "Central Dental Center": "Central Dental Center",
     # === REAL DOMAINS ===
     "meridiandentalcare.example": "meridiandentalcare.example",
     "brightsmile-dental.example": "brightsmile-dental.example",
@@ -81,8 +116,6 @@ RAW_REPLACEMENTS = {
     "novadentalclinic.example": "novadentalclinic.example",
     "valuedentalcare.example": "valuedentalcare.example",
     "riverfrontdental.example": "riverfrontdental.example",
-    "centraldentalcenter.example": "centraldentalcenter.example",
-    "brightsmile-dental.example": "brightsmile-dental.example",
     # === SOCIAL PROFILE URLS (class-preserving: platform stays public, handle synthetic) ===
     "facebook.com/chiangmaidentalpark": "facebook.com/chiangmaidentalpark",
     "facebook.com/northgatedental": "facebook.com/northgatedental",
