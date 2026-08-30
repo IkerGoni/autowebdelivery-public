@@ -10,7 +10,7 @@ discovery ──▶ scoring ──▶ brief ──▶ generation ──▶ QA ga
    01/02       03          04       05 (4 modes)     06         07        08–10        11
 ```
 
-Python 3.10+ · Pydantic v2 · httpx · Jinja2 · Playwright · **1,307 tests passing (CI-enforced on Python 3.10/3.12)** · MIT
+Python 3.10+ · Pydantic v2 · httpx · Jinja2 · Playwright · **1,417 tests passing (CI-enforced on Python 3.10/3.12)** · MIT
 
 > **⚠️ Status: proof of concept — not a finished or commercial product.** AutoWebDelivery demonstrates an end-to-end architecture and is under active development. It runs on synthetic demo data by default, external integrations (Stitch AI, Google Maps, Vercel) are not production-hardened, and it has not been security-reviewed, load-tested, or operated long-term. Known limitations and trade-offs: [ARCHITECTURE.md](ARCHITECTURE.md). Automated CI (lint · tests · secrets scan · dependency audit) runs on every push — see the badge above.
 
@@ -141,7 +141,7 @@ python -m packages.cli.run --niche "dentist" --area "Austin, TX" \
 ## Testing & quality
 
 ```bash
-python -m pytest tests/ -q            # full suite: 1,307 passed in ~15s
+python -m pytest tests/ -q            # full suite: 1,417 passed in ~20s
 ruff check packages/ tests/ templates/
 ```
 
@@ -184,7 +184,7 @@ config/               # run_config.example.json — copy & adjust per run
 | [`docs/gates/quality_gates.md`](docs/gates/quality_gates.md) | Quality gate specification |
 | [`docs/testing/standalone_phase_testing.md`](docs/testing/standalone_phase_testing.md) | Testing phases in isolation |
 | [`AGENTS.md`](AGENTS.md) | Repository bootstrap for AI-assisted contribution |
-| [`autowebdelivery-orchestrator-pack/`](autowebdelivery-orchestrator-pack/) | Operating pack: verified findings registry (U-01…U-21), consolidated master sprint sequence (S0–S9), delegation & validation protocols |
+| [`autowebdelivery-orchestrator-pack/`](autowebdelivery-orchestrator-pack/) | Operating pack: verified findings registry (U-01…U-23), consolidated master sprint sequence (S0–S9), delegation & validation protocols. S1 (factual safety at the source) is ACCEPTED. |
 
 ## Author
 

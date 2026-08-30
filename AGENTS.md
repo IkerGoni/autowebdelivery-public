@@ -32,7 +32,7 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 
 | Check | Command | Expected |
 |-------|---------|----------|
-| Tests | `python3 -m pytest tests/ -q` | 1,307 passed |
+| Tests | `python3 -m pytest tests/ -q` | 1,417 passed |
 | Lint | `ruff check packages/ tests/ templates/` | All checks passed |
 
 ## Documentation
@@ -55,7 +55,7 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 
 Engineering lifecycle (audit → sprint planning → delegated implementation → independent validation → closeout) is governed by `autowebdelivery-orchestrator-pack/`:
 
-- `PROJECT_CONTEXT.md` — strategic context, verified findings registry (U-01…U-20), and the consolidated master sprint sequence (S0–S9). Source of truth for what runs next.
+- `PROJECT_CONTEXT.md` — strategic context, verified findings registry (U-01…U-23), and the consolidated master sprint sequence (S0–S9). Source of truth for what runs next.
 - `00-orchestrator/` — mission, operating rules, decision framework.
 - `01-analysis/` — audit protocol and findings/risk model.
 - `02-planning/` — sprint planning method and sprint template.
