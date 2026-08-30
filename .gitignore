@@ -156,6 +156,16 @@ kanban.local.*
 .codex/
 .[h]ermes/
 [h]ermes-workspace/
+.kilo/
+.kilo/**
+# Internal orchestration/process material — kept private, not published
+autowebdelivery-orchestrator-pack/
+
+# --- Run-specific configuration (the .example is the committed template) ---
+config/run_config.json
+
+# --- Logs ---
+*.log
 
 # --- Misc generated reports ---
 lighthouse-report*.html
