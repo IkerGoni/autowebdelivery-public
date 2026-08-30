@@ -1,7 +1,7 @@
 <footer class="w-full block border-t border-outline-variant bg-surface-container-low dark:bg-surface-container-highest flex flex-col items-center gap-8 py-section-gap px-margin-mobile text-center">
 <div class="flex items-center gap-2">
 <span class="material-symbols-outlined text-primary" data-icon="cleaning_services">cleaning_services</span>
-<span class="font-display text-headline-md text-primary">Spotless Home</span>
+<span class="font-display text-headline-md text-primary">{{name}}</span>
 </div>
 <div class="flex flex-wrap justify-center gap-x-6 gap-y-4">
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Services</a>
@@ -9,11 +9,11 @@
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Contact Us</a>
 <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Privacy Policy</a>
 </div>
-<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Spotless Home Cleaning. All rights reserved.</p>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 {{name}}. All rights reserved.</p>
 </footer>
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-center p-4 bg-surface dark:bg-surface-container z-50 rounded-t-xl shadow-[0_-4px_20px_rgba(46,125,94,0.08)]">
-<a class="flex flex-row items-center justify-center gap-2 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container rounded-full py-4 px-8 w-full mx-4 mb-2 hover:opacity-90 active:scale-[0.98] transition-all duration-200 min-h-[48px]" href="tel:5550123456">
+<a class="flex flex-row items-center justify-center gap-2 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container rounded-full py-4 px-8 w-full mx-4 mb-2 hover:opacity-90 active:scale-[0.98] transition-all duration-200 min-h-[48px]" href="tel:{{phone_raw}}">
 <span class="material-symbols-outlined" data-icon="phone_in_talk">phone_in_talk</span>
 <span class="font-button text-button">Call to Book</span>
 </a>
