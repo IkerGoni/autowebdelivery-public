@@ -634,8 +634,10 @@ def run_premium_scorecard(
     skipped_count = reject_count + not_verified_count
     shared_decisions = [
         f"Premium scorecard evaluated {len(scores_data)} sites",
-        f"PASS: {pass_count}, NEEDS_EDIT: {needs_edit_count}, "
-        f"REJECT: {reject_count}, NOT_VERIFIED: {not_verified_count}",
+        (
+            f"PASS: {pass_count}, NEEDS_EDIT: {needs_edit_count}, "
+            f"REJECT: {reject_count}, NOT_VERIFIED: {not_verified_count}"
+        ),
     ]
     risks = [f"{needs_edit_count} sites need edits"] if needs_edit_count else []
     if not_verified_count:
@@ -658,8 +660,10 @@ def run_premium_scorecard(
             decisions=shared_decisions,
             risks=risks,
             errors=[
-                f"{not_verified_count} site(s) NOT_VERIFIED: mandatory sanitizer "
-                "evidence missing/malformed (fail-closed, U-06)"
+                (
+                    f"{not_verified_count} site(s) NOT_VERIFIED: mandatory sanitizer "
+                    "evidence missing/malformed (fail-closed, U-06)"
+                )
             ],
         ).model_dump(exclude_none=True, by_alias=True)
     else:
