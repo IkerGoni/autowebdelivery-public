@@ -28,7 +28,16 @@ class ServiceItem:
 
 @dataclass
 class HoursSchedule:
-    """Business hours schedule."""
+    """Business hours schedule.
+
+    TemplateComposer exposes the following flat variables for template rendering:
+    - `hours_weekdays`      -> weekdays
+    - `hours_weekday_hours` -> weekday_hours
+    - `hours_weekend_day`   -> weekend_day
+    - `hours_weekend_hours` -> weekend_hours
+    - `hours_note`          -> note
+    - `hours`               -> flat display string (hours_display property)
+    """
     weekdays: str = "Mon - Sat"
     weekday_hours: str = "9:00 AM - 6:00 PM"
     weekend_day: str = "Sunday"

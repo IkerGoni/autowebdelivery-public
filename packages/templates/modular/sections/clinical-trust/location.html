@@ -13,14 +13,18 @@
 </div>
 </div>
 <div class="flex items-start gap-md">
-<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-primary">schedule</span>
-</div>
-<div>
-<h4 class="font-label-md text-label-md text-on-surface mb-xs">Clinic Hours</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">{{hours}}</p>
-</div>
-</div>
+            <div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-primary">schedule</span>
+            </div>
+            <div>
+            <h4 class="font-label-md text-label-md text-on-surface mb-xs">Clinic Hours</h4>
+            <div class="space-y-xs">
+            <p class="font-body-md text-body-md text-on-surface-variant">{{hours_weekdays}}: {{hours_weekday_hours}}</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">{{hours_weekend_day}}: {{hours_weekend_hours}}</p>
+            {{#hours_note}}<p class="font-body-sm text-body-sm text-on-surface-variant">{{hours_note}}</p>{{/hours_note}}
+            </div>
+            </div>
+            </div>
 </div>
 <div class="mt-lg pt-lg border-t border-surface-container-high">
 <button class="w-full flex items-center justify-center gap-sm bg-surface-container text-on-surface px-lg py-md rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors">

@@ -16,14 +16,18 @@
 </div>
 <div class="h-px bg-outline-variant/30 w-full"></div>
 <div class="flex gap-4">
-<div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="schedule">schedule</span>
-</div>
-<div>
-<h4 class="font-headline-sm text-headline-sm text-on-surface mb-1">Working Hours</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">{{hours}}</p>
-</div>
-</div>
+            <div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="schedule">schedule</span>
+            </div>
+            <div>
+            <h4 class="font-headline-sm text-headline-sm text-on-surface mb-1">Working Hours</h4>
+            <div class="space-y-1">
+            <p class="font-body-md text-body-md text-on-surface-variant">{{hours_weekdays}}: {{hours_weekday_hours}}</p>
+            <p class="font-body-md text-body-md text-on-surface-variant">{{hours_weekend_day}}: {{hours_weekend_hours}}</p>
+            {{#hours_note}}<p class="font-body-sm text-on-surface-variant">{{hours_note}}</p>{{/hours_note}}
+            </div>
+            </div>
+            </div>
 </div>
 </div>
 </section>
