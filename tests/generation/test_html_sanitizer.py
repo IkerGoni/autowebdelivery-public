@@ -179,6 +179,29 @@ def test_review_count_removed_unless_exact():
     assert "108 reviews" in result2.sanitized_html
 
 
+def test_review_count_prefix_does_not_match_substring():
+    """U-10: verified count 150 must NOT be satisfied by "1500 reviews"."""
+    html = "<p>1500 reviews</p>"
+    result = sanitize_html(html, verified_facts={"review_count": 150})
+    assert "1500 reviews" not in result.sanitized_html
+    assert any(f.category == "review_rating" for f in result.findings)
+
+
+def test_review_count_exact_numeric_is_kept():
+    """U-10: verified count 150 exactly matches "150 reviews"."""
+    html = "<p>150 reviews</p>"
+    result = sanitize_html(html, verified_facts={"review_count": 150})
+    assert "150 reviews" in result.sanitized_html
+    assert not any(f.category == "review_rating" for f in result.findings)
+
+
+def test_review_count_plus_is_not_exact():
+    """U-10: "120+ reviews" never matches verified count 120."""
+    html = "<p>120+ reviews</p>"
+    result = sanitize_html(html, verified_facts={"review_count": 120})
+    assert "120+ reviews" not in result.sanitized_html
+
+
 def test_customer_says_removed():
     html = "<blockquote>Customer says: Amazing work!</blockquote>"
     result = sanitize_html(html)

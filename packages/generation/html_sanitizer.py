@@ -176,6 +176,23 @@ def _has_star_chars(text: str) -> bool:
     return any(ch in text for ch in _STAR_CHARS)
 
 
+def _matches_verified_review_count(text: str, verified_count: Any) -> bool:
+    """Return True when *text* states exactly the verified review count.
+
+    Uses numeric comparison (Sprint S2, U-10): ``"150"`` must never be
+    considered a match for ``"1500 reviews"``, nor ``"120"`` for
+    ``"120+ reviews"``. Only the integer stated before the ``reviews`` word
+    is compared against the verified value.
+    """
+    match = re.search(r"(\d+)\s*reviews?\b", text, re.IGNORECASE)
+    if not match:
+        return False
+    try:
+        return int(match.group(1)) == int(verified_count)
+    except (TypeError, ValueError):
+        return False
+
+
 # ---------------------------------------------------------------------------
 # HTML tokeniser — produces a token stream we can filter
 # ---------------------------------------------------------------------------
@@ -634,9 +651,11 @@ def sanitize_html(
                 if pat.search(text):
                     # Allow factual "Rated X from Y reviews" format
                     is_factual_rating = bool(re.search(r"rated\s+\d", text, re.IGNORECASE))
-                    # Allow exact review count match when verified
+                    # Allow exact review count match when verified — numeric
+                    # comparison only (U-10): "1500 reviews" never satisfies a
+                    # verified count of 150, and "120+ reviews" never 120.
                     if _verified_review_count is not None:
-                        is_exact_count = str(_verified_review_count) in text and "+" not in text
+                        is_exact_count = _matches_verified_review_count(text, _verified_review_count)
                         if is_exact_count:
                             continue
                     if not is_factual_rating:
