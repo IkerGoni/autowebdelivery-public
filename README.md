@@ -1,6 +1,7 @@
 # AutoWebDelivery
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/IkerGoni/autowebdelivery-public/actions/workflows/ci.yml/badge.svg)](https://github.com/IkerGoni/autowebdelivery-public/actions/workflows/ci.yml)
 
 **A proof-of-concept pipeline that finds local businesses with weak web presence, scores them by opportunity value, and generates factually-safe preview websites — with human approval gating every outbound action.**
 
@@ -55,6 +56,9 @@ cd autowebdelivery-public
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,browser]"       # installs pytest/ruff + Playwright
 playwright install chromium           # enables Phase 05.5 browser-render evidence
+
+# Reproducible alternative (uses uv.lock, no editable install needed):
+uv sync --extra dev,browser && uv run playwright install chromium
 
 # Run your first pipeline (~seconds, zero API keys needed):
 python -m packages.cli.run \

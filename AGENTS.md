@@ -50,3 +50,15 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 - Do NOT refactor without running the full test suite
 - Do NOT leak internal BI scores or risk flags into public HTML
 - Do NOT deploy without human approval
+
+## Orchestrator operating pack
+
+Engineering lifecycle (audit → sprint planning → delegated implementation → independent validation → closeout) is governed by `autowebdelivery-orchestrator-pack/`:
+
+- `PROJECT_CONTEXT.md` — strategic context, verified findings registry (U-01…U-20), and the consolidated master sprint sequence (S0–S9). Source of truth for what runs next.
+- `00-orchestrator/` — mission, operating rules, decision framework.
+- `01-analysis/` — audit protocol and findings/risk model.
+- `02-planning/` — sprint planning method and sprint template.
+- `03-execution/` — delegation protocol and agent task template.
+- `04-validation/` — validation protocol and sprint closeout.
+- `05-sprints/` — executable sprint definitions (currently S0, S1).

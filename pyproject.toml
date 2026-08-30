@@ -38,6 +38,10 @@ exclude = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
+# E402: standalone CLI bootstrap — sys.path se inserta ANTES de importar
+# templates.modular para poder ejecutarse sin instalación editable
+# (python -m templates.modular.cli). Deliberado, ver docstring del módulo.
+"packages/templates/modular/cli.py" = ["E402"]
 # Blind except / try-except-pass DELIBERADO en código de red y IO externo
 # (fetchers, enriquecedores, phases con resiliencia ante APIs de terceros).
 # Los ficheros NO listados deben refactorizar sus BLE001/S110.
