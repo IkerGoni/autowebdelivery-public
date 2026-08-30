@@ -181,3 +181,6 @@ autoweb_pipeline.egg-info/
 # --- Backup / archive files ---
 *.bak
 archive/
+
+# --- Purge archive (internal, never commit) ---
+.purge-archive/
