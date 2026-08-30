@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from packages.phases.premium_quality_scorecard import (
     PASS_THRESHOLD,
     run_premium_scorecard,
@@ -233,7 +235,8 @@ class TestFactualSafety:
         dim = next(d for d in result.dimensions if d.name == "factual_safety")
         assert dim.score == 0.7  # 1.0 - 3 * 0.1
 
-    def test_no_sanitizer_report_defaults_safe(self, tmp_path: Path) -> None:
+    def test_no_sanitizer_report_fails_closed(self, tmp_path: Path) -> None:
+        """U-06: missing sanitizer evidence must be NOT_VERIFIED, never a pass."""
         site = tmp_path / "site"
         brief = tmp_path / "brief"
         site.mkdir(parents=True, exist_ok=True)
@@ -241,7 +244,25 @@ class TestFactualSafety:
 
         result = score_site(site, brief)
         dim = next(d for d in result.dimensions if d.name == "factual_safety")
-        assert dim.score == 1.0
+        assert dim.score == 0.0
+        assert dim.verdict == "not_verified"
+        assert any("missing" in f for f in dim.findings)
+        assert result.overall_verdict == "NOT_VERIFIED"
+
+    def test_malformed_sanitizer_report_fails_closed(self, tmp_path: Path) -> None:
+        """U-06: malformed sanitizer evidence is also NOT_VERIFIED (never PASS)."""
+        site = tmp_path / "site"
+        brief = tmp_path / "brief"
+        site.mkdir(parents=True, exist_ok=True)
+        brief.mkdir(parents=True, exist_ok=True)
+        (site / "sanitizer_report.json").write_text("not-json{{", encoding="utf-8")
+
+        result = score_site(site, brief)
+        dim = next(d for d in result.dimensions if d.name == "factual_safety")
+        assert dim.score == 0.0
+        assert dim.verdict == "not_verified"
+        assert any("malformed" in f for f in dim.findings)
+        assert result.overall_verdict == "NOT_VERIFIED"
 
 
 class TestVisualCompleteness:
@@ -537,6 +558,54 @@ class TestRunPremiumScorecard:
         result = run_premium_scorecard("nonexistent", str(tmp_path))
         assert result["status"] == "blocked"
 
+    def test_production_blocks_on_missing_sanitizer_evidence(self, tmp_path: Path) -> None:
+        """U-06 fail-closed: NOT_VERIFIED site blocks the production batch run."""
+        root = tmp_path
+        run_id = "test_run_prod"
+
+        site = root / "runs" / run_id / "05_sites" / "gamma-site"
+        brief = root / "runs" / run_id / "04_briefs" / "gamma-site"
+        _make_good_site(site, brief, business_name="Gamma Site")
+        (site / "sanitizer_report.json").unlink()  # mandatory evidence gone
+
+        result = run_premium_scorecard(run_id, str(root), mode="production")
+
+        assert result["status"] == "blocked"
+        assert result["missing_fields"] == [
+            f"runs/{run_id}/05_sites/gamma-site/sanitizer_report.json"
+        ]
+        assert any("fail-closed" in e for e in result["errors"])
+        assert any("NOT_VERIFIED: 1" in d for d in result["decisions"])
+        # per-site score still persisted for inspection — but never PASS
+        score_path = root / "runs" / run_id / "06_quality" / "gamma-site" / "premium_quality_score.json"
+        assert score_path.exists()
+        score_data = json.loads(score_path.read_text())
+        assert score_data["overall_verdict"] == "NOT_VERIFIED"
+
+    def test_preview_records_not_verified_without_blocking(self, tmp_path: Path) -> None:
+        """U-06 preview boundary: NOT_VERIFIED recorded, phase completes (never PASS)."""
+        root = tmp_path
+        run_id = "test_run_preview"
+
+        site = root / "runs" / run_id / "05_sites" / "delta-site"
+        brief = root / "runs" / run_id / "04_briefs" / "delta-site"
+        _make_good_site(site, brief, business_name="Delta Site")
+        (site / "sanitizer_report.json").unlink()
+
+        result = run_premium_scorecard(run_id, str(root), mode="preview")
+
+        assert result["status"] == "done"
+        assert result["records_created"] == 0  # nothing may pass without evidence
+        assert any("NOT_VERIFIED: 1" in d for d in result["decisions"])
+        assert any("NOT_VERIFIED" in r for r in result["risks"])
+        score_path = root / "runs" / run_id / "06_quality" / "delta-site" / "premium_quality_score.json"
+        score_data = json.loads(score_path.read_text())
+        assert score_data["overall_verdict"] == "NOT_VERIFIED"
+
+    def test_unknown_mode_rejected(self, tmp_path: Path) -> None:
+        with pytest.raises(ValueError, match="unknown scorecard mode"):
+            run_premium_scorecard("run_x", str(tmp_path), mode="yolo")
+
 
 class TestMissingArtifactsGraceful:
     def test_missing_all_artifacts_gives_zero_dimensions(self, tmp_path: Path) -> None:
@@ -547,11 +616,13 @@ class TestMissingArtifactsGraceful:
         # No artifacts at all
 
         result = score_site(site, brief)
-        assert result.overall_verdict == "REJECT"
+        # U-06: overall NOT_VERIFIED because factual evidence is absent — never PASS
+        assert result.overall_verdict == "NOT_VERIFIED"
 
-        # factual_safety: no sanitizer report = 1.0 (assumes safe)
+        # factual_safety: no sanitizer report = NOT_VERIFIED (fail-closed)
         factual = next(d for d in result.dimensions if d.name == "factual_safety")
-        assert factual.score == 1.0
+        assert factual.score == 0.0
+        assert factual.verdict == "not_verified"
 
         # visual_completeness: no dom_metrics = 0.0
         visual = next(d for d in result.dimensions if d.name == "visual_completeness")
@@ -623,5 +694,5 @@ class TestPremiumQualityScoreSerialization:
         _make_good_site(site, brief)
 
         result = score_site(site, brief)
-        assert result.metadata["scorer_version"] == "premium_v1"
+        assert result.metadata["scorer_version"] == "premium_v2"
         assert "timestamp" in result.metadata

@@ -502,10 +502,16 @@ def score_site(
     # Weighted composite
     overall_score = sum(d.score * d.weight for d in dimensions)
 
-    # Any reject dimension overrides
+    # Verdict precedence (U-06): a missing-evidence dimension (not_verified)
+    # makes the whole site NOT_VERIFIED — never PASS — and takes priority over
+    # REJECT and the score thresholds. The scorecard is fail-closed in every
+    # mode; the production/preview distinction is only at the batch level.
+    any_not_verified = any(d.verdict == "not_verified" for d in dimensions)
     any_reject = any(d.verdict == "reject" for d in dimensions)
 
-    if any_reject:
+    if any_not_verified:
+        overall_verdict = "NOT_VERIFIED"
+    elif any_reject:
         overall_verdict = "REJECT"
     elif overall_score >= pass_threshold:
         overall_verdict = "PASS"
@@ -523,7 +529,7 @@ def score_site(
         pass_threshold=pass_threshold,
         reject_threshold=reject_threshold,
         metadata={
-            "scorer_version": "premium_v1",
+            "scorer_version": "premium_v2",
             "timestamp": datetime.now(timezone.utc).isoformat(),
         },
     )
@@ -618,22 +624,58 @@ def run_premium_scorecard(
         else:
             reject_count += 1
 
-    envelope = ResultEnvelope(
-        phase=PHASE_NAME,
-        status="done",
-        run_id=run_id,
-        inputs_used=[f"runs/{run_id}/05_sites"],
-        outputs_created=outputs,
-        records_processed=len(scores_data),
-        records_created=pass_count,
-        records_skipped=reject_count,
-        decisions=[
-            f"Premium scorecard evaluated {len(scores_data)} sites",
-            f"PASS: {pass_count}, NEEDS_EDIT: {needs_edit_count}, REJECT: {reject_count}",
-        ],
-        risks=[f"{needs_edit_count} sites need edits"] if needs_edit_count else [],
-        next_tasks=["Phase 07 — Deployment"] if pass_count > 0 else [],
-    ).model_dump(exclude_none=True, by_alias=True)
+    # U-06 fail-closed (production): mandatory evidence missing/malformed ->
+    # NOT_VERIFIED -> the run is blocked before any deployment path reads it.
+    not_verified_semantics = classify_scorecard_verdict(
+        "NOT_VERIFIED", production=(mode == "production")
+    )
+    not_verified_blocked = bool(not_verified_slugs) and not_verified_semantics.blocks_deployment
+
+    skipped_count = reject_count + not_verified_count
+    shared_decisions = [
+        f"Premium scorecard evaluated {len(scores_data)} sites",
+        f"PASS: {pass_count}, NEEDS_EDIT: {needs_edit_count}, "
+        f"REJECT: {reject_count}, NOT_VERIFIED: {not_verified_count}",
+    ]
+    risks = [f"{needs_edit_count} sites need edits"] if needs_edit_count else []
+    if not_verified_count:
+        risks.append(f"{not_verified_count} site(s) NOT_VERIFIED: mandatory evidence missing")
+
+    if not_verified_blocked:
+        envelope = ResultEnvelope(
+            phase=PHASE_NAME,
+            status="blocked",
+            run_id=run_id,
+            inputs_used=[f"runs/{run_id}/05_sites"],
+            outputs_created=outputs,
+            records_processed=len(scores_data),
+            records_created=pass_count,
+            records_skipped=skipped_count,
+            missing_fields=[
+                f"runs/{run_id}/05_sites/{slug}/sanitizer_report.json"
+                for slug in not_verified_slugs
+            ],
+            decisions=shared_decisions,
+            risks=risks,
+            errors=[
+                f"{not_verified_count} site(s) NOT_VERIFIED: mandatory sanitizer "
+                "evidence missing/malformed (fail-closed, U-06)"
+            ],
+        ).model_dump(exclude_none=True, by_alias=True)
+    else:
+        envelope = ResultEnvelope(
+            phase=PHASE_NAME,
+            status="done",
+            run_id=run_id,
+            inputs_used=[f"runs/{run_id}/05_sites"],
+            outputs_created=outputs,
+            records_processed=len(scores_data),
+            records_created=pass_count,
+            records_skipped=skipped_count,
+            decisions=shared_decisions,
+            risks=risks,
+            next_tasks=["Phase 07 — Deployment"] if pass_count > 0 else [],
+        ).model_dump(exclude_none=True, by_alias=True)
 
     write_json(str(quality_dir / "premium_scorecard_result.json"), envelope)
     return envelope
