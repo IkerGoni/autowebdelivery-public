@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import logging
 import time
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -36,6 +37,17 @@ from packages.pipeline.vnext_integration import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def make_run_id() -> str:
+    """Return a collision-proof run identifier.
+
+    Keeps the documented ``run_<timestamp>`` layout (ARCHITECTURE.md/README:
+    ``runs/run_<timestamp>``, test glob ``runs/run_*``) and appends a UUID
+    suffix so concurrent runs started within the same second cannot collide
+    (U-15). ``run_id`` is consumed as an opaque string across the pipeline.
+    """
+    return f"run_{int(time.time())}_{uuid.uuid4().hex}"
 
 def run_full_pipeline(
     *,
@@ -76,7 +88,7 @@ def run_full_pipeline(
         Summary dict of run
     """
     start_time = time.time()
-    run_id = f"run_{int(start_time)}"
+    run_id = make_run_id()
     
     logger.info(f"Starting full pipeline run {run_id} for niche='{niche}' area='{area}'...")
     

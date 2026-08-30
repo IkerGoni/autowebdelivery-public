@@ -275,3 +275,111 @@ def test_vnext_13_no_enrichment_without_flag(tmp_path, monkeypatch):
     
     # Verify discover was NOT called
     assert len(discover_called) == 0, "Overpass discover should not have been called when flag is False"
+def _mock_phase_02_single_lead(run_id, workspace, input_places=None):
+    """Reusable Phase-02 mock yielding one lead (mirrors existing test helper)."""
+    from packages.pipeline.json_io import write_json
+    from packages.pipeline.result_envelope import ResultEnvelope
+
+    p2_dir = Path(workspace) / "runs" / run_id / "02_discovery"
+    p2_dir.mkdir(parents=True, exist_ok=True)
+    leads = [{
+        "run_id": run_id,
+        "record_id": "lead_001",
+        "business_name": "Test Detailing",
+        "business_slug": "test-detailing",
+        "category": "auto detailing",
+        "rating": 4.8,
+        "review_count": 150,
+        "address": "123 Main St",
+        "phone": "214-556-9912",
+        "website": "",
+        "website_raw": "",
+        "website_status": "no_website",
+        "maps_url": "https://maps.google.com/?cid=123",
+    }]
+    write_json(str(p2_dir / "leads_raw.json"), leads)
+    write_json(str(p2_dir / "leads_normalized.json"), leads)
+    write_json(str(p2_dir / "discovery_report.json"), {
+        "run_id": run_id,
+        "phase": "02_discovery",
+        "raw_places_count": 1,
+        "normalized_places_count": 1,
+        "deduped_count": 0,
+        "missing_website_count": 1,
+        "status": "complete",
+    })
+    res = ResultEnvelope.done(
+        phase="phase_02_basic_lead_discovery",
+        run_id=run_id,
+        inputs_used=["runs/{run_id}/01_input/query_plan.json"],
+        outputs_created=["02_discovery/leads_raw.json", "02_discovery/leads_normalized.json"],
+        records_processed=1,
+        records_created=1,
+        decisions=["Mocked 1 lead discovered"],
+    ).to_dict()
+    write_json(str(p2_dir / "result.json"), res)
+    return res
+
+
+def test_make_run_id_distinct_within_same_second(monkeypatch):
+    """U-15: run ids must not collide for runs started in the same second."""
+    import uuid as uuid_module
+
+    from packages.pipeline import run_pipeline
+
+    monkeypatch.setattr(run_pipeline.time, "time", lambda: 1700000000.123)
+
+    def uuid4_sequence():
+        counter = {"n": 0}
+        values = [
+            uuid_module.UUID("00000000-0000-0000-0000-000000000001"),
+            uuid_module.UUID("00000000-0000-0000-0000-000000000002"),
+        ]
+
+        def _next():
+            val = values[counter["n"] % len(values)]
+            counter["n"] += 1
+            return val
+
+        return _next
+
+    monkeypatch.setattr(run_pipeline.uuid, "uuid4", uuid4_sequence())
+
+    first = run_pipeline.make_run_id()
+    second = run_pipeline.make_run_id()
+
+    assert first != second
+    assert first.startswith("run_") and second.startswith("run_")
+    assert "1700000000" in first and "1700000000" in second
+    assert first.endswith("000000000000000000000000000001")
+    assert second.endswith("000000000000000000000000000002")
+
+
+def test_full_pipeline_consumes_make_run_id(tmp_path, monkeypatch):
+    """U-15: the orchestrator uses make_run_id() for its run directory."""
+    workspace = tmp_path
+
+    def mock_run(*args, **kwargs):
+        return MockCompletedProcess(0, "mock-site.vercel.app")
+
+    monkeypatch.setattr(subprocess, "run", mock_run)
+
+    from packages.phases import phase_02_basic_lead_discovery
+    from packages.pipeline import run_pipeline
+
+    monkeypatch.setattr(phase_02_basic_lead_discovery, "run", _mock_phase_02_single_lead)
+    monkeypatch.setattr(run_pipeline, "run_phase_02", _mock_phase_02_single_lead)
+    monkeypatch.setattr(run_pipeline, "make_run_id", lambda: "run_s2_fixed_id")
+
+    summary = run_full_pipeline(
+        niche="auto detailing",
+        area="Frisco TX",
+        workspace=str(workspace),
+        generation_mode="template",
+        deploy_provider="local_only",
+        max_preview_sites=1,
+        dry_run=True,
+    )
+
+    assert summary["run_id"] == "run_s2_fixed_id"
+    assert (Path(workspace) / "runs" / "run_s2_fixed_id").is_dir()
