@@ -9,8 +9,10 @@ from datetime import datetime
 
 try:  # Python 3.11+ provides the UTC alias; project declares >=3.10
     from datetime import UTC  # type: ignore[attr-defined]
-except ImportError:  # pragma: no cover — datetime.UTC is defined as timezone.utc, so this is behavior-identical
-    from datetime import timezone as UTC
+except ImportError:  # pragma: no cover — behavior-identical: datetime.UTC is timezone.utc
+    from datetime import timezone
+
+    UTC = timezone.utc
 from pathlib import Path
 from typing import Any, Protocol
 from urllib.parse import unquote, urlsplit
