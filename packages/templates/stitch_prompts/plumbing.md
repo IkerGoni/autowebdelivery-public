@@ -1,18 +1,20 @@
 # Stitch Prompt Template: Plumbing
 
+Facts-only policy: this prompt contains structure, layout, and tone guidance only.
+Every business fact must come from a {{verified_field}} placeholder supplied with the
+prompt. If a verified field is absent, instruct the model to omit that element -
+never to invent a default value. Never display a `$` amount unless it comes from a
+verified field.
+
 Design a premium single-page business website for {{business_name}}, a plumbing service in {{city}}.
 
 ## Layout Structure
 
-1. **HERO section**: Large headline "Emergency Plumbing in {{city}} — Available 24/7", business name prominent, phone CTA "Call Now: {{phone}}"
-2. **SERVICES grid**: 3-4 service cards with icons:
-   - Drain Cleaning ($149+ service, camera inspection included)
-   - Water Heater Repair/Replacement ($899+ installed same day)
-   - Emergency Plumbing (24/7 service, licensed technicians)
-   - Commercial Plumbing (Restaurants, offices, retail)
-3. **TRUST section**: Display {{rating}}★ rating from {{review_count}} Google reviews, mention license number, "Family-owned since {{years}}"
-4. **LOCATION**: {{address}} in {{city}}, service area map iframe
-5. **CTA section**: "Get $50 off your first service — call {{phone}} or fill form"
+1. **HERO section**: large headline focused on the verified service offering in {{city}}, business name prominent, phone CTA "Call Now: {{phone}}"
+2. **SERVICES grid**: 3-4 service cards with icons, one per verified service from the brief, with name and description only - do not display prices unless a verified price is supplied
+3. **TRUST section**: display {{rating}} stars rating from {{review_count}} reviews (only if both are verified; otherwise omit the rating block entirely), mention license number only if supplied as a verified field, "Serving {{city}} since {{years}}" (only if {{years}} is verified; otherwise omit)
+4. **LOCATION**: {{address}} in {{city}} (only if {{address}} is verified; otherwise show the service area only), service area map iframe
+5. **CTA section**: "Contact {{business_name}} - call {{phone}} or fill form" (omit any channel without a verified value; never display a promotional discount that is not a verified field)
 
 ## Visual Style: Industrial-Reliable
 
@@ -23,20 +25,17 @@ Design a premium single-page business website for {{business_name}}, a plumbing 
 
 ## Taglines/Copy Patterns
 
-- Good: "{{Years}} years serving {{city}}. Emergency plumbing 24/7 — call {{phone}}"
+- Good: "Trusted plumbing service in {{city}}. Call {{phone}}."
 - Bad: "Professional Plumbing Services" (too generic)
 
-## Services to Include
+## Services Section Rules
 
-- Emergency Service (24/7, always mention)
-- Drain Cleaning ($149 flat rate minimum)
-- Water Heater (repair/replace)
-- Toilet Repair
-- Leak Detection
-- Sewer Line Service
+- List only services present in the verified brief (e.g. drain cleaning, water heater, leak detection, sewer line service)
+- Never display a starting price, flat rate, or minimum charge that is not a verified field
+- Never display an emergency-availability claim (e.g. around-the-clock service) unless verified
 
 ## Mobile-First Requirements
 
 - Fast loading (Tailwind CDN)
-- Click-to-call buttons prominent
-- No stock photos — use actual business photos where available
+- Click-to-call buttons prominent (only when {{phone}} is verified)
+- No stock photos - use actual business photos where available
