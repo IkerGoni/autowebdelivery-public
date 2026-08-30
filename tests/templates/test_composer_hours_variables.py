@@ -1,6 +1,8 @@
 import pytest
+
 from packages.templates.modular.composer import TemplateComposer
 from packages.templates.modular.models import BusinessData, HoursSchedule
+
 
 @pytest.fixture
 def business_with_hours():
