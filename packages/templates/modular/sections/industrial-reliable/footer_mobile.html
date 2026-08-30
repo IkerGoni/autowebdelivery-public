@@ -1,12 +1,12 @@
 <footer class="flex flex-col items-start gap-md p-md w-full bg-inverse-surface mb-16 border-t border-on-surface">
-<span class="font-headline-lg text-headline-lg text-primary uppercase">AUTO-PRO INDUSTRIAL</span>
+<span class="font-headline-lg text-headline-lg text-primary uppercase">{{name}}</span>
 <p class="font-label-sm text-surface-variant uppercase">1200 Industrial Way, Suite A-4, Mechanicsburg</p>
 <div class="flex flex-wrap gap-md">
 <a class="font-body-md text-surface-variant uppercase hover:text-primary-container" href="#">Privacy Policy</a>
 <a class="font-body-md text-surface-variant uppercase hover:text-primary-container" href="#">Terms of Service</a>
 <a class="font-body-md text-surface-variant uppercase hover:text-primary-container" href="#">Service Menu</a>
 </div>
-<p class="font-body-md text-on-surface-variant uppercase text-xs">© 2024 AUTO-PRO INDUSTRIAL. ALL RIGHTS RESERVED.</p>
+<p class="font-body-md text-on-surface-variant uppercase text-xs">© 2024 {{name}}. ALL RIGHTS RESERVED.</p>
 </footer>
 <!-- Fixed Bottom NavBar (Mobile Only) -->
 <nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-stretch overflow-hidden bg-surface border-t-2 border-on-surface z-50 md:hidden">
@@ -18,7 +18,7 @@
 <span class="material-symbols-outlined" data-icon="build">build</span>
 <span class="font-label-sm text-label-sm font-bold uppercase">SERVICES</span>
 </a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-primary-container transition-colors" href="tel:5550123456">
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-primary-container transition-colors" href="tel:{{phone_raw}}">
 <span class="material-symbols-outlined" data-icon="phone_in_talk">phone_in_talk</span>
 <span class="font-label-sm text-label-sm font-bold uppercase">SCHEDULE</span>
 </a>
