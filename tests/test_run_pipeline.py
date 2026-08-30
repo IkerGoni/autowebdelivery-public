@@ -383,3 +383,82 @@ def test_full_pipeline_consumes_make_run_id(tmp_path, monkeypatch):
 
     assert summary["run_id"] == "run_s2_fixed_id"
     assert (Path(workspace) / "runs" / "run_s2_fixed_id").is_dir()
+
+
+def _make_mock_phase_06(decisions):
+    def mock_phase_06(run_id, workspace, strict=False):
+        return {"status": "done", "decisions": decisions}
+    return mock_phase_06
+
+
+def test_phase06_malformed_decisions_fail_closed(tmp_path, monkeypatch):
+    """U-09: malformed Phase-06 decisions must never silently fall back to 0."""
+    workspace = tmp_path
+
+    def mock_run(*args, **kwargs):
+        return MockCompletedProcess(0, "mock-site.vercel.app")
+
+    monkeypatch.setattr(subprocess, "run", mock_run)
+
+    from packages.phases import phase_02_basic_lead_discovery
+    from packages.pipeline import run_pipeline
+
+    monkeypatch.setattr(phase_02_basic_lead_discovery, "run", _mock_phase_02_single_lead)
+    monkeypatch.setattr(run_pipeline, "run_phase_02", _mock_phase_02_single_lead)
+    monkeypatch.setattr(
+        run_pipeline,
+        "run_strict_phase_06",
+        _make_mock_phase_06(["Quality gate completed — no counts line"]),
+    )
+
+    summary = run_full_pipeline(
+        niche="auto detailing",
+        area="Frisco TX",
+        workspace=str(workspace),
+        generation_mode="template",
+        deploy_provider="local_only",
+        max_preview_sites=1,
+        dry_run=True,
+    )
+
+    assert summary["sites_approved"] == 0
+    assert "07" not in summary["phases_completed"]
+    assert any("Phase 06 decision parsing failed" in e for e in summary["errors"])
+
+
+def test_phase06_valid_decisions_proceed(tmp_path, monkeypatch):
+    """U-09 guard: a well-formed Phase-06 decision line still parses normally."""
+    workspace = tmp_path
+
+    def mock_run(*args, **kwargs):
+        return MockCompletedProcess(0, "mock-site.vercel.app")
+
+    monkeypatch.setattr(subprocess, "run", mock_run)
+
+    from packages.phases import phase_02_basic_lead_discovery
+    from packages.pipeline import run_pipeline
+
+    monkeypatch.setattr(phase_02_basic_lead_discovery, "run", _mock_phase_02_single_lead)
+    monkeypatch.setattr(run_pipeline, "run_phase_02", _mock_phase_02_single_lead)
+    monkeypatch.setattr(
+        run_pipeline,
+        "run_strict_phase_06",
+        _make_mock_phase_06([
+            "Strict quality checked 1 sites",
+            "Approved: 1, Needs edit: 0, Rejected: 0",
+        ]),
+    )
+
+    summary = run_full_pipeline(
+        niche="auto detailing",
+        area="Frisco TX",
+        workspace=str(workspace),
+        generation_mode="template",
+        deploy_provider="local_only",
+        max_preview_sites=1,
+        dry_run=True,
+    )
+
+    assert summary["sites_approved"] == 1
+    assert "06" in summary["phases_completed"]
+    assert not any("Phase 06 decision parsing" in e for e in summary["errors"])

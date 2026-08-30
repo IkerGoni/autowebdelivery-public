@@ -23,6 +23,11 @@ from packages.phases.phase_06_strict_quality_gate import run_strict_phase_06
 from packages.phases.phase_07_deployment import run_phase_07
 from packages.phases.phase_08_outreach_generation import run_phase_08
 from packages.phases.phase_09_manual_approval_pack import run_phase_09
+from packages.pipeline.failure_semantics import (
+    Phase06DecisionError,
+    classify_phase_status,
+    parse_phase_06_decisions,
+)
 from packages.pipeline.vnext_integration import (
     get_vnext_flags,
     run_vnext_post_phase_03,
@@ -266,19 +271,30 @@ def run_full_pipeline(
         logger.info("Running vNext post-phase-06 integration...")
         run_vnext_post_phase_06(run_id, workspace, selected_leads, input_config)
     
-    # Parse decisions to see approved leads count
-    decisions = p6_res.get("decisions", [])
-    approved_text = [d for d in decisions if "Approved:" in d]
-    approved_count = 0
-    needs_edit_count = 0
-    if approved_text:
-        try:
-            # Format is "Approved: X, Needs edit: Y, Rejected: Z"
-            parts = approved_text[0].split(",")
-            approved_count = int(parts[0].split(":")[1].strip())
-            needs_edit_count = int(parts[1].split(":")[1].strip())
-        except Exception:
-            approved_count = 0
+    # Parse decisions to see approved leads count (U-09: structured parse,
+    # fail-closed — a malformed/missing decision line is an explicit hard
+    # failure, never a silent fallback to count 0).
+    try:
+        phase_06_counts = parse_phase_06_decisions(p6_res.get("decisions", []))
+    except Phase06DecisionError as exc:
+        semantics = classify_phase_status("failed")
+        logger.error(
+            "Phase 06 decision parsing failed (%s, fail-closed): %s",
+            semantics.failure_class.value,
+            exc,
+        )
+        errors.append(
+            f"Phase 06 decision parsing failed — {semantics.failure_class.value} "
+            f"(fail-closed, U-09): {exc}"
+        )
+        return _make_summary(
+            run_id, phases_completed, errors, start_time,
+            leads_selected=len(selected_leads),
+            sites_generated=len(selected_leads),
+            sites_approved=0,
+        )
+    approved_count = phase_06_counts.approved
+    needs_edit_count = phase_06_counts.needs_edit
     
     # In non-strict/template mode, needs_edit sites are acceptable for preview
     passable_count = approved_count + (needs_edit_count if not use_strict else 0)
