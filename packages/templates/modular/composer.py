@@ -81,24 +81,30 @@ class TemplateComposer:
         result = template
 
         # Handle {{#list}}...{{/list}} blocks for services
+        # Or {{#key}}...{{/key}} for truthy string values.
         list_pattern = re.compile(r"\{\{#(\w+)\}\}(.*?)\{\{/\1\}\}", re.DOTALL)
-        for match in list_pattern.finditer(template):
+        for match in list_pattern.finditer(result):
             list_key = match.group(1)
             inner_template = match.group(2)
-            items = data.get(list_key, [])
-            if not isinstance(items, list):
-                items = [items]
+            value = data.get(list_key)
 
-            rendered_items = []
-            for i, item in enumerate(items):
-                if isinstance(item, dict):
-                    item_rendered = inner_template
-                    for key, value in item.items():
-                        item_rendered = item_rendered.replace(f"{{{{{key}}}}}", str(value))
-                        item_rendered = item_rendered.replace("{{idx}}", str(i))
-                    rendered_items.append(item_rendered)
+            if value is None or value == "":
+                replacement = ""
+            elif isinstance(value, list):
+                rendered_items = []
+                for i, item in enumerate(value):
+                    if isinstance(item, dict):
+                        item_rendered = inner_template
+                        for key, val in item.items():
+                            item_rendered = item_rendered.replace(f"{{{{{key}}}}}", str(val))
+                            item_rendered = item_rendered.replace("{{idx}}", str(i))
+                        rendered_items.append(item_rendered)
+                replacement = "".join(rendered_items)
+            elif isinstance(value, str):
+                replacement = inner_template.replace(f"{{{{{list_key}}}}}", value)
+            else:
+                replacement = ""
 
-            replacement = "".join(rendered_items)
             result = result.replace(match.group(0), replacement)
 
         # Handle simple {{key}} replacements
@@ -143,7 +149,17 @@ class TemplateComposer:
         return "\n".join(cards)
 
     def _build_data_dict(self, business: BusinessData) -> dict:
-        """Convert BusinessData to flat dict suitable for template rendering."""
+        """Convert BusinessData to flat dict suitable for template rendering.
+
+        Returns a dict with the following hours-related keys:
+        - `hours`: Flat display string (e.g. "Mon - Fri: 8:00 AM - 5:00 PM · Sat - Sun: Closed")
+          for backward compatibility with existing templates.
+        - `hours_weekdays`: Weekday label (e.g. "Mon - Fri")
+        - `hours_weekday_hours`: Weekday hours (e.g. "8:00 AM - 5:00 PM")
+        - `hours_weekend_day`: Weekend day label (e.g. "Sat - Sun")
+        - `hours_weekend_hours`: Weekend hours (e.g. "Closed")
+        - `hours_note`: Optional note (e.g. "Emergency appointments available")
+        """
         d = business.to_dict()
 
         # Add service-specific convenience keys
@@ -157,6 +173,13 @@ class TemplateComposer:
         d["name"] = business.name
         d["address"] = business.full_address
         d["hours"] = business.hours_display
+        # Per-day hours variables for templates that need structured schedule rendering.
+        # These supplement the flat `hours` string (which remains for backward compatibility).
+        d["hours_weekdays"] = business.hours.weekdays
+        d["hours_weekday_hours"] = business.hours.weekday_hours
+        d["hours_weekend_day"] = business.hours.weekend_day
+        d["hours_weekend_hours"] = business.hours.weekend_hours
+        d["hours_note"] = business.hours.note or ""
         d["coverage_area"] = business.coverage_area or business.full_address
         d["cta_copy"] = business.cta_button_label
         d["cta_primary"] = business.cta_button_label
