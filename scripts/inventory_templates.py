@@ -28,7 +28,8 @@ PATTERNS: dict[str, re.Pattern[str]] = {
     "fake_contact": re.compile(r"business@email\.com", re.IGNORECASE),
     "price_literal": re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?"),
     "phone_literal": re.compile(r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}\b"),
-    "rating_literal": re.compile(r"\b\d\.\d\b(?=\s*(?:★|star|/5|from|rating)?)", re.IGNORECASE),
+    "tel_literal": re.compile(r"\btel:\+?\d{7,}\b"),
+    "rating_literal": re.compile(r"(?<![\w.\-])[45]\.\d\b"),
     "review_count": re.compile(r"\b\d{2,}\+?\s*(?:verified\s+)?reviews\b", re.IGNORECASE),
     "unresolved_placeholder": re.compile(r"\{\{(?!\s*\w+\s*\}\})[^\n]{0,40}"),
     "proper_noun_phrase": re.compile(r"\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+\b"),
@@ -61,7 +62,7 @@ def scan_file(path: Path, rel_root: Path) -> dict[str, object]:
     for label, pattern in PATTERNS.items():
         matches = pattern.findall(text)
         counts[label] = len(matches)
-        if matches and label in {"fake_contact", "price_literal", "phone_literal", "rating_literal", "review_count"}:
+        if matches and label in {"fake_contact", "price_literal", "phone_literal", "tel_literal", "rating_literal", "review_count"}:
             samples[label] = sorted(set(matches))[:SAMPLE_CAP]
     entry["counts"] = counts
     if samples:
@@ -91,8 +92,10 @@ def build_inventory() -> dict[str, object]:
         "fake_contact_total": total(sections, "fake_contact"),
         "price_literal_total": total(sections, "price_literal"),
         "phone_literal_total": total(sections, "phone_literal"),
+        "tel_literal_total": total(sections, "tel_literal"),
         "prompt_files": len(prompts),
         "prompt_price_total": total(prompts, "price_literal"),
+        "prompt_tel_total": total(prompts, "tel_literal"),
     }
     return {"summary": summary, "sections": sections, "stitch_prompts": prompts}
 
