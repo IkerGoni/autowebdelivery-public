@@ -9,7 +9,7 @@
 </div>
 <div>
 <h4 class="font-label-md text-label-md text-on-surface mb-xs">Location</h4>
-<p class="font-body-md text-body-md text-on-surface-variant">123 Dental Way, Healthcare Plaza<br/>New York, NY 10001</p>
+<p class="font-body-md text-body-md text-on-surface-variant">{{full_address_html}}</p>
 </div>
 </div>
 <div class="flex items-start gap-md">
@@ -18,10 +18,7 @@
 </div>
 <div>
 <h4 class="font-label-md text-label-md text-on-surface mb-xs">Clinic Hours</h4>
-<ul class="font-body-md text-body-md text-on-surface-variant space-y-xs">
-<li class="flex justify-between w-64"><span>Mon - Sat:</span> <span class="font-bold text-on-surface">9am - 6pm</span></li>
-<li class="flex justify-between w-64"><span>Sunday:</span> <span class="text-error font-medium">Closed</span></li>
-</ul>
+<p class="font-body-md text-body-md text-on-surface-variant">{{hours}}</p>
 </div>
 </div>
 </div>
@@ -48,8 +45,8 @@
 <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-md text-white">
 <span class="material-symbols-outlined">home_health</span>
 </div>
-<h4 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Smile Dental Clinic</h4>
-<p class="font-body-md text-body-md text-on-surface-variant mb-md">Healthcare Plaza, 123 Dental Way</p>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-xs">{{name}}</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">{{address_line1}}</p>
 <a class="text-primary font-bold hover:underline" href="#">Open in Google Maps</a>
 </div>
 </div>

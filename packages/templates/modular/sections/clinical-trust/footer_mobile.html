@@ -2,10 +2,10 @@
 <div class="flex flex-col items-center gap-md max-w-container-max mx-auto text-center">
 <div class="flex items-center gap-2 mb-4">
 <span class="material-symbols-outlined text-primary" data-icon="dentistry">dentistry</span>
-<span class="text-primary font-bold font-headline-sm">Smile Dental Clinic</span>
+<span class="text-primary font-bold font-headline-sm">{{name}}</span>
 </div>
 <p class="font-body-md text-body-md text-on-surface-variant max-w-xs">
-                123 Dental Way, Healthcare Plaza. Professional dental care you can trust.
+                {{address_line1}}. Professional dental care you can trust.
             </p>
 <nav class="flex flex-wrap justify-center gap-4 py-4">
 <a class="text-on-surface-variant hover:text-primary font-label-md transition-colors" href="#">Privacy Policy</a>
@@ -13,7 +13,7 @@
 <a class="text-on-surface-variant hover:text-primary font-label-md transition-colors" href="#">Patient Portal</a>
 </nav>
 <p class="font-body-md text-body-md text-on-surface-variant opacity-60 mt-4">
-                © 2024 Smile Dental Clinic. Professional Dental Care.
+                © 2024 {{name}}. Professional Dental Care.
             </p>
 </div>
 </footer>
@@ -39,6 +39,6 @@
 </div>
 </nav>
 <!-- Sticky Bottom Call Button (FAB Contextual) -->
-<a class="fixed bottom-24 right-4 z-40 bg-on-secondary-fixed-variant text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl active:scale-90 transition-transform" href="tel:1234567890">
+<a class="fixed bottom-24 right-4 z-40 bg-on-secondary-fixed-variant text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl active:scale-90 transition-transform" href="tel:{{phone_raw}}">
 <span class="material-symbols-outlined text-2xl" data-icon="call" style="font-variation-settings: 'FILL' 1;">call</span>
 </a>

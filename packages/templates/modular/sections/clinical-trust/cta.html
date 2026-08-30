@@ -6,7 +6,7 @@
 <div class="relative z-10">
 <h2 class="font-display-lg text-display-lg mb-md">Ready for a brighter smile?</h2>
 <p class="font-body-lg text-body-lg mb-lg opacity-90 max-w-2xl mx-auto">
-                            Join over 1,000 satisfied patients. Book your appointment today and take the first step towards exceptional oral health.
+                            {{cta_subtext}}
                         </p>
 <div class="flex flex-col sm:flex-row items-center justify-center gap-md">
 <a class="flex items-center gap-sm bg-on-primary text-primary px-lg py-md rounded-lg font-headline-sm text-headline-sm shadow-sm hover:scale-105 transition-transform" href="tel:{{phone_raw}}">
@@ -27,10 +27,11 @@
 <!-- Contact Form -->
 <div class="mt-xl max-w-xl mx-auto">
 <h3 class="font-headline-sm text-headline-sm mb-md text-on-primary/90">Send Us a Message</h3>
-<form action="mailto:business@email.com" method="post" enctype="text/plain" class="flex flex-col gap-md text-left">
+<p class="font-label-sm text-label-sm mb-sm text-on-primary/70">Demo contact form — not connected</p>
+<form class="flex flex-col gap-md text-left">
 <input type="text" name="name" placeholder="Your Name" required class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50">
 <input type="tel" name="phone" placeholder="{{phone}}" class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50">
-<input type="email" name="email" placeholder="your@email.com" required class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50">
+<input type="email" name="email" placeholder="Your email address" required class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50">
 <textarea name="message" placeholder="How can we help you?" rows="4" required class="w-full px-lg py-md rounded-lg bg-white/20 backdrop-blur-md border border-white/30 text-on-primary placeholder:text-on-primary/60 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-on-primary/50 resize-none"></textarea>
 <button type="submit" class="bg-on-primary text-primary px-lg py-md rounded-lg font-headline-sm text-headline-sm shadow-sm hover:scale-105 transition-transform w-full sm:w-auto sm:self-start">
                                 Send Message
