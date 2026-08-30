@@ -51,14 +51,10 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 - Do NOT leak internal BI scores or risk flags into public HTML
 - Do NOT deploy without human approval
 
-## Orchestrator operating pack
+## Development process
 
-Engineering lifecycle (audit → sprint planning → delegated implementation → independent validation → closeout) is governed by `autowebdelivery-orchestrator-pack/`:
+This project is built with an **AI-assisted engineering process**: independent agents research, implement, validate and audit each feature behind feature flags, with evidence-based accept/reject decisions per sprint. The operating protocols are deliberately kept out of this public repository (see `SECURITY.md`).
 
-- `PROJECT_CONTEXT.md` — strategic context, verified findings registry (U-01…U-23), and the consolidated master sprint sequence (S0–S9). Source of truth for what runs next.
-- `00-orchestrator/` — mission, operating rules, decision framework.
-- `01-analysis/` — audit protocol and findings/risk model.
-- `02-planning/` — sprint planning method and sprint template.
-- `03-execution/` — delegation protocol and agent task template.
+## Security expectations
 - `04-validation/` — validation protocol and sprint closeout.
 - `05-sprints/` — executable sprint definitions (currently S0, S1).

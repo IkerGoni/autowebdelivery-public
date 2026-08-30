@@ -183,8 +183,9 @@ config/               # run_config.example.json — copy & adjust per run
 | [`docs/contracts/`](docs/contracts/) | Artifact I/O schemas between phases |
 | [`docs/gates/quality_gates.md`](docs/gates/quality_gates.md) | Quality gate specification |
 | [`docs/testing/standalone_phase_testing.md`](docs/testing/standalone_phase_testing.md) | Testing phases in isolation |
-| [`AGENTS.md`](AGENTS.md) | Repository bootstrap for AI-assisted contribution |
-| [`autowebdelivery-orchestrator-pack/`](autowebdelivery-orchestrator-pack/) | Operating pack: verified findings registry (U-01…U-23), consolidated master sprint sequence (S0–S9), delegation & validation protocols. S1 (factual safety at the source) is ACCEPTED. |
+| [`CODE_OF_CONDUCT`](.github/CODE_OF_CONDUCT.md) | Community guidelines |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to build, test and contribute |
+| [`SECURITY.md`](SECURITY.md) | Disclosure policy and what is kept out of this repository |
 
 ## Author
 
