@@ -160,7 +160,7 @@ kanban.local.*
 .kilo/**
 # Internal orchestration/process material — kept private, not published
 autowebdelivery-orchestrator-pack/
-
+intermal_private/
 # --- Run-specific configuration (the .example is the committed template) ---
 config/run_config.json
 
