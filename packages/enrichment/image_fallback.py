@@ -13,6 +13,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from packages.shared.ssrf_validator import is_safe_url
+
 logger = logging.getLogger(__name__)
 
 
@@ -94,9 +96,14 @@ def has_sufficient_images(enrichment_data: dict[str, Any], min_images: int = 3) 
 
 
 def get_image_urls_from_enrichment(enrichment_data: dict[str, Any]) -> list[str]:
-    """Extract valid image URLs from enrichment data."""
+    """Extract valid image URLs from enrichment data.
+
+    R0-03 (U-14): these URLs originate from scraped pages and land in run
+    artifacts consumed by fetchers and the browser. Each URL must pass the
+    SSRF guard (public addresses only) before being handed on.
+    """
     photos = enrichment_data.get("photos", [])
-    
+
     valid_urls = []
     for url in photos:
         if url and isinstance(url, str) and url.startswith("http"):
@@ -105,8 +112,11 @@ def get_image_urls_from_enrichment(enrichment_data: dict[str, Any]) -> list[str]
                 "placeholder", "dummy", "example.com", "localhost"
             ]):
                 continue
+            if not is_safe_url(url):
+                logger.warning("Dropped image URL failing SSRF guard: %s", url)
+                continue
             valid_urls.append(url)
-    
+
     return valid_urls
 
 

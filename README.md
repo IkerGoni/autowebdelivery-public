@@ -360,7 +360,7 @@ maps_search
 
 ## Testing and validation
 
-The current repository reports **1,447 passing tests**.
+The current repository reports **1,558 passing tests** (R0 closeout, 2026-02).
 
 The number is deliberately a supporting metric rather than the main project claim. The important part is the coverage model:
 
@@ -490,6 +490,11 @@ A production evolution would likely require:
 
 Documenting these gaps is part of the engineering case study rather than something to hide.
 
+The **active, evidence-verified hardening program** (idempotency, persistence, SSRF protection,
+secret handling, rate-limit consolidation, resumable runs, and doc consolidation) is tracked in
+[`docs/plans/RECOVERY_PLAN.md`](docs/plans/RECOVERY_PLAN.md), with a findings baseline and live
+sprint tracker.
+
 ---
 
 ## Project structure
@@ -526,6 +531,7 @@ config/               # example runtime configuration
 | Document | Purpose |
 |---|---|
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | Phase map, generation paths, artifacts, feature flags, invariants |
+| [`docs/plans/RECOVERY_PLAN.md`](docs/plans/RECOVERY_PLAN.md) | LIVE hardening program: verified findings baseline, R0–R5 sprint plan, findings tracker |
 | [`docs/contracts/`](docs/contracts/) | Artifact I/O schemas |
 | [`docs/gates/quality_gates.md`](docs/gates/quality_gates.md) | Quality gates and kill criteria |
 | [`docs/architecture/`](docs/architecture/) | Architecture analysis and evolution |

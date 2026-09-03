@@ -1,6 +1,26 @@
-"""Artifact path builder for phase outputs per pipeline_data_contract.md."""
+"""Artifact path builder for phase outputs per pipeline_data_contract.md.
+
+R0-02 (F-02): directory components (``phase``, ``run_id``, ``artifact_type``)
+are validated with the slug charset before joining; filenames must be plain
+names — no separators, no ``..``.
+"""
 
 from pathlib import Path
+
+from packages.pipeline.slug import validate_slug
+
+
+def _safe_filename(filename: str) -> str:
+    if (
+        not isinstance(filename, str)
+        or not filename
+        or filename in {".", ".."}
+        or "/" in filename
+        or "\\" in filename
+        or "\x00" in filename
+    ):
+        raise ValueError(f"unsafe artifact filename: {filename!r}")
+    return filename
 
 
 def artifact_path(
@@ -23,9 +43,9 @@ def artifact_path(
     Returns:
         Absolute path string
     """
-    base = Path(workspace) / phase / run_id / artifact_type
+    base = Path(workspace) / validate_slug(phase, field="phase") / validate_slug(run_id, field="run_id") / validate_slug(artifact_type, field="artifact_type")
     base.mkdir(parents=True, exist_ok=True)
-    return str(base / filename)
+    return str(base / _safe_filename(filename))
 
 
 def input_path(

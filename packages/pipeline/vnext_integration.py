@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from packages.pipeline.json_io import read_json, write_json
+from packages.pipeline.slug import validate_slug
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +57,14 @@ def get_vnext_flags(config: dict[str, Any]) -> dict[str, bool]:
 # ---------------------------------------------------------------------------
 
 def _runs(workspace: str, run_id: str) -> Path:
-    return Path(workspace) / "runs" / run_id
+    # F-02: run_id and business_slug are untrusted values that end up in
+    # filesystem paths — validate before joining.
+    return Path(workspace) / "runs" / validate_slug(run_id, field="run_id")
+
+
+def _lead_slug(lead: dict[str, Any]) -> str:
+    """Validated business_slug from a lead record (F-02 path-traversal guard)."""
+    return validate_slug(str(lead.get("business_slug", "unknown")), field="business_slug")
 
 
 def _read_selected_leads(workspace: str, run_id: str) -> list[dict[str, Any]]:
@@ -107,7 +115,7 @@ def run_vnext_post_phase_03(
     output_dir = _runs(workspace, run_id) / "04_briefs"
     written: list[str] = []
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
         try:
             profile = build_market_profile(lead, config, run_id=run_id)
             path = write_market_profile(profile, str(output_dir), slug)
@@ -146,7 +154,7 @@ def run_vnext_post_phase_03_competitor_intel(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
 
         bp: dict[str, Any] = {}
         bp_path = output_dir / slug / "business_profile.json"
@@ -206,7 +214,7 @@ def run_vnext_post_phase_03_overpass_enrichment(
     client = OverpassClient()
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
         business_name = (
             lead.get("business_name")
             or lead.get("company_name")
@@ -295,7 +303,7 @@ def run_vnext_post_phase_04_5(
     enrichment_dir = _runs(workspace, run_id) / "04_5_enrichment"
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
 
         # ── Read enrichment artifacts if they exist ──
         overpass_enrichment: dict[str, Any] | None = None
@@ -436,7 +444,7 @@ def run_vnext_post_phase_04_5_gmaps_enrichment(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
         business_name = (
             lead.get("business_name")
             or lead.get("company_name")
@@ -578,7 +586,7 @@ def run_vnext_post_phase_04_5_social_enrichment(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
         # Try website_raw first, fall back to website
         url = (
             lead.get("website_raw")
@@ -683,7 +691,7 @@ def run_vnext_post_phase_04_5_image_fallback(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
 
         # Collect enrichment payload from gmaps + social-media steps
         enrichment_payload: dict[str, Any] = {
@@ -783,7 +791,7 @@ def run_vnext_post_phase_06(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
         html_path = sites_dir / slug / "site" / "index.html"
         if not html_path.exists():
             logger.warning("VNEXT-06: no site HTML for %s, skipping", slug)
@@ -852,7 +860,7 @@ def run_vnext_post_phase_06_patch_plan(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
         html_path = sites_dir / slug / "site" / "index.html"
         eval_report_path = sites_dir / slug / "evaluation_report.json"
         cs_path = briefs_dir / slug / "creative_spec.json"
@@ -998,7 +1006,7 @@ def run_vnext_post_phase_08(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
 
         # Collect upstream artifacts (all optional)
         bp: dict | None = None
@@ -1099,7 +1107,7 @@ def run_vnext_post_phase_09(
     written: list[str] = []
 
     for lead in selected_leads:
-        slug = lead.get("business_slug", "unknown")
+        slug = _lead_slug(lead)
 
         # Collect upstream artifacts (all optional)
         bp: dict | None = None

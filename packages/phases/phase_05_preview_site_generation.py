@@ -24,10 +24,12 @@ TEMPLATE_DIR = Path(__file__).resolve().parents[1] / "templates" / "preview_site
 try:
     from pipeline.json_io import read_json, write_json
     from pipeline.result_envelope import ResultEnvelope
+    from pipeline.slug import safe_path
     from pipeline.template_slots import find_unresolved_slots
 except ModuleNotFoundError:  # pragma: no cover - CLI fallback
     from packages.pipeline.json_io import read_json, write_json
     from packages.pipeline.result_envelope import ResultEnvelope
+    from packages.pipeline.slug import safe_path
     from packages.pipeline.template_slots import find_unresolved_slots
 
 try:
@@ -83,7 +85,7 @@ def _parse_facts_md(path: Path) -> dict[str, str]:
 
 
 def _slug_to_brief_dir(root: Path, run_id: str, business_slug: str) -> Path:
-    return root / "runs" / run_id / "04_briefs" / business_slug
+    return safe_path(root, "runs", run_id, "04_briefs", business_slug)
 
 
 def _build_generic_copy(category: str, business_name: str) -> dict[str, str]:
@@ -120,7 +122,7 @@ def _html_document(content: dict[str, str]) -> str:
 
 
 def _load_phase_04_5_context(root: Path, run_id: str, business_slug: str) -> tuple[dict[str, Any], dict[str, Any]]:
-    enrich_dir = root / "runs" / run_id / PHASE_04_5_SLUG / business_slug
+    enrich_dir = safe_path(root, "runs", run_id, PHASE_04_5_SLUG, business_slug)
     visual_profile_path = enrich_dir / "visual_profile.json"
     copy_inputs_path = enrich_dir / "copy_inputs.json"
     visual_profile = read_json(str(visual_profile_path)) if visual_profile_path.exists() else {}
@@ -129,10 +131,11 @@ def _load_phase_04_5_context(root: Path, run_id: str, business_slug: str) -> tup
 
 
 def _load_run_config(root: Path, run_id: str) -> dict[str, Any]:
-    config_path = root / "runs" / run_id / "config" / "run_config.json"
+    config_dir = safe_path(root, "runs", run_id, "config")
+    config_path = config_dir / "run_config.json"
     if config_path.exists():
         return read_json(str(config_path))
-    input_config_path = root / "runs" / run_id / "config" / "input_config.json"
+    input_config_path = config_dir / "input_config.json"
     if input_config_path.exists():
         return read_json(str(input_config_path))
     return {}
@@ -429,7 +432,7 @@ def build_site_record(root: Path, run_id: str, brief_row: dict[str, Any]) -> dic
         fact_usage["needs_review"] = True
         fact_usage["notes"].append("Placeholder hit found in generated HTML.")
 
-    site_dir = root / "runs" / run_id / PHASE_SLUG / business_slug / "site"
+    site_dir = safe_path(root, "runs", run_id, PHASE_SLUG, business_slug, "site")
     site_dir.mkdir(parents=True, exist_ok=True)
     output_dir = site_dir.parent
     if not modular_mode:
@@ -478,8 +481,8 @@ def build_site_record(root: Path, run_id: str, brief_row: dict[str, Any]) -> dic
 
 def run_phase_05(run_id: str, workspace: str) -> dict[str, Any]:
     root = Path(workspace)
-    preview_ready_path = root / "runs" / run_id / "04_briefs" / "preview_ready_briefs.json"
-    blocked_path = root / "runs" / run_id / "04_briefs" / "blocked_no_recipient_channel.json"
+    preview_ready_path = safe_path(root, "runs", run_id, "04_briefs") / "preview_ready_briefs.json"
+    blocked_path = safe_path(root, "runs", run_id, "04_briefs") / "blocked_no_recipient_channel.json"
 
     missing_fields: list[str] = []
     if not preview_ready_path.exists():
@@ -497,7 +500,7 @@ def run_phase_05(run_id: str, workspace: str) -> dict[str, Any]:
     blocked = read_json(str(blocked_path)) if blocked_path.exists() else []
     blocked_lookup = {row.get("business_slug"): row for row in blocked}
 
-    output_root = root / "runs" / run_id / PHASE_SLUG
+    output_root = safe_path(root, "runs", run_id, PHASE_SLUG)
     output_root.mkdir(parents=True, exist_ok=True)
 
     build_statuses: list[dict[str, Any]] = []

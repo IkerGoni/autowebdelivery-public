@@ -16,6 +16,7 @@ from packages.phases.business_intelligence_scorecard import (
 )
 from pipeline.json_io import read_json, write_json
 from pipeline.result_envelope import ResultEnvelope
+from pipeline.slug import SAFE_PART_RE, make_slug
 
 PHASE_NAME = "phase_03_lead_scoring"
 
@@ -111,6 +112,12 @@ def score_lead(
     """Score a single lead and return scored lead with components."""
     record_id = lead.get("record_id", "")
     business_slug = lead.get("business_slug", "")
+    # F-02 origin defense: business_slug arrives from raw discovery data and is
+    # used downstream in filesystem paths. Already-safe slugs pass through
+    # unchanged; anything else is normalized (traversal payloads collapse to a
+    # harmless slug). Empty stays empty to preserve legacy behavior.
+    if business_slug and not SAFE_PART_RE.fullmatch(business_slug):
+        business_slug = make_slug(business_slug)
     business_name = lead.get("business_name", "")
     rating = safe_float(lead.get("rating"), 0.0)
     review_count = safe_int(lead.get("review_count"), 0)

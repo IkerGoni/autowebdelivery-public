@@ -28,6 +28,57 @@ def test_vercel_deployer_success(tmp_path, monkeypatch):
     assert res["provider"] == "vercel"
     assert res["http_status"] == 200
 
+def test_token_only_from_env_never_in_argv(tmp_path, monkeypatch):
+    """R0-01 regression: the Vercel token must reach the CLI via the environment only —
+    never as a CLI argument (argv is world-readable via `ps`)."""
+    site_path = tmp_path / "test_site"
+    site_dir = site_path / "site"
+    site_dir.mkdir(parents=True)
+    (site_dir / "index.html").write_text("<html></html>", encoding="utf-8")
+
+    seen = {}
+
+    def mock_run(cmd, **kwargs):
+        seen["cmd"] = cmd
+        seen["env"] = kwargs.get("env")
+        return MockCompletedProcess(0, "secret-free.vercel.app")
+
+    monkeypatch.setattr(subprocess, "run", mock_run)
+    monkeypatch.delenv("VERCEL_TOKEN", raising=False)
+
+    res = deploy_to_vercel(str(site_path), token="super-secret-token")
+
+    assert res["deployment_status"] == "live"
+    # Token must not appear anywhere in the command line...
+    assert "super-secret-token" not in seen["cmd"]
+    assert "--token" not in seen["cmd"]
+    # ...but must be delivered to the CLI through the environment.
+    assert seen["env"]["VERCEL_TOKEN"] == "super-secret-token"
+
+def test_token_from_environment_when_arg_missing(tmp_path, monkeypatch):
+    """Env-provided tokens are forwarded unchanged; argv stays clean either way."""
+    site_path = tmp_path / "test_site"
+    site_dir = site_path / "site"
+    site_dir.mkdir(parents=True)
+    (site_dir / "index.html").write_text("<html></html>", encoding="utf-8")
+
+    seen = {}
+
+    def mock_run(cmd, **kwargs):
+        seen["cmd"] = cmd
+        seen["env"] = kwargs.get("env")
+        return MockCompletedProcess(0, "env-token.vercel.app")
+
+    monkeypatch.setattr(subprocess, "run", mock_run)
+    monkeypatch.setenv("VERCEL_TOKEN", "env-provided-token")
+
+    res = deploy_to_vercel(str(site_path))
+
+    assert res["deployment_status"] == "live"
+    assert "--token" not in seen["cmd"]
+    assert "env-provided-token" not in seen["cmd"]
+    assert seen["env"]["VERCEL_TOKEN"] == "env-provided-token"
+
 def test_vercel_deployer_failure(tmp_path, monkeypatch):
     site_path = tmp_path / "test_site"
     site_dir = site_path / "site"

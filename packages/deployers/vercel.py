@@ -52,18 +52,20 @@ def deploy_to_vercel(
             "deployed_at": now,
         }
         
-    # Build CLI command
+    # Build CLI command — the auth token NEVER goes into argv (visible in `ps`
+    # output and shell history); it is passed to the CLI via the environment.
     cmd = ["vercel", "deploy", "--yes", "--prod"]
     if project_name:
         cmd.extend(["--name", project_name])
-        
+
     # Read VERCEL_TOKEN env if token not passed
     token = token or os.environ.get("VERCEL_TOKEN")
+    run_env = os.environ.copy()
     if token:
-        cmd.extend(["--token", token])
-        
+        run_env["VERCEL_TOKEN"] = token
+
     logger.info(f"Deploying {site_dir} to Vercel via CLI...")
-    
+
     try:
         res = subprocess.run(
             cmd,
@@ -72,6 +74,7 @@ def deploy_to_vercel(
             text=True,
             timeout=timeout_seconds,
             check=False,
+            env=run_env,
         )
         
         if res.returncode != 0:
@@ -109,7 +112,7 @@ def deploy_to_vercel(
             "error": "Vercel deploy timed out",
             "deployed_at": now,
         }
-    except Exception as e:
+    except (OSError, subprocess.SubprocessError) as e:
         return {
             "preview_url": "",
             "deployment_status": "failed",

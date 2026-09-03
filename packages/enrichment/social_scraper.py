@@ -17,6 +17,8 @@ from urllib.parse import urlparse
 
 import httpx
 
+from packages.shared.ssrf_validator import SSRFBlockedError, assert_safe_url
+
 logger = logging.getLogger(__name__)
 
 
@@ -90,7 +92,7 @@ def extract_username_from_url(url: str, platform: str) -> str:
             # Clean query params
             username = parts[0].split("?")[0]
             return username
-    except Exception as e:
+    except ValueError as e:
         logger.debug(f"Failed to extract username from {url}: {e}")
     
     return ""
@@ -152,7 +154,7 @@ class RobotsChecker:
                             return False
             
             return True
-        except Exception as e:
+        except ValueError as e:
             logger.error(f"Error checking robots.txt for {url}: {e}")
             return False
 
@@ -205,6 +207,14 @@ def _fetch_facebook_og(url: str, rate_limiter: RateLimiter | None = None) -> Soc
     Returns:
         SocialProfile with available data, or None on failure.
     """
+    # --- SSRF guard (R0-03 / U-14): URLs come from lead data, never fetch
+    # without a public-address check ----------------------------------------
+    try:
+        assert_safe_url(url)
+    except SSRFBlockedError as exc:
+        logger.warning("Social fetch blocked by SSRF guard for %s: %s", url, exc)
+        return None
+
     # --- robots.txt check ---------------------------------------------------
     if not RobotsChecker.is_allowed(url):
         logger.warning("Facebook URL blocked by robots.txt: %s", url)
@@ -309,6 +319,14 @@ def _fetch_instagram_profile(url: str, rate_limiter: RateLimiter | None = None) 
     Returns:
         SocialProfile with available data, or None on failure.
     """
+    # --- SSRF guard (R0-03 / U-14): URLs come from lead data, never fetch
+    # without a public-address check ----------------------------------------
+    try:
+        assert_safe_url(url)
+    except SSRFBlockedError as exc:
+        logger.warning("Social fetch blocked by SSRF guard for %s: %s", url, exc)
+        return None
+
     # --- robots.txt check ---------------------------------------------------
     if not RobotsChecker.is_allowed(url):
         logger.warning("Instagram URL blocked by robots.txt: %s", url)

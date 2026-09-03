@@ -162,4 +162,4 @@ These are load-bearing constraints — changes that violate them require a full 
 - Browser render capture requires Playwright browser binaries; without them the phase records a non-blocking degradation instead of failing the run.
 - The bundled demo fixture is static synthetic data (always dental-clinic records), which keeps the E2E path hermetic but means fixture runs do not exercise real discovery sources.
 
-Deeper analysis and refactor proposals: [`docs/architecture/ARCHITECTURE_REFACTOR_PROPOSAL.md`](docs/architecture/ARCHITECTURE_REFACTOR_PROPOSAL.md).
+The **active hardening program** for these trade-offs (idempotency, persistence, SSRF, secret handling, rate-limit consolidation, per-threshold configuration) lives in [`docs/plans/RECOVERY_PLAN.md`](docs/plans/RECOVERY_PLAN.md) with its live findings tracker. Earlier analysis is retained as a historical audit in [`docs/architecture/ARCHITECTURE_REFACTOR_PROPOSAL.md`](docs/architecture/ARCHITECTURE_REFACTOR_PROPOSAL.md) (marked superseded).

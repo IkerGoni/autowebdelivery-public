@@ -53,7 +53,7 @@ def classify_website(website_raw: str) -> tuple[str, str, list[str]]:
         domain = parsed.netloc.lower()
         # Remove www. prefix
         domain = domain.removeprefix("www.")
-    except Exception:
+    except ValueError:
         return "invalid_url", "malformed", ["malformed_url"]
 
     # Check for Google Maps URL
@@ -114,7 +114,7 @@ def make_website_classification(
             parsed = urlparse(website_raw if website_raw.startswith("http") else "https://" + website_raw)
             registered_domain = parsed.netloc.lower()
             registered_domain = registered_domain.removeprefix("www.")
-        except Exception:
+        except ValueError:
             registered_domain = ""
 
     # Confidence based on certainty of classification

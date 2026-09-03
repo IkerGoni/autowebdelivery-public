@@ -95,5 +95,5 @@ def extract_domain(url: str) -> str:
         parsed = urlparse(url)
         domain = parsed.netloc or parsed.path.split("/")[0]
         return domain.lower().strip()
-    except Exception:
+    except ValueError:
         return ""

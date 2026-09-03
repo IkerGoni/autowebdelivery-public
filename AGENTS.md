@@ -32,12 +32,14 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 
 | Check | Command | Expected |
 |-------|---------|----------|
-| Tests | `python3 -m pytest tests/ -q` | 1,447 passed |
+| Tests | `python3 -m pytest tests/ -q` | 1,558 passed |
 | Lint | `ruff check packages/ tests/ templates/` | All checks passed |
 
 ## Documentation
 
 - `ARCHITECTURE.md` — technical deep dive: phases, generation paths, feature flags, invariants, trade-offs
+- `docs/plans/RECOVERY_PLAN.md` — LIVE hardening program: verified findings baseline, sprint plan (R0–R5), findings tracker (updated at every sprint closeout)
+- `docs/plans/REVIEWER_PROMPT.md` — independent-audit prompt for reviewing the recovery plan
 - `docs/contracts/` — artifact contracts (I/O schemas for all phases)
 - `docs/architecture/` — system architecture
 - `docs/design/` — design system documentation
@@ -57,4 +59,4 @@ This project is built with an **AI-assisted engineering process**: independent a
 
 ## Security expectations
 - `04-validation/` — validation protocol and sprint closeout.
-- `05-sprints/` — executable sprint definitions (currently S0, S1).
+- `05-sprints/` — executable sprint definitions (private pack; S0–S2 shipped — S2 closed `make_run_id()` collision, see recovery plan F-13). The live hardening program is the R-series in `docs/plans/RECOVERY_PLAN.md`.

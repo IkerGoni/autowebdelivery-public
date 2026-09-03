@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from packages.enrichment.image_fallback import (
     ImageGenerationRequest,
     add_fallback_images_to_enrichment,
@@ -13,6 +15,20 @@ from packages.enrichment.image_fallback import (
     has_sufficient_images,
     should_generate_fallback_images,
 )
+
+
+@pytest.fixture(autouse=True)
+def _fake_public_dns(monkeypatch):
+    """R0-03: the SSRF guard resolves URLs before they pass. Fake a public
+    A-record for every hostname so tests run without network/DNS."""
+    import socket as _socket
+
+    from packages.shared import ssrf_validator
+
+    def _getaddrinfo(host, *args, **kwargs):
+        return [(_socket.AF_INET, _socket.SOCK_STREAM, 6, "", ("93.184.216.34", 0))]
+
+    monkeypatch.setattr(ssrf_validator.socket, "getaddrinfo", _getaddrinfo)
 
 # ===========================================================================
 # ImageGenerationRequest
