@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from packages.shared.logging_config import setup_logging
+
 
 def _build_stitch_client(api_key: str | None) -> object | None:
     """Create an HttpStitchClient if an API key is available."""
@@ -49,6 +51,8 @@ def main() -> None:
     parser.add_argument("--price-offer", default="$499 one-time", help="Offer price to pitch")
     parser.add_argument("--dry-run", action="store_true", help="Skip deployment and outreach steps")
     parser.add_argument("--verbose", action="store_true", help="Print debug logging")
+    parser.add_argument("--json-logs", action="store_true",
+                        help="Emit one-line JSON logs (each with ts, level, run_id, phase)")
 
     args = parser.parse_args()
 
@@ -62,13 +66,8 @@ def main() -> None:
     elif args.generation_mode == "stitch":
         logger.warning("generation_mode=stitch but no STITCH_API_KEY — will fail at Phase 05")
 
-    # Configure logging
-    log_level = logging.DEBUG if args.verbose else logging.INFO
-    logging.basicConfig(
-        level=log_level,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-        stream=sys.stdout
-    )
+    # Configure logging (human-readable console by default; --json-logs for JSON lines)
+    setup_logging(verbose=args.verbose, json_logs=args.json_logs)
 
     summary = run_full_pipeline(
         niche=args.niche,
