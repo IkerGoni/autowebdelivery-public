@@ -94,7 +94,10 @@ The application domain is local-business web delivery. The engineering subject i
 | Browser evidence | Playwright render capture produces DOM/render evidence when browsers are available |
 | Quality gates | Phase 06 evaluates safety, data utilization, copy quality, and visual credibility |
 | Human approval | Outbound sending is blocked unless the required review state is approved |
-| Feature flags | 14 vNext capabilities are opt-in and disabled by default |
+| Feature flags | 15 vNext capabilities are opt-in and disabled by default |
+| Resumable runs | SQLite state mirror enables idempotent re-runs: completed phases skip, partial work is cleaned, duplicate leads dedupe |
+| Observability | Structured JSON logging (`--json-logs`), classified failure contexts, persistent dead-letter queue, per-phase metrics |
+| Input hardening | Slug/path validation, SSRF guard on outbound fetches, deploy credentials via environment only |
 | Regression protection | Unit, integration, golden-fixture, and full-pipeline E2E coverage |
 | CI/security | Ruff, pytest on Python 3.10/3.12, Gitleaks, and pip-audit run in GitHub Actions |
 
@@ -300,6 +303,8 @@ or `vnext_flags={"run_state_db": True}` in code. Re-invoking the pipeline with t
 
 Failed phases are also persisted: a classified failure context is written to the run summary (`failures`) and to the database as dead letters that survive restarts, and per-phase metrics (status, duration, record counts) are queryable via `phase_metrics` and included in the run summary.
 
+Logging is structured too: `--json-logs` emits one JSON object per line carrying `run_id`, `phase`, and `ts`, machine-parseable without giving up the human-readable console default.
+
 ---
 
 ## What a run produces
@@ -474,6 +479,10 @@ Examples of explicit blocking/failure criteria include:
 - failed deployment;
 - missing approval before outbound sending.
 
+Failures are classified into semantic categories (`FailureClass`) and carried as structured
+`FailureContext` objects — phase, artifact, error, retryability — in run summaries and logs;
+with the state DB enabled, failed records are additionally persisted to a dead-letter queue.
+
 See [`docs/gates/quality_gates.md`](docs/gates/quality_gates.md) for the phase-by-phase kill criteria.
 
 ---
@@ -490,18 +499,23 @@ It has not been presented as:
 - a production SaaS;
 - a distributed job-processing platform.
 
-A production evolution would likely require:
+Several of those requirements are already prototyped in this repository, behind feature flags
+(driven by the hardening program tracked in [`docs/plans/RECOVERY_PLAN.md`](docs/plans/RECOVERY_PLAN.md)):
 
-- durable job orchestration;
-- retry/backoff and idempotency;
-- persistent artifact storage;
-- structured observability;
-- per-phase metrics and cost tracking;
-- worker pools and rate limiting;
+- retry-safe idempotent re-runs (resume from the last completed phase);
+- persistent run state (SQLite mirror of the artifact filesystem);
+- structured JSON logging with run/phase context;
+- classified failure contexts and a persistent dead-letter queue;
+- per-phase metrics (status, duration, counts);
+- SSRF protection on outbound fetches and path-traversal validation.
+
+What a production evolution would still require:
+
+- durable job orchestration at scale and worker pools;
+- API rate limiting under real request volume;
 - stronger browser sandboxing;
-- SSRF/outbound-domain protections;
-- managed secrets;
-- stronger operational alerting.
+- managed secrets and stronger operational alerting;
+- load testing and long-term operation.
 
 Documenting these gaps is part of the engineering case study rather than something to hide.
 
@@ -530,7 +544,7 @@ packages/
 ├── phases/           # Pipeline phase implementations
 ├── pipeline/         # Orchestration, contracts, feature flags
 ├── sales/            # Sales-package generation
-├── shared/            # Provenance and shared utilities
+├── shared/           # Shared utilities: provenance, SSRF guard, structured logging
 └── templates/        # Sites, outreach, prompts
 
 tests/                # unit / integration / E2E / golden fixtures
