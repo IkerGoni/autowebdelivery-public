@@ -252,7 +252,7 @@ The modular design families currently include:
 
 ## Feature-flagged architecture evolution
 
-The repository contains **14 vNext capabilities**, disabled by default.
+The repository contains **15 vNext capabilities**, disabled by default.
 
 Examples include:
 
@@ -270,6 +270,7 @@ Examples include:
 - Google Maps enrichment
 - social enrichment
 - image fallback
+- run-state resume mirror (idempotent re-runs)
 
 The migration strategy is deliberately conservative:
 
@@ -284,6 +285,18 @@ regression coverage
 ```
 
 This allows architectural evolution without requiring a single high-risk rewrite.
+
+---
+
+## Resume & idempotency
+
+With the `run_state_db` flag enabled, every run is mirrored into a small SQLite database at `runs/state.db` (no new dependencies — stdlib `sqlite3`):
+
+```bash
+RUN_STATE_DB=1 python -m packages.cli.run ...   # env override, no code change
+```
+
+or `vnext_flags={"run_state_db": True}` in code. Re-invoking the pipeline with the same `run_id` then resumes instead of repeating work: completed phases are skipped, partial artifacts of failed phases are deleted before the phase re-runs, and leads already processed in an earlier run are deduplicated via content fingerprints. Run finish is recorded on success and failure alike. With the flag off (the default), behavior is unchanged and no database is created.
 
 ---
 

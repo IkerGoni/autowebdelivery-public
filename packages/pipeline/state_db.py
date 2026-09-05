@@ -289,6 +289,26 @@ class StateDB:
             )
         return cursor.rowcount > 0
 
+    def has_fingerprint(self, fingerprint: str, *, exclude_run_id: str | None = None) -> bool:
+        """Read-only check whether a fingerprint was recorded before.
+
+        With ``exclude_run_id`` the lookup ignores rows recorded by that run —
+        used on resume, where the current run's own fingerprints must not
+        filter out the leads it already kept.
+        """
+        with self._lock:
+            if exclude_run_id is None:
+                row = self._conn.execute(
+                    "SELECT 1 FROM lead_fingerprints WHERE fingerprint = ? LIMIT 1",
+                    (fingerprint,),
+                ).fetchone()
+            else:
+                row = self._conn.execute(
+                    "SELECT 1 FROM lead_fingerprints WHERE fingerprint = ? AND run_id != ? LIMIT 1",
+                    (fingerprint, exclude_run_id),
+                ).fetchone()
+        return row is not None
+
     def record_dead_letter(
         self,
         run_id: str,

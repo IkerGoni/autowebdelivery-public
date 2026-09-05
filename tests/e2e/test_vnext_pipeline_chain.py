@@ -412,7 +412,7 @@ def test_get_vnext_flags_defaults():
     """Verify all flags default to False when not in config."""
     flags = get_vnext_flags({})
     assert all(v is False for v in flags.values())
-    assert len(flags) == 14
+    assert len(flags) == 15
 
 
 def test_get_vnext_flags_partial():

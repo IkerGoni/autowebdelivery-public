@@ -40,6 +40,9 @@ _VNEXT_FLAG_DEFAULTS: dict[str, bool] = {
     "use_gmaps_enrichment": False,
     "use_social_enrichment": False,
     "use_image_fallback": False,
+    # R1-03: SQLite run-state mirror enabling idempotency/resume (infrastructure,
+    # not a creative feature — run_pipeline excludes it from any() vNext gating).
+    "run_state_db": False,
 }
 
 

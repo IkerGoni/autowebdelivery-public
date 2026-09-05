@@ -21,7 +21,7 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 
 ## Key technical decisions
 
-- **Feature flags** (14 total, all default `False`) — every new capability is behind a flag, legacy pipeline always works
+- **Feature flags** (15 total, all default `False`) — every new capability is behind a flag, legacy pipeline always works
 - **Factual safety** — generated sites never invent business facts; sanitizer + quality gates enforce this
 - **Internal data isolation** — BI scores are translated to safe creative guidance before reaching prompts
 - **Multi-path generation** — modular templates (4 design families), legacy template path, and AI generation (Stitch API, no fallback); `auto` tries Stitch first and falls back to the legacy template path

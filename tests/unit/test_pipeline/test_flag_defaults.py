@@ -39,4 +39,4 @@ class TestFlagDefaults:
 
     def test_count_includes_new_flags(self):
         """Total flag count includes the new entries."""
-        assert len(_VNEXT_FLAG_DEFAULTS) == 14
+        assert len(_VNEXT_FLAG_DEFAULTS) == 15
