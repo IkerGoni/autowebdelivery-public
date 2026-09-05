@@ -298,6 +298,8 @@ RUN_STATE_DB=1 python -m packages.cli.run ...   # env override, no code change
 
 or `vnext_flags={"run_state_db": True}` in code. Re-invoking the pipeline with the same `run_id` then resumes instead of repeating work: completed phases are skipped, partial artifacts of failed phases are deleted before the phase re-runs, and leads already processed in an earlier run are deduplicated via content fingerprints. Run finish is recorded on success and failure alike. With the flag off (the default), behavior is unchanged and no database is created.
 
+Failed phases are also persisted: a classified failure context is written to the run summary (`failures`) and to the database as dead letters that survive restarts, and per-phase metrics (status, duration, record counts) are queryable via `phase_metrics` and included in the run summary.
+
 ---
 
 ## What a run produces
@@ -373,7 +375,7 @@ maps_search
 
 ## Testing and validation
 
-The current repository reports **1,558 passing tests** (R0 closeout, 2026-02).
+The current repository reports **1,623 passing tests** (R1 closeout, 2026-09).
 
 The number is deliberately a supporting metric rather than the main project claim. The important part is the coverage model:
 

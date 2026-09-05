@@ -32,7 +32,7 @@ Phase 01 → 02 → 02.1 → 03 → 04 → 04.5 → 05 → 05.5 → 06 → 07 �
 
 | Check | Command | Expected |
 |-------|---------|----------|
-| Tests | `python3 -m pytest tests/ -q` | 1,558 passed |
+| Tests | `python3 -m pytest tests/ -q` | 1,623 passed |
 | Lint | `ruff check packages/ tests/ templates/` | All checks passed |
 
 ## Documentation

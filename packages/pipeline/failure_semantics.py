@@ -132,6 +132,77 @@ def classify_scorecard_verdict(verdict: str, *, production: bool = True) -> Fail
 
 
 @dataclass(frozen=True)
+class FailureContext:
+    """Structured context for one orchestrator-level phase failure (R1-04).
+
+    Carries enough detail to classify and audit a failure after the fact:
+    where it happened (``phase``/``run_id``/``artifact``), what went wrong
+    (``error``), and how it classifies. The category reuses the canonical
+    :class:`FailureClass` taxonomy — no parallel classification scheme.
+
+    Attributes:
+        phase: Phase key (e.g. ``"04"``) that failed.
+        error: Human-readable error message (joined envelope errors).
+        run_id: Run the failure belongs to, when known.
+        artifact: Path to the failing phase's artifact directory, when known.
+        retryable: Whether retrying may change the outcome.
+        category: Canonical :class:`FailureClass` for this failure.
+    """
+
+    phase: str
+    error: str
+    run_id: str | None = None
+    artifact: str | None = None
+    retryable: bool = False
+    category: FailureClass = FailureClass.HARD_FAILURE
+
+    def to_dict(self) -> dict:
+        """JSON-safe dict for summaries, logs and recorded result payloads."""
+        return {
+            "phase": self.phase,
+            "run_id": self.run_id,
+            "artifact": self.artifact,
+            "error": self.error,
+            "retryable": self.retryable,
+            "category": self.category.value if isinstance(self.category, FailureClass) else str(self.category),
+        }
+
+
+def classify_failure(
+    phase: str,
+    *,
+    status: str | None = None,
+    error: str = "",
+    run_id: str | None = None,
+    artifact: str | None = None,
+) -> FailureContext:
+    """Combine :func:`classify_phase_status` with an error message (R1-04).
+
+    Args:
+        phase: Phase key that failed.
+        status: Observed result-envelope status; ``None`` means the failure was
+            detected without an envelope (e.g. an exception), classified as
+            :attr:`FailureClass.HARD_FAILURE`.
+        error: Error message; falls back to the semantics-derived detail when
+            empty.
+        run_id: Optional run id for the context.
+        artifact: Optional artifact path for the context.
+
+    Returns:
+        A :class:`FailureContext` in the canonical taxonomy.
+    """
+    semantics = classify_phase_status(status) if status else FailureSemantics(FailureClass.HARD_FAILURE)
+    return FailureContext(
+        phase=phase,
+        error=error or semantics.detail,
+        run_id=run_id,
+        artifact=artifact,
+        retryable=semantics.retryable,
+        category=semantics.failure_class,
+    )
+
+
+@dataclass(frozen=True)
 class Phase06Counts:
     """Structured Phase-06 gate counts parsed from the decisions line."""
 

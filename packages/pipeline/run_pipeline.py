@@ -29,6 +29,7 @@ from packages.phases.phase_08_outreach_generation import run_phase_08
 from packages.phases.phase_09_manual_approval_pack import run_phase_09
 from packages.pipeline.failure_semantics import (
     Phase06DecisionError,
+    classify_failure,
     classify_phase_status,
     parse_phase_06_decisions,
 )
@@ -150,6 +151,69 @@ def _clean_phase_artifacts(workspace: str, run_id: str, phase_key: str) -> None:
         )
 
 
+# Result-envelope keys that may carry per-record failure lists (R1-05).
+_FAILED_ITEM_KEYS = ("failed_records", "failed_leads", "failed_items")
+
+# Envelope keys mirrored into the recorded counts block (R1-06).
+_COUNT_KEYS = ("records_succeeded", "records_failed", "records_processed", "records_created", "records_skipped")
+
+
+def _phase_result_path(workspace: str, run_id: str, phase_key: str) -> Path | None:
+    """Result-envelope path for ``phase_key``, or ``None`` when it has no directory."""
+    dir_name = _PHASE_DIR_NAMES.get(phase_key)
+    return safe_path(workspace, "runs", run_id, dir_name) / "result.json" if dir_name else None
+
+
+def _join_errors(errors: Any) -> str:
+    """Join an envelope ``errors`` list into one human-readable message."""
+    if isinstance(errors, list) and errors:
+        return "; ".join(str(item) for item in errors)
+    return str(errors or "")
+
+
+def _phase_counts(result: dict, *, success: bool) -> dict[str, int]:
+    """Counts block for the recorded result payload (R1-06).
+
+    Envelope count keys are mirrored when present; when the envelope carries no
+    succeeded/failed counts, a status-derived ``1`` succeeded (or failed) is stored.
+    """
+    counts: dict[str, int] = {}
+    for key in _COUNT_KEYS:
+        value = result.get(key)
+        if isinstance(value, int) and not isinstance(value, bool):
+            counts[key] = value
+    if "records_succeeded" not in counts and "records_failed" not in counts:
+        counts["records_succeeded" if success else "records_failed"] = 1
+    return counts
+
+
+def _record_dead_letters(
+    state_db: StateDB, run_id: str, phase_key: str, result: dict, failure: dict
+) -> None:
+    """Write dead letters for a failed phase result (R1-05; callers gate on the flag).
+
+    One dead letter per item when the envelope carries a failed-item list under a
+    known key, otherwise one dead letter for the failed phase itself.
+    """
+    category = failure["category"]
+    detail = failure["error"]
+    for key in _FAILED_ITEM_KEYS:
+        items = result.get(key)
+        if isinstance(items, list) and items:
+            for item in items:
+                record = item if isinstance(item, dict) else {"value": item}
+                item_detail = str(item.get("error") or detail) if isinstance(item, dict) else detail
+                state_db.record_dead_letter(run_id, phase_key, record, category, detail=item_detail)
+            return
+    state_db.record_dead_letter(
+        run_id,
+        phase_key,
+        {"phase": phase_key, "status": str(result.get("status", "unknown")), "errors": result.get("errors") or []},
+        category,
+        detail=detail,
+    )
+
+
 def _record_phase_execution(
     state_db: StateDB | None,
     run_id: str,
@@ -158,22 +222,48 @@ def _record_phase_execution(
     workspace: str,
     *,
     duration_ms: int | None = None,
-) -> None:
-    """Write-through record of one phase execution (no-op when the flag is off)."""
+) -> dict | None:
+    """Write-through record of one phase execution (no-op when the flag is off).
+
+    Returns the serialized failure context (R1-04) when the result is a failure
+    outcome, else ``None``. The context is built regardless of the flag so the
+    run summary and logs carry structured failures on the legacy path too; the
+    DB writes (payload with counts/failure, dead letters) only happen when
+    ``state_db`` is present.
+    """
+    failure: dict | None = None
+    artifact_path = _phase_result_path(workspace, run_id, phase_key)
+    if isinstance(result, dict):
+        status = str(result.get("status", "unknown"))
+        if status not in _phase_success_statuses(phase_key):
+            failure = classify_failure(
+                phase_key,
+                status=status,
+                error=_join_errors(result.get("errors")),
+                run_id=run_id,
+                artifact=str(artifact_path) if artifact_path else None,
+            ).to_dict()
+            logger.error("Phase %s failure classified: %s", phase_key, json.dumps(failure))
     if state_db is None or not isinstance(result, dict):
-        return
-    dir_name = _PHASE_DIR_NAMES.get(phase_key)
-    result_path = safe_path(workspace, "runs", run_id, dir_name) / "result.json" if dir_name else None
+        return failure
+    success = str(result.get("status", "unknown")) in _phase_success_statuses(phase_key)
+    payload = dict(result)
+    payload["counts"] = _phase_counts(result, success=success)
+    if failure is not None:
+        payload["failure"] = failure
     state_db.record_phase_execution(
         run_id,
         phase_key,
         str(result.get("status", "unknown")),
-        result=result,
-        result_path=str(result_path) if result_path else None,
+        result=payload,
+        result_path=str(artifact_path) if artifact_path else None,
         duration_ms=duration_ms,
     )
-    if result_path is not None and result_path.exists():
-        state_db.record_artifact(run_id, phase_key, "outputs", str(result_path))
+    if artifact_path is not None and artifact_path.exists():
+        state_db.record_artifact(run_id, phase_key, "outputs", str(artifact_path))
+    if failure is not None:
+        _record_dead_letters(state_db, run_id, phase_key, result, failure)
+    return failure
 
 
 def _elapsed_ms(start: float) -> int:
@@ -348,11 +438,13 @@ def run_full_pipeline(
                 run_id=resolved_run_id,
                 state_db=db,
             )
-        except Exception:
+        except Exception as exc:
+            failure_ctx = classify_failure("pipeline", status=None, error=str(exc), run_id=resolved_run_id)
+            logger.error("Run %s failed unhandled: %s", resolved_run_id, json.dumps(failure_ctx.to_dict()))
             db.record_run_finish(
                 resolved_run_id,
                 status="failed",
-                summary={"errors": ["unhandled exception during run"]},
+                summary={"errors": ["unhandled exception during run"], "failures": [failure_ctx.to_dict()]},
             )
             raise
         db.record_run_finish(
@@ -392,7 +484,17 @@ def _run_full_pipeline_impl(
 
         phases_completed = []
         errors = []
+        failures: list[dict] = []
         phase_03_ran_fresh = False
+
+        def _finish_summary(*args: Any, **kwargs: Any) -> dict[str, Any]:
+            """Summary shim: every summary carries failures + phase metrics (R1-04/R1-06)."""
+            return _make_summary(
+                *args,
+                failures=failures,
+                phase_metrics=state_db.phase_metrics(run_id) if state_db is not None else None,
+                **kwargs,
+            )
 
         # 1. Phase 01: User Input
         logger.info("Executing Phase 01: User Input...")
@@ -416,13 +518,14 @@ def _run_full_pipeline_impl(
             else:
                 p1_start = time.monotonic()
                 p1_res = run_phase_01(run_id, workspace, input_config)
-                _record_phase_execution(
+                p1_failure = _record_phase_execution(
                     state_db, run_id, "01", p1_res, workspace, duration_ms=_elapsed_ms(p1_start)
                 )
                 if p1_res.get("status") != "done":
                     logger.error(f"Phase 01 failed: {p1_res}")
                     errors.append(f"Phase 01 failed: {p1_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time)
+                    failures.append(p1_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time)
                 phases_completed.append("01")
 
         # 2. Phase 02: Lead Discovery
@@ -433,13 +536,14 @@ def _run_full_pipeline_impl(
             else:
                 p2_start = time.monotonic()
                 p2_res = run_phase_02(run_id, workspace)
-                _record_phase_execution(
+                p2_failure = _record_phase_execution(
                     state_db, run_id, "02", p2_res, workspace, duration_ms=_elapsed_ms(p2_start)
                 )
                 if p2_res.get("status") not in ("done", "needs_review"):
                     logger.error(f"Phase 02 failed: {p2_res}")
                     errors.append(f"Phase 02 failed: {p2_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time)
+                    failures.append(p2_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time)
                 phases_completed.append("02")
 
         # 3. Phase 02.1: Website Filter
@@ -450,13 +554,14 @@ def _run_full_pipeline_impl(
             else:
                 p2_1_start = time.monotonic()
                 p2_1_res = run_phase_02_1(run_id, workspace)
-                _record_phase_execution(
+                p2_1_failure = _record_phase_execution(
                     state_db, run_id, "02.1", p2_1_res, workspace, duration_ms=_elapsed_ms(p2_1_start)
                 )
                 if p2_1_res.get("status") not in ("done", "needs_review"):
                     logger.error(f"Phase 02.1 failed: {p2_1_res}")
                     errors.append(f"Phase 02.1 failed: {p2_1_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time)
+                    failures.append(p2_1_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time)
                 phases_completed.append("02.1")
 
         # 4. Phase 03: Lead Scoring
@@ -468,13 +573,14 @@ def _run_full_pipeline_impl(
                 phase_03_ran_fresh = True
                 p3_start = time.monotonic()
                 p3_res = run_phase_03(run_id, workspace)
-                _record_phase_execution(
+                p3_failure = _record_phase_execution(
                     state_db, run_id, "03", p3_res, workspace, duration_ms=_elapsed_ms(p3_start)
                 )
                 if p3_res.get("status") != "done":
                     logger.error(f"Phase 03 failed: {p3_res}")
                     errors.append(f"Phase 03 failed: {p3_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time)
+                    failures.append(p3_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time)
                 phases_completed.append("03")
 
         # To determine selected leads in Phase 03: 
@@ -500,7 +606,7 @@ def _run_full_pipeline_impl(
 
         if not selected_leads:
             logger.warning("No leads selected for preview site generation. Ending run.")
-            return _make_summary(run_id, phases_completed, errors, start_time, leads_selected=0)
+            return _finish_summary(run_id, phases_completed, errors, start_time, leads_selected=0)
 
         # ── vNext: VNEXT-02 market_profile per selected lead ──
         flags = get_vnext_flags(input_config)
@@ -526,13 +632,14 @@ def _run_full_pipeline_impl(
             else:
                 p4_start = time.monotonic()
                 p4_res = run_phase_04(run_id, workspace)
-                _record_phase_execution(
+                p4_failure = _record_phase_execution(
                     state_db, run_id, "04", p4_res, workspace, duration_ms=_elapsed_ms(p4_start)
                 )
                 if p4_res.get("status") != "done":
                     logger.error(f"Phase 04 failed: {p4_res}")
                     errors.append(f"Phase 04 failed: {p4_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
+                    failures.append(p4_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
                 phases_completed.append("04")
 
         # 6. Phase 04.5: Enrichment
@@ -543,13 +650,14 @@ def _run_full_pipeline_impl(
             else:
                 p4_5_start = time.monotonic()
                 p4_5_res = run_phase_04_5(run_id, workspace)
-                _record_phase_execution(
+                p4_5_failure = _record_phase_execution(
                     state_db, run_id, "04.5", p4_5_res, workspace, duration_ms=_elapsed_ms(p4_5_start)
                 )
                 if p4_5_res.get("status") != "done":
                     logger.error(f"Phase 04.5 failed: {p4_5_res}")
                     errors.append(f"Phase 04.5 failed: {p4_5_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
+                    failures.append(p4_5_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
                 phases_completed.append("04.5")
 
         # ── VNEXT-14: Google Maps enrichment ──
@@ -592,13 +700,14 @@ def _run_full_pipeline_impl(
                     model_id=model_id,
                     production_mode=production_mode,
                 )
-                _record_phase_execution(
+                p5_failure = _record_phase_execution(
                     state_db, run_id, "05", p5_res, workspace, duration_ms=_elapsed_ms(p5_start)
                 )
                 if p5_res.get("status") != "done":
                     logger.error(f"Phase 05 failed: {p5_res}")
                     errors.append(f"Phase 05 failed: {p5_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
+                    failures.append(p5_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
                 phases_completed.append("05")
 
         # 8. Phase 05.5 render capture was executed automatically inside unified run_phase_05_unified
@@ -641,13 +750,14 @@ def _run_full_pipeline_impl(
             else:
                 p6_start = time.monotonic()
                 p6_res = run_strict_phase_06(run_id, workspace, strict=use_strict)
-                _record_phase_execution(
+                p6_failure = _record_phase_execution(
                     state_db, run_id, "06", p6_res, workspace, duration_ms=_elapsed_ms(p6_start)
                 )
                 if p6_res.get("status") != "done":
                     logger.error(f"Phase 06 failed: {p6_res}")
                     errors.append(f"Phase 06 failed: {p6_res.get('errors')}")
-                    return _make_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
+                    failures.append(p6_failure)
+                    return _finish_summary(run_id, phases_completed, errors, start_time, leads_selected=len(selected_leads))
                 phases_completed.append("06")
 
         # ── vNext: VNEXT-06 structured evaluation ──
@@ -662,16 +772,19 @@ def _run_full_pipeline_impl(
             phase_06_counts = parse_phase_06_decisions(p6_res.get("decisions", []))
         except Phase06DecisionError as exc:
             semantics = classify_phase_status("failed")
+            failure_ctx = classify_failure("06", status="failed", error=str(exc), run_id=run_id)
             logger.error(
                 "Phase 06 decision parsing failed (%s, fail-closed): %s",
                 semantics.failure_class.value,
                 exc,
             )
+            logger.error("Phase 06 failure classified: %s", json.dumps(failure_ctx.to_dict()))
             errors.append(
                 f"Phase 06 decision parsing failed — {semantics.failure_class.value} "
                 f"(fail-closed, U-09): {exc}"
             )
-            return _make_summary(
+            failures.append(failure_ctx.to_dict())
+            return _finish_summary(
                 run_id, phases_completed, errors, start_time,
                 leads_selected=len(selected_leads),
                 sites_generated=len(selected_leads),
@@ -685,7 +798,7 @@ def _run_full_pipeline_impl(
 
         if passable_count == 0:
             logger.warning("All generated sites failed Phase 06 quality gate. Stopping before deploy.")
-            return _make_summary(
+            return _finish_summary(
                 run_id, phases_completed, errors, start_time,
                 leads_selected=len(selected_leads),
                 sites_generated=len(selected_leads),
@@ -694,7 +807,7 @@ def _run_full_pipeline_impl(
 
         if dry_run:
             logger.info("dry_run=True: Skipping Phase 07 (deploy) and Phase 08 (outreach).")
-            return _make_summary(
+            return _finish_summary(
                 run_id, phases_completed, errors, start_time,
                 leads_selected=len(selected_leads),
                 sites_generated=len(selected_leads),
@@ -709,13 +822,14 @@ def _run_full_pipeline_impl(
             else:
                 p7_start = time.monotonic()
                 p7_res = run_phase_07(run_id, workspace)
-                _record_phase_execution(
+                p7_failure = _record_phase_execution(
                     state_db, run_id, "07", p7_res, workspace, duration_ms=_elapsed_ms(p7_start)
                 )
                 if p7_res.get("status") != "done":
                     logger.error(f"Phase 07 failed: {p7_res}")
                     errors.append(f"Phase 07 failed: {p7_res.get('errors')}")
-                    return _make_summary(
+                    failures.append(p7_failure)
+                    return _finish_summary(
                         run_id, phases_completed, errors, start_time,
                         leads_selected=len(selected_leads),
                         sites_generated=len(selected_leads),
@@ -743,13 +857,14 @@ def _run_full_pipeline_impl(
             else:
                 p8_start = time.monotonic()
                 p8_res = run_phase_08(run_id, workspace)
-                _record_phase_execution(
+                p8_failure = _record_phase_execution(
                     state_db, run_id, "08", p8_res, workspace, duration_ms=_elapsed_ms(p8_start)
                 )
                 if p8_res.get("status") != "done":
                     logger.error(f"Phase 08 failed: {p8_res}")
                     errors.append(f"Phase 08 failed: {p8_res.get('errors')}")
-                    return _make_summary(
+                    failures.append(p8_failure)
+                    return _finish_summary(
                         run_id, phases_completed, errors, start_time,
                         leads_selected=len(selected_leads),
                         sites_generated=len(selected_leads),
@@ -772,13 +887,14 @@ def _run_full_pipeline_impl(
             else:
                 p9_start = time.monotonic()
                 p9_res = run_phase_09(run_id, workspace, skip_missing_stubs=dry_run)
-                _record_phase_execution(
+                p9_failure = _record_phase_execution(
                     state_db, run_id, "09", p9_res, workspace, duration_ms=_elapsed_ms(p9_start)
                 )
                 if p9_res.get("status") != "done":
                     logger.error(f"Phase 09 failed: {p9_res}")
                     errors.append(f"Phase 09 failed: {p9_res.get('errors')}")
-                    return _make_summary(
+                    failures.append(p9_failure)
+                    return _finish_summary(
                         run_id, phases_completed, errors, start_time,
                         leads_selected=len(selected_leads),
                         sites_generated=len(selected_leads),
@@ -793,7 +909,7 @@ def _run_full_pipeline_impl(
             logger.info("Running vNext post-phase-09 integration...")
             run_vnext_post_phase_09(run_id, workspace, selected_leads, input_config)
 
-        return _make_summary(
+        return _finish_summary(
             run_id, phases_completed, errors, start_time,
             leads_selected=len(selected_leads),
             sites_generated=len(selected_leads),
@@ -816,11 +932,13 @@ def _make_summary(
     sites_deployed: int = 0,
     deployed_urls: list[str] | None = None,
     approval_pack: str = "",
+    failures: list[dict] | None = None,
+    phase_metrics: list[dict] | None = None,
 ) -> dict[str, Any]:
     duration = int(time.time() - start_time)
 
     # Compute counts from directories if not passed
-    return {
+    summary = {
         "run_id": run_id,
         "phases_completed": phases_completed,
         "leads_discovered": leads_discovered,
@@ -832,5 +950,9 @@ def _make_summary(
         "outreach_drafts": sites_deployed,
         "approval_pack": approval_pack,
         "errors": errors,
+        "failures": failures or [],
         "duration_seconds": duration,
     }
+    if phase_metrics is not None:
+        summary["phase_metrics"] = phase_metrics
+    return summary

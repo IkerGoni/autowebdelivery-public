@@ -25,14 +25,14 @@ Cross-checked against `AGENTS.md` at top of repo. Update this section when sprin
 | Sprint 3 (registry + config) | 🔴 Not started | `phase_05_unified.py` still has if/elif |
 | Sprint 4 (phase splits) | 🔴 Not started | Monoliths intact |
 
-> **Test count drift:** this proposal cites 505 passing. Live state per `AGENTS.md` is **1,558 passed, 0 failed** (ruff clean, 2026-02 R0 closeout). Update the snapshot below when this doc is re-read.
+> **Test count drift:** this proposal cites 505 passing. Live state per `AGENTS.md` is **1,623 passed, 0 failed** (ruff clean, 2026-09 R1 closeout). Update the snapshot below when this doc is re-read.
 
 ---
 
 ## 📊 Codebase Snapshot
 
 - **27,229 LOC** across ~80 Python files (non-archive, non-runs)
-- **9,858 LOC** test code, **505 tests passing** (⚠️ stale — live count is **1,558** per `AGENTS.md`), ruff clean
+- **9,858 LOC** test code, **505 tests passing** (⚠️ stale — live count is **1,623** per `AGENTS.md`), ruff clean
 - **11-phase pipeline** (01→11) running end-to-end
 - **118 markdown docs** in `docs/`
 

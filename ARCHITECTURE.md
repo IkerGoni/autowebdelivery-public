@@ -86,6 +86,8 @@ Phase result manifests (`result.json`) record status, inputs used, outputs creat
 
 Behind the `run_state_db` flag (default `False`; enable via `vnext_flags` or `RUN_STATE_DB=1`), the orchestrator mirrors run state into `<workspace>/runs/state.db` (stdlib SQLite, R1-02 store). Before each phase dispatch it consults `phase_executions`: a successful prior execution (status `done`, or `needs_review` for phases 02/02.1) is skipped and its recorded result reused; a failed/partial one has its run directory deleted (via `safe_path`) before a clean re-run. Each execution is written back with status, result envelope, `result.json` artifact path and duration; run start/finish are recorded on all exit paths, including unhandled exceptions. Selected leads are fingerprinted (sha256 of normalized name/address/place_id) into `lead_fingerprints` so repeat leads across runs are skipped at the orchestrator level (phase modules still read their own on-disk artifacts). With the flag off, no DB is created and the legacy path is untouched.
 
+Failure reporting (R1-04/05/06): every phase failure is classified into a `FailureContext` (canonical `FailureClass` taxonomy) that is logged, stored in the run summary under `failures` and — when the flag is on — serialized into the recorded result payload, with a per-record (or per-phase) dead letter written to `dead_letters` (readable via `StateDB.list_dead_letters`). Each recorded payload also carries a `counts` block; `StateDB.phase_metrics(run_id)` returns one row per phase (status, duration, counts) and the run summary exposes it as `phase_metrics` when the flag is on.
+
 ## Factual safety model
 
 | Layer | Mechanism |

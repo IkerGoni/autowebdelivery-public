@@ -218,7 +218,7 @@ Update every disposition here at sprint closeout (evidence-gated, like the rest 
 | Sprint | Status | Evidence (commit / run) | Closed findings |
 |---|---|---|---|
 | R0 | ✅ CLOSED | `1558 passed` (2026-02 R0 closeout) | F-01, F-02, F-03, F-04, F-17 |
-| R1 | ⬜ Not started | — | — |
+| R1 | ✅ CLOSED | `1623 passed`, ruff clean (2026-09 R1 closeout); resume demo: re-run of completed run skips all phases (`test_rerun_same_run_id_skips_completed_phases` logs) | F-07, F-08, F-12 |
 | R2 | ⬜ Not started | — | — |
 | R3 | ⬜ Not started | — | — |
 | R4 | ⬜ Not started | — | — |
@@ -232,12 +232,12 @@ Update every disposition here at sprint closeout (evidence-gated, like the rest 
 | F-04 | CLOSED | R0 | ssrf_validator.py + wire into social/image |
 | F-05 | OPEN | R2 | |
 | F-06 | OPEN | R3 | |
-| F-07 | OPEN | R1 | |
-| F-08 | OPEN | R1 | |
+| F-07 | CLOSED | R1 | phase_executions-backed skip/resume in run_pipeline; RUN_STATE_DB flag; stale-artifact cleanup |
+| F-08 | CLOSED | R1 | state_db.py (sqlite3, write-through, WAL, schema_version migration) |
 | F-09 | OPEN | R3 | |
 | F-10 | OPEN | R4 | |
 | F-11 | OPEN | R4 | |
-| F-12 | OPEN | R1 | |
+| F-12 | CLOSED | R1 | logging_config.py JSON formatter + contextvars; CLI --json-logs; FailureContext on every failure path |
 | F-13 | CLOSED (S2, pre-program) | — | already shipped |
 | F-14 | RESCOPED | R2 | |
 | F-15 | RESCOPED | R5 | |

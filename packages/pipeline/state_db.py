@@ -329,6 +329,62 @@ class StateDB:
                 (run_id, phase, _dump_json(record) or "{}", class_value, detail, created_at or _now()),
             )
 
+    def list_dead_letters(self, run_id: str | None = None, limit: int = 100) -> list[dict]:
+        """Return recorded dead letters, newest first (R1-05 read helper).
+
+        Args:
+            run_id: Filter to one run when given; ``None`` returns all runs.
+            limit: Maximum number of rows to return.
+        """
+        with self._lock:
+            if run_id is None:
+                rows = self._conn.execute(
+                    "SELECT * FROM dead_letters ORDER BY id DESC LIMIT ?", (limit,)
+                ).fetchall()
+            else:
+                rows = self._conn.execute(
+                    "SELECT * FROM dead_letters WHERE run_id = ? ORDER BY id DESC LIMIT ?",
+                    (run_id, limit),
+                ).fetchall()
+        return [dict(row) for row in rows]
+
+    def phase_metrics(self, run_id: str) -> list[dict]:
+        """Return one metrics row per recorded phase of ``run_id`` (R1-06).
+
+        Each row carries ``phase``, ``status``, ``duration_ms`` and ``counts``
+        (the counts stored in the recorded result payload). Rows recorded
+        without a counts block fall back to status-derived counts.
+        """
+        with self._lock:
+            rows = self._conn.execute(
+                "SELECT phase, status, duration_ms, result_json FROM phase_executions "
+                "WHERE run_id = ? ORDER BY id",
+                (run_id,),
+            ).fetchall()
+        metrics: list[dict] = []
+        for row in rows:
+            counts: dict = {}
+            if row["result_json"]:
+                try:
+                    payload = json.loads(row["result_json"])
+                except ValueError:
+                    payload = None
+                if isinstance(payload, dict) and isinstance(payload.get("counts"), dict):
+                    counts = payload["counts"]
+            if not counts:
+                counts = (
+                    {"records_succeeded": 1} if row["status"] in ("done", "needs_review") else {"records_failed": 1}
+                )
+            metrics.append(
+                {
+                    "phase": row["phase"],
+                    "status": row["status"],
+                    "duration_ms": row["duration_ms"],
+                    "counts": counts,
+                }
+            )
+        return metrics
+
     def record_lead_fingerprint(
         self, fingerprint: str, run_id: str, phase: str, *, created_at: str | None = None
     ) -> bool:
